@@ -6,7 +6,11 @@ module.exports = {
     ],
     mode: 'jit',
     theme: {
-        extend: {},
+        extend: {
+            fontFamily: {
+                'nunito': ['Nunito, sans-serif;'],
+            },
+        },
     },
     plugins: [],
 };
