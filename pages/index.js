@@ -1,10 +1,12 @@
-import DefaultLayout from "../components/layouts/index/default-layout";
+import DefaultLayout from "../components/layouts/index/Default-layout";
+import ProductPage from "../components/products/product-page";
 
 export default function Home() {
     return (
         <>
             <DefaultLayout title="Home Page">
-                <h2>Home Page</h2>
+                {/* List Products components */}
+                <ProductPage/>
             </DefaultLayout>
         </>
     );

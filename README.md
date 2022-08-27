@@ -12,8 +12,18 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     3. add main section.
     4. add footer.
     5. add tailwindcss classes.  
-
-
+6. List Products.
+    1. add data.js.
+    2. create productItem.
+    3. add images.
+    4. render products.
+7. Create Product Details.
+    1. create product page.
+    2. create 3 columns.
+    3. show image product in first column.
+    4. show product info in second column.
+    5. show add to cart action on third column.
+    6. add styles.
 
 First, run the development server:
 
