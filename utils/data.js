@@ -15,20 +15,6 @@ const data = {
             countInStock: 30,
             material: 'Vải Sơmi Cotton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         },
         {
@@ -46,20 +32,6 @@ const data = {
             countInStock: 30,
             material: 'Coton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         },
         {
@@ -77,20 +49,6 @@ const data = {
             countInStock: 30,
             material: 'Coton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         },
         {
@@ -108,20 +66,6 @@ const data = {
             countInStock: 30,
             material: 'Coton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         },
         {
@@ -139,20 +83,6 @@ const data = {
             countInStock: 30,
             material: 'Coton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         },
         {
@@ -170,20 +100,6 @@ const data = {
             countInStock: 30,
             material: 'Coton',
             sold: 0,
-            sizes: [
-                {
-                    size: 'M',
-                    inStock: 10
-                },
-                {
-                    size: 'L',
-                    inStock: 10
-                },
-                {
-                    size: 'XL',
-                    inStock: 10
-                }
-            ],
             description: 'A popular shirt'
         }
     ]
