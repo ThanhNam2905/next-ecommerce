@@ -1,20 +1,32 @@
 import React, { useContext } from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
+import { message } from 'antd';
+// import { useRouter } from 'next/router';
 
 export default function ProductInfo({ product }) {
 
-    const { state, dispatch } = useContext(StoreContext)
+    const { state, dispatch } = useContext(StoreContext);
+    const {
+        cart : { cartItems }
+    } = state;
+
+    // const router = useRouter();
 
     // Features add Product to Cart
     const handleAddToCart = () => {
-        const existItem = state.cart.cartItems.find((x) => x.slug === product.slug);
-        console.log(existItem);
+        const existItem = cartItems.find((x) => x.slug === product.slug);
         const quantity = existItem ? existItem.quantity + 1 : 1;
         if(product.countInStock < quantity) {
             alert("Xin lỗi, sản phẩm này đã hết hàng");
         }
         dispatch({ type: 'ADD_CART_ITEM', payload: { ...product, quantity} });
+
+        message.success({
+            content: 'Thêm sản phẩm vào giỏ hàng thành công',
+            className: 'customize__antd--message'
+        })
+        // router.push('/cart');
     }
 
 

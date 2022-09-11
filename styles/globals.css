@@ -13,11 +13,19 @@
     }
 
     html, body {
-        @apply  font-nunito text-[15px] text-gray-900;
+        @apply  font-nunito text-[15px] !text-gray-900;
     }
 
     body {
         @apply  transition ease-linear duration-[0.4s];
+    }
+
+    a {
+        @apply  !text-gray-900;
+    }
+
+    a, p, h1, h2, h3, h4, h5, h6, span {
+        @apply  !m-0;
     }
 }
 
@@ -31,6 +39,11 @@
     }
 
     .btn--add-to-cart {
-        @apply  text-gray-700 py-2.5 my-1;
+        @apply  text-gray-700 py-2.5 !my-2;
+    }
+
+    /* CSS Message Antd */
+    .customize__antd--message .ant-message-custom-content.ant-message-success {
+        @apply  !flex !items-center;
     }
 }

@@ -22,7 +22,7 @@ export default function ProductItem({ product }) {
                         <h3 className='text-lg !font-nunito font-medium capitalize line-clamp-1'>{product.name}</h3>
                     </a>
                 </Link>
-                <div className='flex items-center my-1 space-x-3.5'>
+                <div className='flex items-center !my-1.5 space-x-3.5'>
                     <div className='flex items-center gap-x-1 text-yellow-400 text-[14px]'>
                         <StarFilled />
                         <StarFilled />
@@ -32,7 +32,7 @@ export default function ProductItem({ product }) {
                     </div>
                     <p className='text-sm italic'>{product.numberReview} <span className='text-gray-600'>reivew</span></p>
                 </div>
-                <p className='text-xl my-1.5'>{product.price} <span className='underline'>đ</span></p>
+                <p className='text-xl !my-1.5'>{product.price} <span className='underline'>đ</span></p>
                 <button className='btn btn--add-to-cart' type='button'>Thêm vào giỏ hàng</button>
             
             </div>

@@ -6,7 +6,9 @@ import { StoreContext } from '../../../store/Store';
 function Header() {
 
     const { state } = useContext(StoreContext);
-    const { cart } = state;
+    const { 
+        cart: { cartItems }
+    } = state;
 
     return (
         <header>
@@ -29,12 +31,11 @@ function Header() {
                         <Link href="/cart">
                             <a className="flex items-center group relative" title='Giỏ hàng'>
                                 <ShoppingCartOutlined className=" text-2xl -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300" />  
-                                { cart.cartItems.length > 0 && (
+                                {  cartItems.length > 0 && (
                                     <span className='absolute -top-2 -right-2 rounded-full bg-red-500 text-white px-2 py-0.5 text-sm font-semibold'>
-                                        {cart.cartItems.reduce((a, c) => a + c.quantity, 0)}
+                                        { cartItems.reduce((a, c) => a + c.quantity, 0) }
                                     </span>
                                 )}
-                                
                             </a>
                         </Link>
                     </div>

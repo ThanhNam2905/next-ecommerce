@@ -2,4 +2,5 @@
 
 export const ACTIONS = {
     ADD_CART: 'ADD_CART_ITEM',
+    REMOVE_CART: 'CART_REMOVE_ITEM',
 }
