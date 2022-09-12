@@ -14,12 +14,20 @@ export default function CartPage() {
         cart: { cartItems }
     } = state;
 
+    // Hanlde event user remove item in Cart
     const handleRemoveItemProduct = (item) => {
         dispatch({ type: 'CART_REMOVE_ITEM', payload: item })
         message.success({
             content: 'Xoá sản phẩm thành công',
             className: 'customize__antd--message'
         })
+    }
+
+    // Handler event user change quantity item in Cart
+    const handleUpdateQuantityInCart = (item, qty) => {
+        console.log(typeof qty);
+        const quantity = Number(qty);
+        dispatch({ type: 'ADD_CART_ITEM', payload: { ...item, quantity }});
     }
 
     return (
@@ -81,7 +89,19 @@ export default function CartPage() {
                                                         </a>
                                                     </Link>
                                                 </td>
-                                                <td className='p-5 text-right'>{item.quantity}</td>
+                                                <td className='p-5 text-right'>
+                                                    <select 
+                                                        name="quantityItem" id="quantityItem"
+                                                        value={item.countInStock} onChange={(e) => handleUpdateQuantityInCart(item, e.target.value)}>
+                                                        {
+                                                            [...Array(item.countInStock).keys()].map((x) => (
+                                                                <option key={x + 1} value={x + 1}>
+                                                                    {x + 1}
+                                                                </option>
+                                                            ))
+                                                        }
+                                                    </select>
+                                                </td>
                                                 <td className='p-5 text-right text-red-500'>{item.price}</td>
                                                 <td className='p-5 text-center'>
                                                     <Popconfirm
