@@ -3,7 +3,7 @@ import CartPage from '../components/cart/Cart-Page';
 import DefaultLayout from '../components/layouts/index/Default-layout';
 import dynamic from 'next/dynamic';
 
-function Cart() {
+function CartScreen() {
     return (
         <DefaultLayout title="Shopping Cart">
             <CartPage/>
@@ -11,4 +11,4 @@ function Cart() {
     )
 }
 
-export default dynamic(() => Promise.resolve(Cart), { ssr: false });
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

@@ -144,7 +144,7 @@ export default function CartPage() {
                                 </button>
                                 <button 
                                     type='button' className='btn btn--add-to-cart w-full uppercase font-semibold'
-                                    onClick={() => router.push('/shipping')}>
+                                    onClick={() => router.push('login?redirect=/shipping')}>
                                     Thanh toán
                                 </button>
                             </div>

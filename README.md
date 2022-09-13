@@ -42,7 +42,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 11. Save Cart Items.
     1. cai dat package: install js-cookie package.
     2. save and retreive cart items in cookies.
-
+12. Create Login Form.
+    1. cai dat package: install react hook form.
+    2. create input boxes.
+    3. add login button.
 
 First, run the development server:
 
