@@ -1,10 +1,11 @@
 import { createContext, useReducer } from 'react';
 import { ACTIONS } from './Actions'
+import Cookies from 'js-cookie'
 
 export const StoreContext = createContext();
 
 const initialState = {
-    cart: { cartItems: [] },
+    cart: Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : { cartItems: [] },
 };
 
 function Reducers(state, action) {
@@ -18,11 +19,13 @@ function Reducers(state, action) {
                     item.name === existItem.name ? newItem : item
                 )
                 : [...state.cart.cartItems, newItem];
+            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems}));
             return { ...state, cart: { ...state.cart, cartItems } }
         }
 
         case ACTIONS.REMOVE_CART: {
             const cartItems = state.cart.cartItems.filter((item) => item.slug !== action.payload.slug);
+            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems}));
             return { ...state, cart: { ...state.cart, cartItems}};
         }
 

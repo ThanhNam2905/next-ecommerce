@@ -92,7 +92,7 @@ export default function CartPage() {
                                                 <td className='p-5 text-right'>
                                                     <select 
                                                         name="quantityItem" id="quantityItem"
-                                                        value={item.countInStock} onChange={(e) => handleUpdateQuantityInCart(item, e.target.value)}>
+                                                        value={item.quantity} onChange={(e) => handleUpdateQuantityInCart(item, e.target.value)}>
                                                         {
                                                             [...Array(item.countInStock).keys()].map((x) => (
                                                                 <option key={x + 1} value={x + 1}>
