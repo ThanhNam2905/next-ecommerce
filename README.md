@@ -46,6 +46,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. cai dat package: install react hook form.
     2. create input boxes.
     3. add login button.
+13. Connect To MongoDB.
+    1. install mongoose.
+    2. install mongodb or use mongodb atlas (MongoDB Clound).
+    3. save connection url in .env file.
+    4. create db utils file.
+    5. create sample users.
 
 First, run the development server:
 
