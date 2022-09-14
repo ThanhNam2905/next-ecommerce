@@ -2,13 +2,17 @@ import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { UserOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
+import { useSession } from 'next-auth/react';
 
 function Header() {
 
     const { state } = useContext(StoreContext);
     const { cart } = state;
-
     const [cartItemCount, setCartItemCount] = useState(0);
+    const { status, data: session } = useSession();
+
+
+
     useEffect(() => {
         setCartItemCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
     }, [cart.cartItems]);
@@ -22,14 +26,26 @@ function Header() {
                     </Link>
                 </div>
                 <nav className='flex items-center gap-x-7'>
-                
                     <div>
-                        <Link href="/login">
-                            <a className="flex items-center group" title='Đăng nhập'>
-                                <UserOutlined className='text-lg -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300'/>
-                                <span className='text-lg group-hover:text-amber-500 transition ease-linear duration-300'>Login</span>
-                            </a>
-                        </Link>
+                        
+                            {
+                                status === 'loading' ? ('Loading...') : 
+                                    session?.user ? (
+                                        <div className='flex items-center gap-x-4'>
+                                            <UserOutlined className='text-lg -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300'/>
+                                            <span className='text-lg group-hover:text-amber-500 transition ease-linear duration-300'>{session.user.name}</span>
+                                        </div>
+                                    )
+                                : (
+                                    <Link href='/login'>
+                                        <a className="flex items-center group" title='Đăng nhập'>
+                                            <UserOutlined className='text-lg -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300'/>
+                                            <span className='text-lg group-hover:text-amber-500 transition ease-linear duration-300'>Login</span>
+                                        </a>
+                                    </Link>
+                                )
+                            }
+                        
                     </div>
                     <div>
                         <Link href="/cart">

@@ -1,8 +1,22 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form';
+import { signIn, useSession } from 'next-auth/react';
+import { message } from 'antd';
+import { getError } from '../../utils/getError';
+import { useRouter } from 'next/router';
 
 export default function LoginPage() {
+
+    const { data: session } = useSession();
+    const router = useRouter();
+    const { redirect } = router.query;
+
+    useEffect(() => {
+        if(session?.user) {  // logged in user 
+            router.push(redirect || '/');
+        }
+    }, [router, session, redirect]);
 
     const {
         handleSubmit,
@@ -11,15 +25,26 @@ export default function LoginPage() {
     } = useForm();
 
     // Handler event when User Login Form
-    const handlerSubmitFormLogin = ({ email, password }) => {
-
+    const handlerSubmitFormLogin = async ({ email, password }) => {
+        try {
+            const result = await signIn('credentials', {
+                redirect: false,
+                email,
+                password
+            });
+            if(result.error) {
+                message.error(result.error);
+            }
+        } catch (error) {
+            message.error(getError(error));
+        }
     }
 
 
     return (
         <form 
             action="login"
-            className='login-form mx-auto max-w-screen-sm my-6  bg-gradient-to-tr from-blue-500/50 via-purple-500/50 to-pink-500/50 overflow-hidden py-12 px-16 rounded-md'
+            className='login-form mx-auto max-w-screen-sm my-10  bg-gradient-to-tr from-blue-500/50 via-purple-500/50 to-pink-500/50 overflow-hidden py-14 px-16 rounded-md'
             onSubmit={handleSubmit(handlerSubmitFormLogin)}>
             <h1 className='uppercase pb-5 text-3xl text-center'>Đăng nhập</h1>
             <div className='mb-7 text-xl space-y-2'>
