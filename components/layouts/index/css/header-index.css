@@ -1,0 +1,10 @@
+ /* CSS style Header Component */
+.dropdown-profile-user {
+    @apply  w-full text-left rounded shadow-md border-t-[3px];
+}
+.dropdown-profile-user .ant-dropdown-menu-item {
+    @apply  py-3 pl-5 pr-10 ;
+}
+.dropdown-link {
+    @apply text-lg font-nunito flex items-center gap-x-2;
+}
