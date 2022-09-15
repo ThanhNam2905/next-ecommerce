@@ -29,6 +29,16 @@ function Reducers(state, action) {
             return { ...state, cart: { ...state.cart, cartItems}};
         }
 
+        case ACTIONS.RESET_CART: {
+            return {
+                ...state, cart: {
+                    cartItems: [],
+                    shippingAddress: { location: {}},
+                    paymentMethod: '',
+                }
+            };
+        }
+
         default:
             return state;
     }
