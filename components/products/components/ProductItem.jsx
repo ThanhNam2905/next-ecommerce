@@ -33,7 +33,7 @@ export default function ProductItem({ product }) {
                     <p className='text-sm italic'>{product.numberReview} <span className='text-gray-600'>reivew</span></p>
                 </div>
                 <p className='text-xl !my-1.5'>{product.price} <span className='underline'>đ</span></p>
-                <button className='btn btn--add-to-cart' type='button'>Thêm vào giỏ hàng</button>
+                <button className='btn btn--primary my-3' type='button'>Thêm vào giỏ hàng</button>
             
             </div>
         </div>

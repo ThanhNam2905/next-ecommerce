@@ -61,8 +61,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. check user authentication.
     2. install headlessui.
     3. show user menu.
-
-
+16. Create Shipping Sreen. 
+    1. display address fields.
+    2. save address in context.
+17. Create Payment Methods Screen.
+    1. display payment method.
+    2. save payment method in context.
 
 First, run the development server:
 

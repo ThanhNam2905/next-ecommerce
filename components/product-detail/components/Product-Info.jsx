@@ -62,7 +62,7 @@ export default function ProductInfo({ product }) {
                 </ul>
                 <div className='mt-3'>
                     <button 
-                        className='btn btn--add-to-cart px-8 py-4 uppercase flex items-center gap-x-2' 
+                        className='btn btn--primary px-8 py-4 uppercase flex items-center gap-x-2' 
                         type='button'
                         onClick={() => handleAddToCart()}>
                             <ShoppingCartOutlined className='text-lg -mt-1'/>

@@ -136,15 +136,15 @@ export default function CartPage() {
                                 </li>
                             </ul>
 
-                            <div className='mt-6 mb-2.5 flex items-center justify-between gap-x-4 border-t-4 border-gray-400 pt-4'>
+                            <div className='!pb-4 flex items-center justify-between gap-x-4 border-t-4 border-gray-400 pt-6'>
                                 <button 
-                                    type='button' className='btn btn--add-to-cart w-full uppercase font-semibold'
+                                    type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
                                     onClick={() => router.push('/')}>
                                     Tiếp tục mua sắm
                                 </button>
                                 <button 
-                                    type='button' className='btn btn--add-to-cart w-full uppercase font-semibold'
-                                    onClick={() => router.push('login?redirect=/shipping')}>
+                                    type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
+                                    onClick={() => router.push('login?redirect=/order')}>
                                     Thanh toán
                                 </button>
                             </div>

@@ -1,0 +1,36 @@
+/* Customize CSS Input Antd */
+.ant-input-affix-wrapper.input-customize__css {
+    @apply  border-gray-300 border-2 hover:!border-blue-300;
+}
+
+/* Customize CSS Select Antd */
+.select-antd__customize .ant-select-selector {
+    @apply  !h-full !py-[0.6rem] !border-gray-300 text-[14px] !border-2 flex items-center !rounded-[0.5rem] hover:!border-blue-300;
+}
+.select-antd__customize .ant-select-arrow {
+    @apply  !top-1/2 transform translate-y-[-50%] !rounded-[0.5rem];
+}
+.textarea-customize__css {
+    @apply !border-2 border-gray-300 !rounded-[0.5rem] resize-none;
+}
+
+/* CSS Button */
+.btn--order-now {
+    @apply !bg-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md !border-orange-400 hover:!bg-orange-500 active:!bg-orange-600;
+}
+.btn--reset-order {
+    @apply bg-white !border-orange-400 !text-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md hover:!text-white hover:!bg-orange-500 active:!bg-orange-600;
+}
+
+/* Hidden Arrow Input Number */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
