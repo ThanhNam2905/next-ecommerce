@@ -1,26 +1,26 @@
-import { useRouter } from 'next/router';
+
 import React from 'react';
-import data from '../../utils/data';
-import DefaultLayout from '../layouts/index/Default-layout';
+
 import Link from 'next/link';
 import { HomeOutlined } from '@ant-design/icons';
 import ProductImage from './components/Product-Image';
 import ProductInfo from './components/Product-Info';
+import NotFoundProduct from './components/not-found-product';
+import { useRouter } from 'next/router';
 
 
-function ProductDetailPage() {
+function ProductDetailPage({product}) {
 
     const router = useRouter();
     const query = router.query;
-    const { slug } = query;     // const slug = query.slug;
-    const product = data.products.find(x => x.slug === slug);
     if(!product) {
-        return <div>Product Not Found</div>
+        return (
+            <NotFoundProduct slug={query.slug}/>
+        );
     }
 
     return (
-        <DefaultLayout title={product.name}>
-            
+        <>
             {/* Breadcrumbs component */}
             <div className='py-2'>
                 <Link href="/">
@@ -39,9 +39,7 @@ function ProductDetailPage() {
                 {/* Product Info */}
                 <ProductInfo product={product}/>
             </div>
-
-
-        </DefaultLayout>
+        </>    
     );
 }
 

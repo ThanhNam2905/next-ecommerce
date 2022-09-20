@@ -1,8 +1,31 @@
 import React from 'react'
-import ProductDetailPage from '../../components/product-detail/product-detail-page'
+import ProductDetailPage from '../../components/product-detail/product-detail-page';
+import DefaultLayout from '../../components/layouts/index/Default-layout';
+import db from '../../utils/database';
+import Product from '../../models/ProductModel';
 
-export default function ProductDetail() {
+export default function ProductDetail({ product }) {
+    // console.log(props.product);
+
     return (
-        <ProductDetailPage />
+        <DefaultLayout title={product?.name}>
+            <ProductDetailPage product={product}/>
+        </DefaultLayout>
     )
 }
+
+export async function getServerSideProps(context) {
+    const { params } = context;
+    const { slug } = params;
+
+    //  connect databse mongodb
+    await db.connect();
+    const product = await Product.findOne({slug}).lean(); //  use lean() in mongoose to convert JSON sang Object JS.
+    await db.disconnect();
+    return {
+        props: {
+            product: product ? db.convertDocToObj(product) : null
+        }
+    }
+}
+

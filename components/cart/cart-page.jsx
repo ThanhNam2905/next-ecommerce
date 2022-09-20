@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { StoreContext } from '../../store/Store';
 import { Popconfirm, message } from 'antd';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 
 export default function CartPage() {
 
@@ -24,10 +25,20 @@ export default function CartPage() {
     }
 
     // Handler event user change quantity item in Cart
-    const handleUpdateQuantityInCart = (item, qty) => {
-        console.log(typeof qty);
+    const handleUpdateQuantityInCart = async (item, qty) => {
         const quantity = Number(qty);
+        const { data } = await axios.get(`/api/products/${item._id}`);
+        if(data.countInStock < quantity) {
+            return message.error({
+                content: "Xin lỗi, sản phẩm này đã hết hàng" ,
+                className: 'customize__antd--message'
+            });
+        }
         dispatch({ type: 'ADD_CART_ITEM', payload: { ...item, quantity }});
+        return message.success({
+            content: 'Sản phẩm đã được cập nhật thành công' ,
+            className: 'customize__antd--message'
+        })
     }
 
     return (
@@ -92,10 +103,11 @@ export default function CartPage() {
                                                 <td className='p-5 text-right'>
                                                     <select 
                                                         name="quantityItem" id="quantityItem"
+                                                        className='select-box__quantity'
                                                         value={item.quantity} onChange={(e) => handleUpdateQuantityInCart(item, e.target.value)}>
                                                         {
                                                             [...Array(item.countInStock).keys()].map((x) => (
-                                                                <option key={x + 1} value={x + 1}>
+                                                                <option key={x + 1} value={x + 1} className='cursor-pointer'>
                                                                     {x + 1}
                                                                 </option>
                                                             ))
@@ -108,11 +120,9 @@ export default function CartPage() {
                                                         title="Bạn xác nhận muốn xoá sản phẩm này khỏi giỏ hàng?"
                                                         onConfirm={() => handleRemoveItemProduct(item)}
                                                         okText="Có"
-                                                        cancelText="Cancel"
-                                                    >
+                                                        cancelText="Cancel">
                                                         <DeleteOutlined className='w-6 h-6 cursor-pointer hover:text-red-500' />
                                                     </Popconfirm>
-
                                                 </td>
                                             </tr>
                                         ))

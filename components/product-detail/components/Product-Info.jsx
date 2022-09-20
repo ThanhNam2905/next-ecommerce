@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
 import { message } from 'antd';
+import axios from 'axios'
 // import { useRouter } from 'next/router';
 
 export default function ProductInfo({ product }) {
@@ -14,11 +15,18 @@ export default function ProductInfo({ product }) {
     // const router = useRouter();
 
     // Features add Product to Cart
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         const existItem = cartItems.find((x) => x.slug === product.slug);
         const quantity = existItem ? existItem.quantity + 1 : 1;
-        if(product.countInStock < quantity) {
-            alert("Xin lỗi, sản phẩm này đã hết hàng");
+
+        //  get Product with id
+        const { data } = await axios.get(`/api/products/${product._id}`);
+
+        if(data.countInStock < quantity) {
+            return message.error({
+                content: "Xin lỗi, sản phẩm này đã hết hàng" ,
+                className: 'customize__antd--message'
+            });
         }
         dispatch({ type: 'ADD_CART_ITEM', payload: { ...product, quantity} });
 
@@ -26,9 +34,7 @@ export default function ProductInfo({ product }) {
             content: 'Thêm sản phẩm vào giỏ hàng thành công',
             className: 'customize__antd--message'
         })
-        // router.push('/cart');
     }
-
 
     return (
         <>

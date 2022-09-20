@@ -67,6 +67,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 17. Create Payment Methods Screen.
     1. display payment method.
     2. save payment method in context.
+18. Seed Sample Products.
+    1. insert sample products to mongodb.
+    2. load products from db in home page and product page.
+    3. check product count in stock in add to cart.
 
 First, run the development server:
 

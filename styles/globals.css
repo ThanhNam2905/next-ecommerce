@@ -54,8 +54,12 @@
         @apply  rounded border py-2.5 px-3 ring-red-300 focus:ring-2 outline-none text-lg focus:bg-white; 
     }
 
+    .select-box__quantity {
+        @apply  cursor-pointer;
+    }
+
     /* CSS Message Antd */
     .customize__antd--message .ant-message-custom-content.ant-message-success {
-        @apply  !flex !items-center;
+        @apply  !flex !items-center !gap-x-3;
     }
 }
