@@ -79,24 +79,24 @@ export default function CartPage() {
                                         <th className='px-5 text-left'>Sản phẩm</th>
                                         <th className='p-5 text-right'>Số lượng</th>
                                         <th className='p-5 text-right'>Giá tiền</th>
-                                        <th className='p-5'>Action</th>
+                                        <th className='p-5 text-right'>Hành động</th>
                                     </tr>
                                 </thead>
-                                <tbody className='space-y-3.5'>
+                                <tbody className='divide-y'>
                                     {
                                         cartItems.map((item, index) => (
-                                            <tr key={index} className="border-b py-3">
-                                                <td className='py-2'>
+                                            <tr key={index}>
+                                                <td className='!py-4'>
                                                     <Link href={`/product/${item.slug}`}>
                                                         <a className='flex items-center gap-x-4'>
                                                             <Image
                                                                 src={item.images}
                                                                 alt={item.name}
-                                                                width={60}
-                                                                height={60}
-                                                                className='bg-blue-100'
+                                                                width={70}
+                                                                height={70}
+                                                                className='bg-blue-100 rounded'
                                                             />
-                                                            <span className='text-lg italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
+                                                            <span className='text-base italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
                                                         </a>
                                                     </Link>
                                                 </td>
@@ -114,14 +114,17 @@ export default function CartPage() {
                                                         }
                                                     </select>
                                                 </td>
-                                                <td className='p-5 text-right text-red-500'>{item.price}</td>
-                                                <td className='p-5 text-center'>
+                                                <td className='p-5 text-right text-base font-semibold'>
+                                                    {new Intl.NumberFormat().format(item.price)}
+                                                    <sup className='underline ml-1 mt-1.5'>đ</sup>
+                                                </td>
+                                                <td className='p-5 text-right'>
                                                     <Popconfirm
                                                         title="Bạn xác nhận muốn xoá sản phẩm này khỏi giỏ hàng?"
                                                         onConfirm={() => handleRemoveItemProduct(item)}
                                                         okText="Có"
                                                         cancelText="Cancel">
-                                                        <DeleteOutlined className='w-6 h-6 cursor-pointer hover:text-red-500' />
+                                                        <DeleteOutlined className='w-6 h-6 flex justify-end items-center cursor-pointer hover:text-red-500' />
                                                     </Popconfirm>
                                                 </td>
                                             </tr>

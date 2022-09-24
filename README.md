@@ -71,6 +71,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. insert sample products to mongodb.
     2. load products from db in home page and product page.
     3. check product count in stock in add to cart.
+19. Create Place Order Page.
+    1. display shipping address.
+    2. display payment method.
+    3. display order items.
+    4. implment create order.
 
 First, run the development server:
 

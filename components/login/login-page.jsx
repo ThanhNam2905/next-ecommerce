@@ -33,10 +33,16 @@ export default function LoginPage() {
                 password
             });
             if(result.error) {
-                message.error(result.error);
+                message.error({
+                    content: result.error,
+                    className: 'customize__antd--message'
+                });
             }
         } catch (error) {
-            message.error(getError(error));
+            message.error({
+                content: getError(error),
+                className: 'customize__antd--message'
+            });
         }
     }
 

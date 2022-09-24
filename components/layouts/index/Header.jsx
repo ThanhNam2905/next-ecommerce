@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, UnorderedListOutlined, IdcardOutlined } from '@ant-design/icons';
+import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, UnorderedListOutlined, IdcardOutlined, LoadingOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
 import { signOut, useSession } from 'next-auth/react';
-import { Dropdown, Menu, Space } from 'antd';
+import { Dropdown, Menu, message, Space, Spin } from 'antd';
 import DropDownItem from '../../shared/dropdown-item';
 import Cookies from 'js-cookie'
 
@@ -22,7 +22,11 @@ function Header() {
     const handleLogout = () => {
         signOut({ callbackUrl: '/login'});
         Cookies.remove('cart');     // remove cart in Cookies.
-        dispatch({ type: 'RESET_CART' })     // reset objects in cart(cartItems, shippingAddress, paymentMethod) in Store.js
+        dispatch({ type: 'CLEAR_CART_ITEMS' })     // reset objects in cart(cartItems, shippingAddress, paymentMethod) in Store.js
+        message.success({
+            content: 'Bạn đã đăng xuất thành công',
+            className: 'customize__antd--message'
+        })
     }
 
     const menu = (
@@ -63,6 +67,15 @@ function Header() {
         />
     );
 
+    const antIcon = (
+        <LoadingOutlined
+          style={{
+            fontSize: 24,
+          }}
+          spin
+        />
+    );
+
     return (
         <header>
             <div className='flex items-center justify-between h-16 px-36 shadow-md'>
@@ -75,7 +88,7 @@ function Header() {
                     <div>
 
                         {
-                            status === 'loading' ? ('Loading...') :
+                            status === 'loading' ? (<Spin indicator={antIcon} />) :
                                 session?.user ? (
                                     <Dropdown 
                                         overlay={menu} 

@@ -16,7 +16,7 @@
 
 /* CSS Button */
 .btn--order-now {
-    @apply !bg-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md !border-orange-400 hover:!bg-orange-500 active:!bg-orange-600;
+    @apply !bg-orange-400 !text-base hover:!text-white !h-full !py-2.5 !px-6 !capitalize !rounded-md !border-orange-400 hover:!bg-orange-500 active:!bg-orange-600;
 }
 .btn--reset-order {
     @apply bg-white !border-orange-400 !text-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md hover:!text-white hover:!bg-orange-500 active:!bg-orange-600;

@@ -5,9 +5,8 @@ export default function CheckoutWizard({ activeStepOrder = 0 }) {
 
     const stepOrders = [
         { name: 'Đăng nhập tài khoản' },
-        { name: 'Địa chỉ giao hàng' },
-        { name: 'Phương thức thanh toán' },
-        { name: 'Xử lý Đặt hàng' },
+        { name: 'Địa chỉ giao hàng và Phương thức thanh toán' },
+        { name: 'Hoàn tất đơn hàng' },
     ];
 
     return (
