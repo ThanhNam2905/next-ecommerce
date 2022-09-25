@@ -133,33 +133,34 @@ export default function CartPage() {
                                 </tbody>
                             </table>
                         </div>
-                        <div className='md:col-span-4 border shadow-xl py-8 px-6 rounded-md bg-gray-50'>
-                            <h2 className='text-[18px] !mb-1 font-semibold font-nunito uppercase flex items-center justify-center gap-x-3 border-b-4 border-gray-400 pb-4'>
-                                Giỏ hàng
-                                <ShoppingCartOutlined className='text-xl -mt-1 inline-block'/>
-                            </h2>
-                            <ul className='space-y-5 text-lg mt-4'>
-                                <li className='flex items-center justify-between'>
-                                    <p className='font-semibold'>Số lượng Item:</p>
-                                    <p>{cartItems.reduce((a, c) => a + c.quantity, 0)}</p>
-                                </li>
-                                <li className='flex items-center justify-between'>
-                                    <p className='font-semibold'>Tổng tiền:</p>
-                                    <p className='text-red-500 font-semibold'>{new Intl.NumberFormat('vn-VN').format(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))} VNĐ</p>
-                                </li>
-                            </ul>
-
-                            <div className='!pb-4 flex items-center justify-between gap-x-4 border-t-4 border-gray-400 pt-6'>
-                                <button 
-                                    type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
-                                    onClick={() => router.push('/')}>
-                                    Tiếp tục mua sắm
-                                </button>
-                                <button 
-                                    type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
-                                    onClick={() => router.push('login?redirect=/order')}>
-                                    Thanh toán
-                                </button>
+                        <div className='md:col-span-4'>
+                            <div className='border shadow-xl py-8 px-6 rounded-md bg-gray-50'>
+                                <h2 className='text-[18px] !mb-1 font-semibold font-nunito uppercase flex items-center justify-center gap-x-3 border-b-4 border-gray-400 pb-4'>
+                                    Giỏ hàng
+                                    <ShoppingCartOutlined className='text-xl -mt-1 inline-block'/>
+                                </h2>
+                                <ul className='space-y-5 text-lg mt-4'>
+                                    <li className='flex items-center justify-between'>
+                                        <p className='font-semibold'>Số lượng Item:</p>
+                                        <p>{cartItems.reduce((a, c) => a + c.quantity, 0)}</p>
+                                    </li>
+                                    <li className='flex items-center justify-between'>
+                                        <p className='font-semibold'>Tổng tiền:</p>
+                                        <p className='text-red-500 font-semibold'>{new Intl.NumberFormat('vn-VN').format(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))} VNĐ</p>
+                                    </li>
+                                </ul>
+                                <div className='!pb-4 flex items-center justify-between gap-x-4 border-t-4 border-gray-400 pt-6'>
+                                    <button 
+                                        type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
+                                        onClick={() => router.push('/')}>
+                                        Tiếp tục mua sắm
+                                    </button>
+                                    <button 
+                                        type='button' className='btn btn--primary !px-0 w-full uppercase font-semibold'
+                                        onClick={() => router.push('login?redirect=/order')}>
+                                        Thanh toán
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

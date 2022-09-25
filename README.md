@@ -76,6 +76,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     2. display payment method.
     3. display order items.
     4. implment create order.
+20. Create Order Detail Screen.
+    1. implement backend api for order details.
+    2. load order data from backend.
+    3. display order details.
+
+
+    
 
 First, run the development server:
 

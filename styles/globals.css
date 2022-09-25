@@ -58,6 +58,14 @@
         @apply  cursor-pointer;
     }
 
+    .alert--error {
+        @apply  my-3 rounded-md bg-red-200 py-2.5 px-3 text-red-700 inline-block font-semibold italic;
+    }
+
+    .alert--success {
+        @apply  my-3 rounded-md bg-red-200 py-2.5 px-3 text-red-700 inline-block font-semibold italic;
+    }
+
     /* CSS Message Antd */
     .customize__antd--message .ant-message-custom-content.ant-message-success {
         @apply  !flex !items-center !gap-x-3;

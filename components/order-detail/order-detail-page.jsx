@@ -1,96 +1,73 @@
-import { ArrowLeftOutlined, EditOutlined } from '@ant-design/icons';
-import { message } from 'antd';
+import { DollarCircleFilled } from '@ant-design/icons';
+import axios from 'axios';
 import Image from 'next/image';
-import Link from 'next/link'
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React, { useContext, useState } from 'react'
-import { StoreContext } from '../../store/Store'
-import CheckoutWizard from '../orders/components/checkout-wizard'
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import React, { useEffect, useReducer } from 'react'
+import { getError } from '../../utils/getError';
 import SpinLoading from '../shared/spin-loading';
 
-export default function PlaceOrderPage() {
-    const { state, dispatch } = useContext(StoreContext);
-    const { cart } = state;
-    const { cartItems, infoOrder } = cart;
+export default function OrderDetailPage() {
 
-    const router = useRouter();
+    const { query } = useRouter();
+    const orderId = query.id;
 
-    const round2 = (number) => Math.round(number * 100 + Number.EPSILON) / 100;
-    const itemPrice = round2(cartItems.reduce((a, c) => a + c.quantity * c.price, 0)); // 123.576 ==> 124
-    const shippingPrice = infoOrder.shippingMethod === 'Nội thành' ? 25000 : 45000;
-    const totalPrice = round2(itemPrice + shippingPrice);
-
-    const  [loading, setLoading] = useState(false);
-    const handlerPlaceOrder = async () => {
-        try {
-            setLoading(true);
-            const { data } = await axios.post('/api/orders', {
-                orderItems: cartItems,
-                shippingAddress: infoOrder.shippingAddress,
-                paymentMethod: infoOrder.paymentMethod,
-                shippingMethod: infoOrder.shippingMethod,
-                itemsPrice: itemPrice,
-                shippingPrice: shippingPrice,
-                totalPrice: totalPrice
-            });
-            setInterval(() => {
-                setLoading(false);
-            }, 2500);
-
-            dispatch({ type: 'CLEAR_CART_ITEMS'});
-            Cookies.set(
-                'cart',
-                JSON.stringify({
-                    ...cart,
-                    cartItems: [],
-                })
-            );
-
-            router.push(`/order/${data._id}`)
-
-        } catch (error) {
-            setLoading(false);
-            message.error({
-                content: error,
-                className: 'customize__antd--message'
-            })
+    const reducer = (state, action) => {
+        switch (action.type) {
+            case 'FETCH_REQUEST': {
+                return { ...state, loading: true, error: ''};
+            }
+            case 'FETCH_SUCCESS': {
+                return { ...state, loading: false, order: action.payload, error: ''};
+            }
+            case 'FETCH_FAIL': {
+                return { ...state, loading: false, error: action.payload };
+            }
+            default:
+                return state;
         }
     };
 
-    // const antIcon = (
-    //     <LoadingOutlined
-    //       style={{
-    //         fontSize: 24,
-    //         color: '#fff'
-    //       }}
-    //       spin
-    //     />
-    // );
+    const [{ loading, error, order }, dispatch,] = useReducer(reducer, {
+        loading: true,
+        order: {},
+        error: ''
+    });
+
+    useEffect(() => {
+        const fetchOrder = async () => {
+            try {
+                dispatch({ type: 'FETCH_REQUEST' });
+                const { data } = await axios.get(`/api/orders/${orderId}`);
+                dispatch({ type: 'FETCH_SUCCESS', payload: data });
+            } catch (error) {
+                dispatch({ type: 'FETCH_FAIL', payload: getError(error)})
+            }
+        }
+        if(!order._id || (order._id && order._id !== orderId)) {
+            fetchOrder();
+        }
+    }, [order, orderId]);
+
+    const {
+        shippingAddress, paymentMethod, orderItems, shippingMethod,
+        itemsPrice, shippingPrice, totalPrice,
+        isPaid, isDelivered, paid_At, delivered_At
+    } = order;
+
 
     return (
         <div className='mt-6 mb-16'>
-            <CheckoutWizard activeStepOrder={2}/>
-            <h2 className='!py-3 text-[20px]'>Đơn hàng của bạn</h2>
-            {
-                cartItems.length === 0 ? (
-                    <div className='flex flex-col items-center justify-center'>
-                        <Image
-                            src="/images/cart-empty.png"
-                            alt="cart-empty"
-                            width={220}
-                            height={180}
-                        />
+            <h2 className='text-[19px] font-semibold !mb-6'>
+                Chi tiết đơn hàng của bạn:
+                <span className='!ml-2 text-orange-600 inline-block italic'>DH{orderId}</span>
+            </h2>
 
-                        <h3 className='text-xl font-semibold text-gray-600 italic !my-5'>Giỏ hàng của bạn đang rỗng. Vui lòng thêm sản phẩm vào giỏ hàng</h3> 
-                        <Link href='/'>
-                            <a className='btn btn--primary font-semibold flex items-center gap-x-2 py-3'>
-                                <ArrowLeftOutlined />
-                                Quay lại mua hàng
-                            </a>
-                        </Link>
-                    </div>
+            {
+                loading ? (
+                    <SpinLoading/>
+                ) : error ? (
+                    <div className='alert--error'>{error}</div>
                 ) : (
                     <div className='grid grid-cols-1 md:grid-cols-12 md:gap-8'>
                         <div className='col-span-8 space-y-9'>
@@ -98,43 +75,46 @@ export default function PlaceOrderPage() {
                                 <h4 className='font-semibold !mb-2.5 text-[17px]'>Thông tin giao hàng</h4>
                                 <p className='text-[15px] font-semibold !mb-2.5'>
                                     Họ và tên:
-                                    <span className='italic inline-block pl-2.5'>{infoOrder.shippingAddress.username}.</span>
+                                    <span className='italic inline-block pl-2.5'>{shippingAddress.username}.</span>
                                 </p>
                                 <p className='text-[15px] font-semibold !mb-2.5'>
                                     Số điện thoại:
-                                    <span className='italic inline-block pl-2.5'>{infoOrder.shippingAddress.numberPhone}.</span>
+                                    <span className='italic inline-block pl-2.5'>{shippingAddress.numberPhone}.</span>
                                 </p>
                                 <p className='text-[15px] font-semibold !mb-2.5'>
                                     Địa chỉ giao hàng:
-                                    <span className='italic inline-block pl-2.5'>{infoOrder.shippingAddress.addressShip}.</span>
+                                    <span className='italic inline-block pl-2.5'>{shippingAddress.addressShip}.</span>
                                 </p>
-                                <div className='pt-1'>
-                                    <Link href={'/order'}>
-                                        <a className='btn bg-blue-200 inline-flex items-center gap-x-2 font-semibold'>
-                                            Chỉnh sữa
-                                            <EditOutlined />
-                                        </a>
-                                    </Link>
-                                </div>
+                                {   isDelivered ? (
+                                        <div className='alert--success'>
+                                            Đã giao hàng 
+                                            <span>{delivered_At}</span>
+                                        </div>
+                                    ) : (
+                                        <div className='alert--error'>Chưa giao hàng</div>
+                                    )
+                                }
                             </div>
                             <div className='px-6 pt-4 pb-6 rounded-lg shadow-md border text-slate-700'>
                                 <h4 className='font-semibold !mb-2.5 text-[17px]'>Thông tin thanh toán và vận chuyễn</h4>
                                 <p className='text-[15px] font-semibold !mb-2.5'>
                                     Phương thức thanh toán:
-                                    <span className='italic inline-block pl-2.5'>{infoOrder.paymentMethod}.</span>
+                                    <span className='italic inline-block pl-2.5'>{paymentMethod}.</span>
                                 </p>
                                 <p className='text-[15px] font-semibold !mb-2.5'>
                                     Phương thức vận chuyễn:
-                                    <span className='italic inline-block pl-2.5'>{infoOrder.shippingMethod}.</span>
+                                    <span className='italic inline-block pl-2.5'>{shippingMethod}.</span>
                                 </p>
-                                <div className='pt-1'>
-                                    <Link href={'/order'}>
-                                        <a className='btn bg-blue-200 inline-flex items-center gap-x-2 font-semibold'>
-                                            Chỉnh sữa
-                                            <EditOutlined />
-                                        </a>
-                                    </Link>
-                                </div>
+                                {
+                                    isPaid ? (
+                                        <div className='alert--success'>
+                                            Đã thanh toán 
+                                            <span>{paid_At}</span>
+                                        </div>
+                                    ) : (
+                                        <div className='alert--error'>Chưa thanh toán</div>
+                                    )
+                                }
                             </div>
                             <div className='px-6 pt-4 pb-6 rounded-lg shadow-md border text-slate-700'>
                                 <h4 className='font-semibold !mb-2.5 text-[17px]'>Giỏ hàng của bạn</h4>
@@ -149,8 +129,8 @@ export default function PlaceOrderPage() {
                                     </thead>
                                     <tbody className='divide-y divide-gray-200'>
                                         {
-                                            cartItems.map((item, index) => (
-                                                <tr key={index}>
+                                            orderItems.map(item => (
+                                                <tr key={item._id}>
                                                     <td className='!py-5'>
                                                         <Link href={`/product/${item.slug}`}>
                                                             <a className='flex items-center gap-x-4 my-4 inline-block'>
@@ -183,24 +163,19 @@ export default function PlaceOrderPage() {
                                         }
                                     </tbody>
                                 </table>
-                                <div className='pt-1'>
-                                    <Link href={'/cart'}>
-                                        <a className='btn bg-blue-200 inline-flex items-center gap-x-2 font-semibold'>
-                                            Chỉnh sữa
-                                            <EditOutlined />
-                                        </a>
-                                    </Link>
-                                </div>
                             </div>
                         </div>
                         <div className='col-span-4'>
                             <div className='px-6 pt-5 pb-6 border rounded-md shadow-md min-h-fit'>
-                                <h4 className='font-semibold !mb-2.5 text-[18px]'>Chi tiết hoá đơn</h4>
+                                <h4 className='font-semibold !mb-2.5 text-[18px] flex items-center gap-x-3'>
+                                    Chi tiết hoá đơn
+                                    <DollarCircleFilled />
+                                </h4>
                                 <ul className='space-y-5 text-base font-semibold mt-3'>
                                     <li className='flex items-center justify-between text-slate-700'>
                                         <p>Tạm tính:</p>
                                         <div className='flex items-center italic line-through text-slate-500'>
-                                            <p>{new Intl.NumberFormat().format(itemPrice)}</p>
+                                            <p>{new Intl.NumberFormat().format(itemsPrice)}</p>
                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
                                         </div>
                                     </li>
@@ -218,28 +193,12 @@ export default function PlaceOrderPage() {
                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
                                         </div>
                                     </li>
-                                    <li className='!mt-9'>
-                                        <button
-                                            disabled={loading}
-                                            onClick={handlerPlaceOrder}
-                                            className='btn w-full bg-green-500 text-white text-lg py-2.5'>
-                                            { loading ? (
-                                                // <div className='flex items-center justify-center gap-x-2.5'>
-                                                //     <p>Loading...</p>
-                                                //     <Spin indicator={antIcon} />
-                                                // </div>
-                                                <SpinLoading/>
-                                            ): (
-                                                <p>Hoàn tất đơn hàng</p>
-                                            )}
-                                        </button>
-                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 )
-            } 
+            }
         </div>
     )
 }
