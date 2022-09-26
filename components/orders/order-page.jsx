@@ -47,11 +47,11 @@ export default function OrderPage() {
     useEffect(() => {
         form.resetFields(['districts']),
         form.resetFields(['wards'])
-    }, [city]);
+    }, [city, form]);
 
     useEffect(() => {
         form.resetFields(['ward'])
-    }, [district]);
+    }, [district, form]);
 
     //  Handler User Submit Order
     const handleSubmitFormOrder = (values) => {

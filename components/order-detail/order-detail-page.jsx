@@ -1,4 +1,5 @@
 import { DollarCircleFilled } from '@ant-design/icons';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,9 +7,11 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useReducer } from 'react'
 import { getError } from '../../utils/getError';
 import SpinLoading from '../shared/spin-loading';
+import { message, notification } from 'antd';
 
 export default function OrderDetailPage() {
 
+    const [{ isPending }, paypalDispatch ] = usePayPalScriptReducer();
     const { query } = useRouter();
     const orderId = query.id;
 
@@ -23,12 +26,24 @@ export default function OrderDetailPage() {
             case 'FETCH_FAIL': {
                 return { ...state, loading: false, error: action.payload };
             }
+            case 'PAY_REQUEST': {
+                return { ...state, loadingPay: true };
+            }
+            case 'PAY_SUCCESS': {
+                return { ...state, loadingPay: false, successPay: true };
+            }
+            case 'PAY_FAIL': {
+                return { ...state, loadingPay: false, errorPay: action.payload };
+            }
+            case 'PAY_RESET': {
+                return { ...state, loadingPay: false, successPay: false, errorPay: '' };
+            }
             default:
                 return state;
         }
     };
 
-    const [{ loading, error, order }, dispatch,] = useReducer(reducer, {
+    const [{ loading, error, order, successPay, loadingPay }, dispatch,] = useReducer(reducer, {
         loading: true,
         order: {},
         error: ''
@@ -44,16 +59,73 @@ export default function OrderDetailPage() {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(error)})
             }
         }
-        if(!order._id || (order._id && order._id !== orderId)) {
+        if(!order._id || successPay || (order._id && order._id !== orderId)) {
             fetchOrder();
+            if(successPay) {
+                dispatch({ type: 'PAY_RESET'})
+            }
         }
-    }, [order, orderId]);
+        else {
+            const loadPaypalScript = async () => {
+                const { data: clientID } = await axios.get('/api/keys/paypal');
+                paypalDispatch({
+                    type: 'resetOptions',
+                    value: {
+                        'client-id': clientID,
+                        currency: 'USD'
+                    }
+                });
+                paypalDispatch({ type: 'setLoadingStatus', value: 'pending' });
+            };
+
+            loadPaypalScript();
+        }
+    }, [order, orderId, paypalDispatch, successPay]);
 
     const {
         shippingAddress, paymentMethod, orderItems, shippingMethod,
         itemsPrice, shippingPrice, totalPrice,
         isPaid, isDelivered, paid_At, delivered_At
     } = order;
+
+    // Feature Payment Paypal
+    const createOrderPaypal = (data, actions) => {
+        return actions.order.create({
+            purchase_units: [
+                {
+                    amount: { value: totalPrice },
+                }
+            ]
+        }).then((orderId) => {
+            return orderId;
+        })
+    };
+    const onApprovePaypal = (data, actions) => {
+        return actions.order.capture().then(async function (details) {
+            try {
+                dispatch({ type: 'PAY_REQUEST'});
+                const { data } = await axios.put(`/api/orders/${order._id}/pay`, details);
+                dispatch({ type: 'PAY_SUCCESS', payload: data });
+                notification.success({
+                    message: 'Thông báo',
+                    description: 'Đơn hàng của bạn đã được thanh toán thành công'
+                });
+            } catch (error) {
+                dispatch({ type: 'PAY_FAIL', payload: getError(error)});
+                message.error({
+                    content: getError(error),
+                    className: 'customize__antd--message-error'
+                });
+            }
+        })
+    }
+    
+    const onErrorPaypal = (error) => {
+        notification.error({
+            message: 'Thông báo',
+            description: getError(error)
+        });
+    }
 
 
     return (
@@ -108,8 +180,8 @@ export default function OrderDetailPage() {
                                 {
                                     isPaid ? (
                                         <div className='alert--success'>
-                                            Đã thanh toán 
-                                            <span>{paid_At}</span>
+                                            Đã thanh toán, ngày
+                                            <span className='!ml-2'>{paid_At}</span>
                                         </div>
                                     ) : (
                                         <div className='alert--error'>Chưa thanh toán</div>
@@ -193,6 +265,25 @@ export default function OrderDetailPage() {
                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
                                         </div>
                                     </li>
+                                    {   !isPaid && (
+                                            <li>
+                                                {   isPending ? (
+                                                        <SpinLoading/>
+                                                    ) : (
+                                                        <div className='w-full'>
+                                                            <PayPalButtons
+                                                                createOrder={createOrderPaypal}
+                                                                onApprove={onApprovePaypal}
+                                                                onError={onErrorPaypal}>
+
+                                                            </PayPalButtons>
+                                                        </div>
+                                                    )
+                                                }
+                                                { loadingPay && (<SpinLoading/>) }
+                                            </li>
+                                        )
+                                    }
                                 </ul>
                             </div>
                         </div>

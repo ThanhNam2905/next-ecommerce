@@ -84,7 +84,12 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. add signup api.
     2. create register page.
     3. call on api form submit
-
+22. Pay Order By PayPal Developer.
+    1. npm i @paypal/react-paypal-js.
+    2. add paypal button.
+    3. handle payment.
+    4. create backend api.
+    5. update order state isPaid.
     
 
 First, run the development server:
