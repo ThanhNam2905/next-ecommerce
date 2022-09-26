@@ -47,7 +47,7 @@
     }
 
     .btn--primary {
-        @apply  !text-white bg-orange-400 py-2.5 px-8 text-base hover:bg-orange-500 hover:!text-slate-600 active:bg-orange-600;
+        @apply  !text-white bg-orange-400 py-2.5 px-8 text-base hover:bg-orange-500 hover:!text-slate-800 font-semibold active:bg-orange-600;
     }
 
     input, select, textarea {
@@ -67,7 +67,10 @@
     }
 
     /* CSS Message Antd */
-    .customize__antd--message .ant-message-custom-content.ant-message-success {
-        @apply  !flex !items-center !gap-x-3;
+    .customize__antd--message-success .ant-message-custom-content.ant-message-success {
+        @apply  !flex !items-center !gap-x-2;
+    }
+    .customize__antd--message-error .ant-message-custom-content.ant-message-error {
+        @apply  !flex !items-center !gap-x-2;
     }
 }

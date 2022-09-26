@@ -54,20 +54,10 @@ export default function PlaceOrderPage() {
             setLoading(false);
             message.error({
                 content: error,
-                className: 'customize__antd--message'
+                className: 'customize__antd--message-error'
             })
         }
     };
-
-    // const antIcon = (
-    //     <LoadingOutlined
-    //       style={{
-    //         fontSize: 24,
-    //         color: '#fff'
-    //       }}
-    //       spin
-    //     />
-    // );
 
     return (
         <div className='mt-6 mb-16'>
@@ -224,10 +214,6 @@ export default function PlaceOrderPage() {
                                             onClick={handlerPlaceOrder}
                                             className='btn w-full bg-green-500 text-white text-lg py-2.5'>
                                             { loading ? (
-                                                // <div className='flex items-center justify-center gap-x-2.5'>
-                                                //     <p>Loading...</p>
-                                                //     <Spin indicator={antIcon} />
-                                                // </div>
                                                 <SpinLoading/>
                                             ): (
                                                 <p>Hoàn tất đơn hàng</p>

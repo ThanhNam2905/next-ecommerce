@@ -20,7 +20,7 @@ export default function CartPage() {
         dispatch({ type: 'CART_REMOVE_ITEM', payload: item })
         message.success({
             content: 'Xoá sản phẩm thành công',
-            className: 'customize__antd--message'
+            className: 'customize__antd--message-success'
         })
     }
 
@@ -31,13 +31,13 @@ export default function CartPage() {
         if(data.countInStock < quantity) {
             return message.error({
                 content: "Xin lỗi, sản phẩm này đã hết hàng" ,
-                className: 'customize__antd--message'
+                className: 'customize__antd--message-error'
             });
         }
         dispatch({ type: 'ADD_CART_ITEM', payload: { ...item, quantity }});
         return message.success({
             content: 'Sản phẩm đã được cập nhật thành công' ,
-            className: 'customize__antd--message'
+            className: 'customize__antd--message-success'
         })
     }
 

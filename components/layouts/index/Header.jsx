@@ -25,7 +25,7 @@ function Header() {
         dispatch({ type: 'CLEAR_CART_ITEMS' })     // reset objects in cart(cartItems, shippingAddress, paymentMethod) in Store.js
         message.success({
             content: 'Bạn đã đăng xuất thành công',
-            className: 'customize__antd--message'
+            className: 'customize__antd--message-success'
         })
     }
 
@@ -105,9 +105,9 @@ function Header() {
                                     </Dropdown>
                                 ) : (
                                         <Link href='/login'>
-                                            <a className="flex items-center group" title='Đăng nhập'>
+                                            <a className="flex items-center gap-x-1.5 group" title='Đăng nhập'>
                                                 <UserOutlined className='text-lg -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300' />
-                                                <span className='text-lg group-hover:text-amber-500 transition ease-linear duration-300'>Login</span>
+                                                <span className='text-lg group-hover:text-amber-500 transition ease-linear duration-300'>Đăng nhập</span>
                                             </a>
                                         </Link>
                                     )
@@ -119,7 +119,7 @@ function Header() {
                             <a className="flex items-center group relative" title='Giỏ hàng'>
                                 <ShoppingCartOutlined className=" text-2xl -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300" />
                                 {cartItemCount > 0 && (
-                                    <span className='absolute -top-2 -right-2 rounded-full bg-red-500 text-white px-2 py-0.5 text-sm font-semibold'>
+                                    <span className='absolute -top-3 -right-3 rounded-full bg-red-500 text-white w-[22px] h-[22px] flex items-center justify-center text-sm font-semibold'>
                                         {cartItemCount}
                                     </span>
                                 )}

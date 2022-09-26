@@ -13,7 +13,7 @@ export default function SpinLoading() {
 
     return (
         <div className='text-lg flex items-center justify-center gap-x-2.5'>
-            <p className='text-lg font-semibold '>Loading...</p>
+            <p className='text-lg font-semibold text-blue-500'>Loading...</p>
             <Spin indicator={antIcon} />
         </div>
     )

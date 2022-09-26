@@ -25,14 +25,14 @@ export default function ProductInfo({ product }) {
         if(data.countInStock < quantity) {
             return message.error({
                 content: "Xin lỗi, sản phẩm này đã hết hàng" ,
-                className: 'customize__antd--message'
+                className: 'customize__antd--message-error'
             });
         }
         dispatch({ type: 'ADD_CART_ITEM', payload: { ...product, quantity} });
 
         message.success({
             content: 'Thêm sản phẩm vào giỏ hàng thành công',
-            className: 'customize__antd--message'
+            className: 'customize__antd--message-success'
         })
     }
 

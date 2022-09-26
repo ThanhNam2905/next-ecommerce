@@ -35,13 +35,13 @@ export default function LoginPage() {
             if(result.error) {
                 message.error({
                     content: result.error,
-                    className: 'customize__antd--message'
+                    className: 'customize__antd--message-error'
                 });
             }
         } catch (error) {
             message.error({
                 content: getError(error),
-                className: 'customize__antd--message'
+                className: 'customize__antd--message-error'
             });
         }
     }
@@ -50,10 +50,10 @@ export default function LoginPage() {
     return (
         <form 
             action="login"
-            className='login-form mx-auto max-w-screen-sm my-10  bg-gradient-to-tr from-blue-500/50 via-purple-500/50 to-pink-500/50 overflow-hidden py-14 px-16 rounded-md'
+            className='login-form mx-auto max-w-screen-sm my-10 bg-gradient-to-tr from-blue-400/40 via-purple-400/40 to-pink-400/40 overflow-hidden py-14 px-16 rounded-md'
             onSubmit={handleSubmit(handlerSubmitFormLogin)}>
-            <h1 className='uppercase pb-5 text-3xl text-center'>Đăng nhập</h1>
-            <div className='mb-7 text-xl space-y-2'>
+            <h1 className='uppercase pb-5 text-2xl text-center'>Đăng nhập</h1>
+            <div className='mb-7 text-lg space-y-2'>
                 <label htmlFor="email">Email:</label>
                 <input 
                     type="email" id="email" autoFocus
@@ -65,15 +65,14 @@ export default function LoginPage() {
                             message: 'Vui lòng điền đúng định dạng email'
                         }
                     })}/>
-                        {
-                            errors.email && (
+                        {   errors.email && (
                                 <div className='text-red-500 text-base'>
                                     { errors.email.message }
                                 </div>
                             )
                         }
             </div>
-            <div className='mb-7 text-xl space-y-2'>
+            <div className='mb-7 text-lg space-y-2'>
                 <label htmlFor="email">Mật khẩu:</label>
                 <input 
                     type="password" id="password" 
@@ -85,20 +84,19 @@ export default function LoginPage() {
                             message: 'Mật khẩu của bạn phải chứa ít nhất 1 ký tự in hoa, 1 ký tự thường và 1 số. Và độ dài mật khẩu từ 6 đến 16 ký tự'
                         }
                     })}/>
-                        {
-                            errors.password && (
+                        {   errors.password && (
                                 <div className='text-red-500 text-base'>
                                     { errors.password.message }
                                 </div>
                             )
                         }
             </div>
-            <div className='mb-7 text-xl space-y-2'>
+            <div className='mb-7'>
                 <input type="submit" value="Đăng Nhập" className='btn btn--primary py-2.5 px-6 focus:ring-0 border-0'/>
             </div>
-            <div className='mb-7 text-xl space-y-2'>
+            <div className='mb-7 text-lg space-y-2'>
                 <span>Bạn chưa có tài khoản, Vui lòng đăng ký &nbsp;</span>
-                <Link href={'/register'}>
+                <Link href={`/register?redirect=${redirect || '/'}`}>
                     <a className='hover:underline underline-offset-4 !text-red-500'>tại đây</a>
                 </Link>
             </div>

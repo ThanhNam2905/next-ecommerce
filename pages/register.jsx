@@ -1,11 +1,11 @@
 import React from 'react'
 import DefaultLayout from '../components/layouts/index/Default-layout'
-import LoginPage from '../components/login/login-page'
+import RegisterPage from '../components/register/register-page'
 
 export default function LoginScreen() {
     return (
-        <DefaultLayout title='Trang Đăng Nhập Tài Khoản'>
-            <LoginPage></LoginPage>
+        <DefaultLayout title='Trang Đăng Ký Tài Khoản'>
+            <RegisterPage></RegisterPage>
         </DefaultLayout>
     )
 }
