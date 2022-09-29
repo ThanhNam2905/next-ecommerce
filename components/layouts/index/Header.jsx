@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, UnorderedListOutlined, IdcardOutlined, LoadingOutlined } from '@ant-design/icons';
+import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, IdcardOutlined, LoadingOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
 import { signOut, useSession } from 'next-auth/react';
 import { Dropdown, Menu, message, Space, Spin } from 'antd';
@@ -43,8 +43,8 @@ function Header() {
                 },
                 {
                     label: 
-                        <DropDownItem href="/profile-user" className='dropdown-link'>
-                            <UnorderedListOutlined />
+                        <DropDownItem href="/order-history" className='dropdown-link'>
+                            <ShoppingOutlined />
                             Đơn hàng của tôi
                         </DropDownItem>,
                     key: '1',
