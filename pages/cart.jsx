@@ -1,5 +1,5 @@
 import React from 'react'
-import CartPage from '../components/cart/Cart-Page';
+import CartPage from '../components/cart/cart-page';
 import DefaultLayout from '../components/layouts/index/default-layout';
 import dynamic from 'next/dynamic';
 
