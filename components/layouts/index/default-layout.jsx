@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import Footer from './footer';
-import Header from './header';
+import Header from './header'; // import header.
 
 function DefaultLayout({ title, children }) {
     return (
