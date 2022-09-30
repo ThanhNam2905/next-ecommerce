@@ -14,7 +14,7 @@ export default function OrderPage() {
     const { cart } = state;
     const { cartItems } = cart;
     const router = useRouter();
-    
+
 
     const { Option } = Select;
     const { TextArea } = Input;
@@ -46,7 +46,7 @@ export default function OrderPage() {
 
     useEffect(() => {
         form.resetFields(['districts']),
-        form.resetFields(['wards'])
+            form.resetFields(['wards'])
     }, [city, form]);
 
     useEffect(() => {
@@ -60,9 +60,9 @@ export default function OrderPage() {
 
         dispatch({
             type: 'SAVE_INFO_ORDER',
-            payload: { 
+            payload: {
                 shippingAddress: {
-                    username, 
+                    username,
                     numberPhone,
                     addressShip,
                 },
@@ -76,10 +76,10 @@ export default function OrderPage() {
                 ...cart,
                 infoOrder: {
                     shippingAddress: {
-                        username, 
+                        username,
                         numberPhone,
                         addressShip,
-                        
+
                     },
                     paymentMethod,
                     shippingMethod
@@ -89,17 +89,17 @@ export default function OrderPage() {
         router.push('/place-order');
     }
 
-    const listPaymentMethod = [
-        {
-            name: 'Paypal',
-            img: 'https://res.cloudinary.com/nam290596/image/upload/v1663868579/blog-website/paypal-logo-C83095A82C-seeklogo.com_fsf6ae.png'
-        },
-        {
-            name: 'Thanh toán khi nhận hàng',
-            img: 'https://cdn-icons-png.flaticon.com/512/1554/1554414.png'
-        }
-    ]
-    const [selectedPaymentMethod, setSelectedPaymentMethod ] = useState('');
+    // const listPaymentMethod = [
+    //     {
+    //         name: 'Paypal',
+    //         img: 'https://res.cloudinary.com/nam290596/image/upload/v1663868579/blog-website/paypal-logo-C83095A82C-seeklogo.com_fsf6ae.png'
+    //     },
+    //     {
+    //         name: 'Thanh toán khi nhận hàng',
+    //         img: 'https://cdn-icons-png.flaticon.com/512/1554/1554414.png'
+    //     }
+    // ]
+    const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const handleChangePaymentMethod = (e) => {
         setSelectedPaymentMethod(e.target.value);
     };
@@ -116,18 +116,18 @@ export default function OrderPage() {
             subTitle: '(Ship các khu vực tỉnh ngoài thành phố)'
         }
     ]
-    const [selectedShippingMethod, setSelectedShippingMethod ] = useState('');
+    const [selectedShippingMethod, setSelectedShippingMethod] = useState('');
     const handleChangeShippingMethod = async (e) => {
         await setSelectedShippingMethod(e.target.value);
     };
 
     const renderShippingPrice = () => {
-        if(selectedShippingMethod === 'Nội thành') {
+        if (selectedShippingMethod === 'Nội thành') {
             return (
                 <span>{new Intl.NumberFormat().format(25000)} </span>
             )
         }
-        else if(selectedShippingMethod === 'Ngoại thành / tỉnh') {
+        else if (selectedShippingMethod === 'Ngoại thành / tỉnh') {
             return (
                 <span>{new Intl.NumberFormat().format(45000)} </span>
             )
@@ -138,27 +138,27 @@ export default function OrderPage() {
     }
 
     const renderTotalPrice = () => {
-        if(selectedShippingMethod === 'Nội thành') {
+        if (selectedShippingMethod === 'Nội thành') {
             return (
-                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price) , +25000))} </span>
+                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price), +25000))} </span>
             )
         }
-        else if(selectedShippingMethod === 'Ngoại thành / tỉnh') {
+        else if (selectedShippingMethod === 'Ngoại thành / tỉnh') {
             return (
-                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price) , +45000))} </span>
+                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price), +45000))} </span>
             )
         }
         return (
             <div> --- </div>
         )
     }
-    
+
 
     return (
         <div className='my-12'>
-            <CheckoutWizard activeStepOrder={1}/>
+            <CheckoutWizard activeStepOrder={1} />
             {/* Form Order  */}
-            
+
             <div className='grid grid-cols-12 gap-x-7'>
                 <div className="col-span-7 px-6 py-3 rounded">
                     <h3 className='col-span-12 px-6 text-[18px] !my-4 py-2 bg-blue-100/40 inline-block rounded-md'>Thông tin giao hàng</h3>
@@ -331,7 +331,7 @@ export default function OrderPage() {
                                 }
                             ]}>
                             <Radio.Group onChange={handleChangePaymentMethod}>
-                                {
+                                {/* {
                                     listPaymentMethod.map((payment, index) => (
                                         <div key={index} className='mb-5'>
                                             <Radio 
@@ -345,7 +345,35 @@ export default function OrderPage() {
                                             </Radio>
                                         </div>
                                     ))
-                                }
+                                } */}
+                                <div className='my-3 space-y-3'>
+                                    <Radio
+                                        value='Paypal'
+                                        checked={selectedPaymentMethod === 'Paypal'}
+                                        className='!flex !items-center gap-x-3 !space-y-2'>
+                                        <div className='flex items-center gap-x-4'>
+                                            <Image 
+                                                src={'https://res.cloudinary.com/nam290596/image/upload/v1664464658/next-store-fashion/paypal-logo-C83095A82C-seeklogo.com_fsf6ae_yxfqyx.png'}
+                                                alt='Paypal Logo'
+                                                width={36}
+                                                height={36}/>
+                                            <span className='text-[13px] italic text-gray-500/80 font-semibold pb-1'>(Ví điện tử Paypal)</span>
+                                        </div>
+                                    </Radio>
+                                    <Radio
+                                        value='Thanh toán khi giao hàng'
+                                        checked={selectedPaymentMethod === 'Thanh toán khi giao hàng'}
+                                        className='!flex !items-center gap-x-3 !space-y-2'>
+                                        <div className='flex items-center gap-x-4'>
+                                            <Image 
+                                                src={'https://res.cloudinary.com/nam290596/image/upload/v1664465232/next-store-fashion/shipcode_kmlng6_iuiq3h.jpg'}
+                                                alt='Shipcode Logo'
+                                                width={110}
+                                                height={36}/>
+                                            <span className='text-[13px] italic text-gray-500/80 font-semibold pb-1'>(Thanh toán khi giao hàng)</span>
+                                        </div>
+                                    </Radio>
+                                </div>
                             </Radio.Group>
                         </Form.Item>
 
@@ -362,18 +390,18 @@ export default function OrderPage() {
                                 {
                                     listShippingMethod.map((shipping, index) => (
                                         <div key={index} className='mb-5'>
-                                            <Radio 
+                                            <Radio
                                                 value={shipping.title}
                                                 checked={selectedShippingMethod === shipping.title}
                                                 className='!flex !items-center gap-x-3 !space-y-2'>
-                                                    <div className='flex items-center gap-x-4'>
-                                                        <span className='font-semibold text-base'>{shipping.title}</span>
-                                                        <span className='text-sm text-gray-400 font-semibold italic'>{shipping.subTitle}</span>
-                                                    </div>
-                                                    <p className='font-semibold text-red-500 text-lg'>
-                                                        {new Intl.NumberFormat().format(shipping.priceShipping)} 
-                                                        <sup className='underline ml-0.5'>đ</sup>
-                                                    </p>
+                                                <div className='flex items-center gap-x-4'>
+                                                    <span className='font-semibold text-base'>{shipping.title}</span>
+                                                    <span className='text-sm text-gray-400 font-semibold italic'>{shipping.subTitle}</span>
+                                                </div>
+                                                <p className='font-semibold text-red-500 text-lg'>
+                                                    {new Intl.NumberFormat().format(shipping.priceShipping)}
+                                                    <sup className='underline ml-0.5'>đ</sup>
+                                                </p>
                                             </Radio>
                                         </div>
                                     ))
@@ -397,35 +425,35 @@ export default function OrderPage() {
                     <h3 className='px-6 text-[18px] inline-flex items-center gap-x-2 !mt-4 py-2 bg-gray-100/95 inline-block rounded-tl-md rounded-tr-md'>
                         Giỏ hàng của bạn
                         <ShoppingOutlined />
-                    </h3>    
+                    </h3>
                     <div className='w-full px-6 py-3 bg-gray-100/95 rounded-md rounded-tl-none'>
                         <div className='divide-y-2 divide-gray-200 pb-3'>
                             {
                                 cartItems.length > 0 &&
-                                    cartItems.map((item, index) => (
-                                        <div key={index} className='flex items-center gap-x-5 py-4'>
-                                            <Badge count={item.quantity} size='default'>
-                                                <Image
-                                                    src={item.images}
-                                                    alt={item.name}
-                                                    width={80}
-                                                    height={80}
-                                                    className='!p-1.5 bg-white !border-2 !border-gray-500 rounded-md'/>
-                                            </Badge>
-                                            <p className='flex-1 text-[16px] font-semibold line-clamp-1'>{item.name}</p>
-                                            <p className='font-medium text-gray-600 text-[14px] italic'>
-                                                {new Intl.NumberFormat().format(item.price)} 
-                                                <sup className='underline ml-1 mt-1.5'>đ</sup>
-                                            </p>
-                                        </div>
-                                    ))
+                                cartItems.map((item, index) => (
+                                    <div key={index} className='flex items-center gap-x-5 py-4'>
+                                        <Badge count={item.quantity} size='default'>
+                                            <Image
+                                                src={item.images}
+                                                alt={item.name}
+                                                width={80}
+                                                height={80}
+                                                className='!p-1.5 bg-white !border-2 !border-gray-500 rounded-md' />
+                                        </Badge>
+                                        <p className='flex-1 text-[16px] font-semibold line-clamp-1'>{item.name}</p>
+                                        <p className='font-medium text-gray-600 text-[14px] italic'>
+                                            {new Intl.NumberFormat().format(item.price)}
+                                            <sup className='underline ml-1 mt-1.5'>đ</sup>
+                                        </p>
+                                    </div>
+                                ))
                             }
                         </div>
                         <div className='border-t-2 border-gray-200 pt-2'>
                             <div className='flex items-center justify-between my-5'>
                                 <p className='text-[16px] font-semibold text-gray-600'>
-                                    Tạm tính: 
-                                </p> 
+                                    Tạm tính:
+                                </p>
                                 <p className={`font-semibold text-gray-500 text-[15px] ${selectedShippingMethod !== '' ? ' line-through italic' : ''}`}>
                                     {new Intl.NumberFormat().format(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))}
                                     <sup className='underline ml-1 mt-1.5'>đ</sup>
@@ -434,7 +462,7 @@ export default function OrderPage() {
                             <div className='flex items-center justify-between my-5'>
                                 <p className='text-[16px] font-semibold text-gray-600'>
                                     Phí vận chuyễn:
-                                </p> 
+                                </p>
                                 <p className='font-semibold text-green-500 text-[15px] flex items-center'>
                                     {renderShippingPrice()}
                                     <sup className='underline ml-1 mt-1.5'>đ</sup>
@@ -442,9 +470,9 @@ export default function OrderPage() {
                             </div>
                             <div className='flex items-center justify-between my-5'>
                                 <p className='text-xl font-semibold flex items-center gap-x-2'>
-                                    <span>Tổng cộng:</span> 
-                                    <DollarOutlined className='!mt-1'/>
-                                </p> 
+                                    <span>Tổng cộng:</span>
+                                    <DollarOutlined className='!mt-1' />
+                                </p>
                                 <p className='font-bold text-xl flex items-center'>
                                     {renderTotalPrice()}
                                     <sup className='underline ml-1 mt-1.5'>đ</sup>

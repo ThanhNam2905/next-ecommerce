@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React from 'react'
-import DefaultLayout from '../components/layouts/index/Default-layout';
+import DefaultLayout from '../components/layouts/index/default-layout';
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 export default function Unauthorized() {

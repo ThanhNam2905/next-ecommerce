@@ -1,5 +1,5 @@
 import React from 'react'
-import DefaultLayout from '../components/layouts/index/Default-layout'
+import DefaultLayout from '../components/layouts/index/default-layout'
 import RegisterPage from '../components/register/register-page'
 
 export default function LoginScreen() {

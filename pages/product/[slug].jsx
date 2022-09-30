@@ -1,6 +1,6 @@
 import React from 'react'
 import ProductDetailPage from '../../components/product-detail/product-detail-page';
-import DefaultLayout from '../../components/layouts/index/Default-layout';
+import DefaultLayout from '../../components/layouts/index/default-layout';
 import db from '../../utils/database';
 import Product from '../../models/ProductModel';
 

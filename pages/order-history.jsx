@@ -1,5 +1,5 @@
 import React from 'react'
-import DefaultLayout from '../components/layouts/index/Default-layout'
+import DefaultLayout from '../components/layouts/index/default-layout'
 import OrderHistoryPage from '../components/order-history/order-history-page'
 
 export default function OrderHistoryScreen() {

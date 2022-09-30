@@ -1,5 +1,5 @@
 import React from 'react'
-import DefaultLayout from '../components/layouts/index/Default-layout'
+import DefaultLayout from '../components/layouts/index/default-layout'
 import OrderPage from '../components/orders/order-page'
 
 export default function OrderScreen() {

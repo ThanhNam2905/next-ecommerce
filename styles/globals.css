@@ -35,7 +35,7 @@
 
 @layer components {
     .product-item {
-        @apply  block rounded-md border border-gray-200 shadow-md;
+        @apply  block rounded-md border border-gray-200 shadow-lg;
     }
 
     .btn {
