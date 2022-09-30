@@ -120,7 +120,7 @@ function Header() {
                             <a className="flex items-center group relative" title='Giỏ hàng'>
                                 <ShoppingCartOutlined className=" text-2xl -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300" />
                                 {cartItemCount > 0 && (
-                                    <span className='absolute -top-3 -right-3 rounded-full bg-red-500 text-white w-[22px] h-[22px] flex items-center justify-center text-sm font-semibold'>
+                                    <span className='absolute -top-3 -right-3 rounded-full bg-red-500 text-white flex items-center justify-center text-sm font-semibold'>
                                         {cartItemCount}
                                     </span>
                                 )}
