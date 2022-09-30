@@ -19,6 +19,7 @@ function Header() {
     }, [cart.cartItems]);
 
     // Handler Event when User Logout.
+    // test.
     const handleLogout = () => {
         signOut({ callbackUrl: '/login'});
         Cookies.remove('cart');     // remove cart in Cookies.
