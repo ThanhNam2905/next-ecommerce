@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
 
     //  connect databse mongodb
     await db.connect();
-    const product = await Product.findOne({slug}).lean(); //  use lean() in mongoose to convert JSON sang Object JS.
+    const product = await Product.findOne({slug}).lean(); //  use lean() in mongoose convert from JSON to Object JS.
     await db.disconnect();
     return {
         props: {

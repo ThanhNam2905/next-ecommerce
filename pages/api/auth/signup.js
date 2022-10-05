@@ -10,20 +10,6 @@ async function handler(req, res) {
     
     const { name, numberPhone, email, password } = req.body;
 
-    // if(
-    //     !name ||
-    //     !numberPhone ||
-    //     !email ||
-    //     !email.includes('@') ||
-    //     !password ||
-    //     password.trim().length < 6
-    // ) {
-    //     res.status(422).json({
-    //         message: 'Validation Error!'
-    //     });
-    //     return;
-    // }
-
     await db.connect();
 
     const existingUser = await User.findOne({ email: email });
@@ -41,7 +27,6 @@ async function handler(req, res) {
         email,
         password: bcrypt.hashSync(password),
         isAdmin: false,
-        avatar: '/images/avatar-default.png'
     });
 
     const user = await newUser.save();
@@ -53,7 +38,6 @@ async function handler(req, res) {
         numberPhone: user.numberPhone,
         email: user.email,
         isAdmin: user.isAdmin,
-        avatar: user.avatar,
     })
 }
 

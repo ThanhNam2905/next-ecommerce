@@ -205,7 +205,7 @@ export default function OrderDetailPage() {
                                                 <tr key={item._id}>
                                                     <td className='!py-5'>
                                                         <Link href={`/product/${item.slug}`}>
-                                                            <a className='flex items-center gap-x-4 my-4 inline-block'>
+                                                            <a className='flex items-center gap-x-4 my-4'>
                                                                 <Image
                                                                     src={item.images}
                                                                     alt={item.name}

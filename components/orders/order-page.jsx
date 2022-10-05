@@ -422,7 +422,7 @@ export default function OrderPage() {
                     </Form>
                 </div>
                 <div className='col-span-5'>
-                    <h3 className='px-6 text-[18px] inline-flex items-center gap-x-2 !mt-4 py-2 bg-gray-100/95 inline-block rounded-tl-md rounded-tr-md'>
+                    <h3 className='px-6 text-[18px] inline-flex items-center gap-x-2 !mt-4 py-2 bg-gray-100/95 rounded-tl-md rounded-tr-md'>
                         Giỏ hàng của bạn
                         <ShoppingOutlined />
                     </h3>
@@ -454,7 +454,7 @@ export default function OrderPage() {
                                 <p className='text-[16px] font-semibold text-gray-600'>
                                     Tạm tính:
                                 </p>
-                                <p className={`font-semibold text-gray-500 text-[15px] ${selectedShippingMethod !== '' ? ' line-through italic' : ''}`}>
+                                <p className={`font-semibold text-gray-500 text-[15px]  ${selectedShippingMethod !== ' ' ? ' line-through italic' : ' '}`}>
                                     {new Intl.NumberFormat().format(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))}
                                     <sup className='underline ml-1 mt-1.5'>đ</sup>
                                 </p>

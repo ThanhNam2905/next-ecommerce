@@ -6,7 +6,6 @@ const userSchema = new mongoose.Schema(
         email: { type: String, require: true, unique: true},
         password: { type: String, require: true},
         isAdmin: { type: Boolean, require: true, default: false},
-        avatar: { type: String, require: true, default: 'https://www.shareicon.net/profession-occupation-professions-and-jobs-people-user-avatar-job-businessman-868320'},
         numberPhone: { type: String, require: true}
     }, {
         timestamps: true

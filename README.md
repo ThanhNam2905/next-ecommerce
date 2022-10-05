@@ -90,7 +90,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     3. handle payment.
     4. create backend api.
     5. update order state isPaid.
-    
+23. Update User Profile.
+    1. create profile screen.
+    2. show user info.
+    3. handle update user info.
 
 First, run the development server:
 

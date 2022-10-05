@@ -19,7 +19,6 @@ function Header() {
     }, [cart.cartItems]);
 
     // Handler Event when User Logout.
-    // test.
     const handleLogout = () => {
         signOut({ callbackUrl: '/login'});
         Cookies.remove('cart');     // remove cart in Cookies.
@@ -32,13 +31,13 @@ function Header() {
 
     const menu = (
         <Menu
-            className='dropdown-profile-user'
+            className='dropdown-user-profile !space-y-1'
             items={[
                 {
                     label: 
-                        <DropDownItem href="/profile-user" className='dropdown-link'>
+                        <DropDownItem href="/user-profile" className='dropdown-link'>
                             <IdcardOutlined />
-                            Hồ sơ cá nhân
+                            Thông tin tài khoản
                         </DropDownItem>,
                     key: '0',
                 },
@@ -77,6 +76,7 @@ function Header() {
         />
     );
 
+
     return (
         <header>
             <div className='flex items-center justify-between h-16 px-36 shadow-md'>
@@ -94,13 +94,14 @@ function Header() {
                                     <Dropdown 
                                         overlay={menu} 
                                         trigger={['click']} 
-                                        placement="topLeft">
+                                        placement="topLeft"
+                                        >
                                         <a 
-                                            className='group flex items-center gap-x-4' 
+                                            className='group flex items-center justify-center' 
                                             onClick={(e) => e.preventDefault()}>
-                                            <Space>
-                                                <span className='text-lg group-hover:!text-amber-500 transition ease-linear duration-300 '>{session.user.name}</span>
-                                                <DownOutlined className='text-sm group-hover:text-amber-500 transition ease-linear duration-300 inline-block !mb-1.5'/>
+                                            <Space className='!gap-x-1.5 !gap-y-0 space-customize--css'>
+                                                <span className='text-lg group-hover:!text-amber-500 transition ease-linear duration-300'>{session.user.name}</span>
+                                                <DownOutlined className='text-[12px] !mt-1 group-hover:text-amber-500 transition ease-linear duration-300'/>
                                             </Space>
                                         </a>
                                     </Dropdown>
