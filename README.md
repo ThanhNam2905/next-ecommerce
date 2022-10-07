@@ -94,6 +94,13 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. create profile screen.
     2. show user info.
     3. handle update user info.
+24. Create Admin Dashboard.
+    1. create Admin Layout.
+    2. create Admin Menu(Sidebar).
+    3. create Admin Screen.
+    4. Implement admin sumary api.
+
+
 
 First, run the development server:
 

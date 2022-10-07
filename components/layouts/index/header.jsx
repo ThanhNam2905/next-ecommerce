@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Link from 'next/link';
-import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, IdcardOutlined, LoadingOutlined, ShoppingOutlined } from '@ant-design/icons';
+import { UserOutlined, ShoppingCartOutlined, DownOutlined, LogoutOutlined, IdcardOutlined, LoadingOutlined, ShoppingOutlined, BarChartOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
 import { signOut, useSession } from 'next-auth/react';
-import { Dropdown, Menu, message, Space, Spin } from 'antd';
+import { Badge, Dropdown, Menu, message, Space, Spin } from 'antd';
 import DropDownItem from '../../shared/dropdown-item';
 import Cookies from 'js-cookie'
+import axios from 'axios';
 
 function Header() {
 
@@ -13,6 +14,16 @@ function Header() {
     const { cart } = state;
     const [cartItemCount, setCartItemCount] = useState(0);
     const { status, data: session } = useSession();
+    const [user, setUser] = useState({});
+    useEffect(() => {
+        const getUserData = async() => {
+            if(session) {
+                const { data } = await axios.get(`/api/user/${session._id}`) ;
+                setUser(data);
+            }
+        } 
+        getUserData();
+    }, [session]);
 
     useEffect(() => {
         setCartItemCount(cart.cartItems.reduce((a, c) => a + c.quantity, 0));
@@ -29,7 +40,8 @@ function Header() {
         })
     }
 
-    const menu = (
+
+    const menuUser = (
         <Menu
             className='dropdown-user-profile !space-y-1'
             items={[
@@ -66,6 +78,43 @@ function Header() {
             ]}
         />
     );
+    const menuAdmin = (
+        <Menu
+            className='dropdown-user-profile !space-y-1'
+            items={[
+                {
+                    label: 
+                        <DropDownItem href="/user-profile" className='dropdown-link'>
+                            <IdcardOutlined />
+                            Thông tin tài khoản
+                        </DropDownItem>,
+                    key: '0',
+                },
+                {
+                    label: 
+                        <DropDownItem href="/admin/dashboard" className='dropdown-link'>
+                            <BarChartOutlined />
+                            Admin Dashboard
+                        </DropDownItem>,
+                    key: '1',
+                },
+                {
+                    type: 'divider',
+                },
+                {
+                    label: 
+                        <a 
+                            className='dropdown-link'
+                            href='#'
+                            onClick={handleLogout}>
+                            <LogoutOutlined />
+                            <span>Đăng xuất</span>
+                        </a>,
+                    key: '3',
+                },
+            ]}
+        />
+    );
 
     const antIcon = (
         <LoadingOutlined
@@ -76,6 +125,7 @@ function Header() {
         />
     );
 
+    console.log(session?.user);
 
     return (
         <header>
@@ -92,7 +142,7 @@ function Header() {
                             status === 'loading' ? (<Spin indicator={antIcon} />) :
                                 session?.user ? (
                                     <Dropdown 
-                                        overlay={menu} 
+                                        overlay={ user.isAdmin ? menuAdmin : menuUser } 
                                         trigger={['click']} 
                                         placement="topLeft"
                                         >
@@ -120,11 +170,11 @@ function Header() {
                         <Link href="/cart">
                             <a className="flex items-center group relative" title='Giỏ hàng'>
                                 <ShoppingCartOutlined className=" text-2xl -mt-1 mr-1 group-hover:text-amber-500 transition ease-linear duration-300" />
-                                {cartItemCount > 0 && (
-                                    <span className='absolute -top-3 -right-3 rounded-full bg-red-500 text-white flex items-center justify-center text-sm font-semibold'>
-                                        {cartItemCount}
-                                    </span>
-                                )}
+                                {
+                                    cartItemCount > 0 && (
+                                        <Badge count={cartItemCount} overflowCount={99} className='absolute -top-3 right-2'></Badge>
+                                    )
+                                }
                             </a>
                         </Link>
                     </div>

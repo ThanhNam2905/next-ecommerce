@@ -4,6 +4,7 @@ import "antd/dist/antd.css";
 import { SessionProvider, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router';
 import { PayPalScriptProvider } from '@paypal/react-paypal-js';
+import { LoadingOutlined } from '@ant-design/icons'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
     return (
@@ -12,7 +13,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
                 <PayPalScriptProvider deferLoading={true}>
                     {
                         Component.auth ? (
-                            <Auth>
+                            <Auth adminOnly={Component.auth.adminOnly}>
                                 <Component {...pageProps} />
                             </Auth>
                         ) : (
@@ -34,8 +35,18 @@ function Auth({ children }) {
         },
     });
     if (status === 'loading') {
-      return <div>Loading...</div>;
+        return (
+            <div className='w-full h-screen flex items-center justify-center bg-blue-100'>
+                <h3 className='text-3xl text-gray-600 font-semibold shadow-lg inline-flex items-center gap-x-2.5'> 
+                    <LoadingOutlined /> Loading...
+                </h3>
+            </div>
+        );
     }
+    
+    // if(adminOnly) {
+    //     router.push('/unauthorized?message=admin login required')
+    // }
     return children;
 }
 

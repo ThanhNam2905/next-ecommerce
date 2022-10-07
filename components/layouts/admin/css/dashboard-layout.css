@@ -1,0 +1,24 @@
+.ant-collapse-header {
+    @apply  transition-all ease-linear duration-300;
+}
+.ant-collapse-header .anticon.anticon-caret-down {
+    @apply  group-hover:text-blue-600;
+}
+.ant-collapse-item.ant-collapse-item-active .ant-collapse-header {
+    @apply  border-r-4 border-blue-600; 
+}
+.ant-collapse-item.ant-collapse-item-active .ant-collapse-header .ant-collapse-custom {
+    @apply  text-blue-600;
+}
+.ant-collapse-item.ant-collapse-item-active .anticon.anticon-caret-down {
+    @apply  !text-blue-600 !text-lg;
+}
+.ant-collapse-item .anticon.anticon-caret-down {
+    @apply   !text-lg !-mt-0.5;
+}
+.ant-collapse-item.ant-collapse-item-active.panel-item__customize .ant-collapse-header {
+    @apply  !bg-blue-100;
+}
+.ant-collapse-content-box {
+    @apply  !px-0;
+}
