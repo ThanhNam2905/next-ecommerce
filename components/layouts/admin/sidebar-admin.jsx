@@ -1,16 +1,18 @@
 import { AppstoreOutlined, CaretDownOutlined, FileAddOutlined, FilePptOutlined, HomeOutlined, IdcardOutlined, LogoutOutlined, ShoppingOutlined, UnorderedListOutlined, UsergroupAddOutlined } from '@ant-design/icons'
 import { Collapse } from 'antd'
 import Link from 'next/link'
+import { useRouter } from 'next/router';
 import React from 'react'
 
 export default function SidebarAdmin() {
 
     const { Panel } = Collapse;
+    const router = useRouter();
 
     return (
         <div className="siderbar-admin__content px-2 py-4 bg-green-50 border-r-4">
             <Collapse
-                expandIconPosition="right"
+                expandIconPosition="end"
                 ghost
                 accordion
                 className=''
@@ -22,12 +24,12 @@ export default function SidebarAdmin() {
                                 <p>Admin dashboard</p>
                             </div>}
                             key="1"
-                            className="panel-item__customize group w-full h-full">
+                            className={`panel-item__customize group w-full h-full ${router.pathname === '/admin/dashboard' ? ' active' : ''}`}>
 
-                    <Link href="/admin">
+                    <Link href="/admin/dashboard">
                         <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
                             <AppstoreOutlined className="mt-0.5 text-[14px]" />
-                            <span className="ml-1.5">Trang chủ Dashboard</span>
+                            <span className={`ml-1.5 ${router.pathname === '/admin/dashboard' ? ' font-bold' : ''}`}>Trang chủ Dashboard</span>
                         </a>
                     </Link>
                     <Link href="/admin/profile">
@@ -66,12 +68,12 @@ export default function SidebarAdmin() {
                                 <p>Quản lý đơn hàng</p>
                             </div>}
                             key="3"
-                            className="panel-item__customize group w-full h-full">
+                            className={`panel-item__customize group w-full h-full ${router.pathname === '/admin/orders' ? ' active' : ''}`}>
 
                     <Link href="/admin/orders">
                         <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
                             <UnorderedListOutlined className="mt-0.5"/>
-                            <span className="ml-1.5">Danh sách đơn hàng</span>
+                            <span className={`ml-1.5 ${router.pathname === '/admin/orders' ? ' font-bold' : ''}`}>Danh sách đơn hàng</span>
                         </a>
                     </Link>
                 </Panel>

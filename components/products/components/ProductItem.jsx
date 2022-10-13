@@ -8,18 +8,16 @@ export default function ProductItem({ product }) {
         <div className='product-item'>
             <Link href={`/product/${product.slug}`}>
                 
-                    {/* <img 
+                    
+                <a>
+                    <Image
                         src={product.images} 
-                        alt={product.name} 
-                        className='rounded shadow-md bg-blue-100'
-                    /> */}
-                <Image
-                    src={product.images} 
-                    alt={product.name}
-                    width={100}
-                    height={100} 
-                    layout='responsive'
-                    className='rounded shadow-md bg-blue-100/50 cursor-pointer'/>
+                        alt={product.name}
+                        width={100}
+                        height={100} 
+                        layout='responsive'
+                        className='rounded shadow-md bg-blue-100/50 cursor-pointer'/>
+                </a>
             </Link>
 
             {/* info product-item */}

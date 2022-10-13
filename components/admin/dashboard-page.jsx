@@ -83,7 +83,6 @@ export default function AdminDashboardPage() {
 
     return (
         <div>
-            <h1 className='text-2xl text-center font-semibold !mt-2 !mb-4'>Admin Dashboard</h1>
             {
                 loading ? (
                     <div className='w-full h-screen flex items-center justify-center bg-gray-50'>

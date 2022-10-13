@@ -125,7 +125,7 @@ function Header() {
         />
     );
 
-    console.log(session?.user);
+    // console.log("session",session);
 
     return (
         <header>

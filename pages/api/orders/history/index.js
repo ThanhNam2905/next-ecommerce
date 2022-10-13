@@ -9,9 +9,9 @@ const handler = async (req, res) => {
         return res.status(401).send({ message: 'Bắt buộc phải đăng nhập'});
     }
 
-    const { user } = session;
+    const { _id } = session;
     await db.connect();
-    const orders = await Order.find({ user: user._id });
+    const orders = await Order.find({ user: _id });
     await db.disconnect();
     return res.send(orders);
 

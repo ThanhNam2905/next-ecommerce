@@ -132,7 +132,7 @@ export default function OrderDetailPage() {
         <div className='mt-6 mb-16'>
             <h2 className='text-[19px] font-semibold !mb-6'>
                 Chi tiết đơn hàng của bạn:
-                <span className='!ml-2 text-orange-600 inline-block italic'>DH{orderId}</span>
+                <span className='!ml-2 text-orange-600 inline-block italic'>DH{orderId.substring(18.24)}</span>
             </h2>
 
             {

@@ -99,8 +99,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     2. create Admin Menu(Sidebar).
     3. create Admin Screen.
     4. Implement admin sumary api.
-
-
+25. List Orders For Admin.
+    1. create orders page.
+    2. create orders api.
+    3. use api in page.
+26. Deliver Order For Admin.
+    1. create deliver api.
+    2. add deliver button.
+    3. implement click handler.
 
 First, run the development server:
 

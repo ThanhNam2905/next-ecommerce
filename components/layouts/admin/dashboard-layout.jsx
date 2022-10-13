@@ -17,8 +17,9 @@ function DashboardLayout({ title, children }) {
                 {/* Header component */}
                 <Header/>
 
-                <main className='container m-auto mb-12 mt-12 px-36'>
-                    <div className='grid grid-cols-1 md:grid-cols-4 md:gap-10'>
+                <main className='container m-auto mb-12 mt-8 px-36'>
+                    <h1 className='text-3xl text-gray-500 text-center font-semibold !my-4'>Admin Dashboard</h1>
+                    <div className='grid grid-cols-1 md:grid-cols-4 md:gap-7'>
                         {/* SideBarAdmin Component */}
                         <div className='md:col-span-1'>
                             <SidebarAdmin/>

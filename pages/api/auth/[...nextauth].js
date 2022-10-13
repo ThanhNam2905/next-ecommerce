@@ -20,28 +20,6 @@ export default NextAuth({
             return session;
         }
     },
-    // providers: [
-    //     CredentialsProvider({
-    //         async authorize(credentials) {
-    //             await db.connect();
-    //             const user = await User.findOne({
-    //                 email: credentials.email
-    //             });
-    //             await db.disconnect();
-    //             // Check user fill in email and password match on DB.
-    //             if(user && bcryptjs.compareSync(credentials.password, user.password)) {
-    //                 return {
-    //                     _id: user._id,
-    //                     name: user.name,
-    //                     email: user.email,
-    //                     image: 'f',
-    //                     isAdmin: user.isAdmin
-    //                 }
-    //             }
-    //             throw new Error('Email và mật khẩu của bạn không trùng khớp!!!');
-    //         }
-    //     })
-    // ]
     providers: [
         CredentialsProvider({
           async authorize(credentials) {
@@ -56,7 +34,7 @@ export default NextAuth({
                 _id: user._id,
                 name: user.name,
                 email: user.email,
-                image: 'test',
+                numberPhone: user.numberPhone,
                 isAdmin: user.isAdmin,
               };
             }

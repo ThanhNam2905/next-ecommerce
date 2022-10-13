@@ -9,11 +9,11 @@ const handler = async( req, res) => {
         return res.status(401).send('Bắt buộc phải đăng nhập')
     }
 
-    const { user } = session;
+    const { _id } = session;
     await db.connect();
     const newOrder = new Order({
         ...req.body,
-        user: user._id,
+        user: _id,
     });
 
     const order = await newOrder.save();

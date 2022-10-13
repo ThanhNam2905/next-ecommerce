@@ -4,7 +4,7 @@ import DashboardLayout from '../../components/layouts/admin/dashboard-layout';
 
 function AdminDashboardScreen() {
     return (
-        <DashboardLayout title='Trang Admin Dashboard'>
+        <DashboardLayout title='Admin Dashboard Home'>
             <AdminDashboardPage/>
         </DashboardLayout>
     )

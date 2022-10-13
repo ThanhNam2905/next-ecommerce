@@ -1,0 +1,12 @@
+
+.antd__drawer-custom .ant-drawer-content-wrapper {
+    @apply  !w-[80%];
+}
+
+.antd__drawer-custom .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar {
+    @apply  w-[10px] bg-stone-300 rounded-lg;
+}
+
+.antd__drawer-custom .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar-thumb {
+    @apply  bg-red-500 rounded-lg;
+}
