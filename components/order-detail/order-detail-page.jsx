@@ -1,4 +1,4 @@
-import { DollarCircleFilled } from '@ant-design/icons';
+import { DollarCircleFilled, ShoppingOutlined } from '@ant-design/icons';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import axios from 'axios';
 import Image from 'next/image';
@@ -108,7 +108,7 @@ export default function OrderDetailPage() {
                 dispatch({ type: 'PAY_SUCCESS', payload: data });
                 notification.success({
                     message: 'Thông báo',
-                    description: 'Đơn hàng của bạn đã được thanh toán thành công'
+                    description: 'Đơn hàng của bạn đã được thanh toán thành công.'
                 });
             } catch (error) {
                 dispatch({ type: 'PAY_FAIL', payload: getError(error)});
@@ -127,12 +127,11 @@ export default function OrderDetailPage() {
         });
     }
 
-
     return (
         <div className='mt-6 mb-16'>
             <h2 className='text-[19px] font-semibold !mb-6'>
                 Chi tiết đơn hàng của bạn:
-                <span className='!ml-2 text-orange-600 inline-block italic'>DH{orderId.substring(18.24)}</span>
+                <span className='!ml-2 text-orange-600 inline-block italic'>DH{orderId.substring(16,24)}</span>
             </h2>
 
             {
@@ -189,7 +188,10 @@ export default function OrderDetailPage() {
                                 }
                             </div>
                             <div className='px-6 pt-4 pb-6 rounded-lg shadow-md border text-slate-700'>
-                                <h4 className='font-semibold !mb-2.5 text-[17px]'>Giỏ hàng của bạn</h4>
+                                <h4 className='flex items-center gap-x-2 font-semibold !mb-2.5 text-[17px]'>
+                                    Giỏ hàng của bạn
+                                    <ShoppingOutlined className='!mt-0.5'/>    
+                                </h4>
                                 <table className='min-w-full'>
                                     <thead className='border-b border-gray-200'>
                                         <tr>
@@ -207,18 +209,22 @@ export default function OrderDetailPage() {
                                                         <Link href={`/product/${item.slug}`}>
                                                             <a className='flex items-center gap-x-4 my-4'>
                                                                 <Image
-                                                                    src={item.images}
+                                                                    src={item.imagesProduct[0].url_img}
                                                                     alt={item.name}
                                                                     width={60}
                                                                     height={60}
                                                                     className='bg-blue-100'
                                                                 />
-                                                                <span className='text-base italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
+                                                                <div className='flex flex-col'>
+                                                                    <p className='text-[16px] font-semibold line-clamp-1 hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</p>
+                                                                    <p className='text-[11px]'>Color: <span className='font-semibold italic'>{item.selectedColor}</span></p>
+                                                                    <p className='text-[11px]'>Size: <span className='font-semibold italic'>{item.selectedSize}</span></p>
+                                                                </div>
                                                             </a>
                                                         </Link>
                                                     </td>
                                                     <td className='p-5 text-right font-bold'>
-                                                        x{item.quantity}
+                                                        x{item.quantityItem}
                                                     </td>
                                                     <td className='p-5 text-right text-base font-semibold'>
                                                         {new Intl.NumberFormat().format(item.price)}
@@ -226,7 +232,7 @@ export default function OrderDetailPage() {
                                                     </td>
                                                     <td className='p-5 text-base font-bold'>
                                                         <p className='flex items-center justify-end'>
-                                                            {new Intl.NumberFormat().format(item.price * item.quantity)}
+                                                            {new Intl.NumberFormat().format(item.price * item.quantityItem)}
                                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
                                                         </p>
                                                     </td>

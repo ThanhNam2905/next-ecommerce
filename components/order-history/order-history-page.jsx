@@ -69,7 +69,7 @@ export default function OrderHistoryPage() {
                                     orders.map((order, index) => (
                                         <tr key={order._id} className='border-b h-20 border-gray-300 text-gray-700 last:border-b-0'>
                                             <td className='px-5'>{index + 1}</td>
-                                            <td className='px-5 font-semibold'>{order._id.substring(18, 24)}</td>
+                                            <td className='px-5 font-semibold'>DH{order._id.substring(16, 24)}</td>
                                             <td className='px-5 font-semibold'>{order.createdAt.substring(0, 10)}</td>
                                             <td className='px-5 text-red-600'>
                                                 <div className='flex items-center font-semibold'>
@@ -82,10 +82,11 @@ export default function OrderHistoryPage() {
                                             <td className='px-5'>
                                                 {order.isPaid ? (
                                                     <div>
-                                                        <Tag color="green"
+                                                        <Tag 
+                                                            color="green"
                                                             icon={<CheckCircleOutlined />}
                                                             className='!inline-flex !items-center !py-1.5 !px-2 !text-[14px] !gap-x-1.5'>
-                                                            Đã thanh toán
+                                                                Đã thanh toán
                                                         </Tag>
                                                         <span className='px-2'>,</span>
                                                         <Tag icon={<ClockCircleOutlined />} color="default"
@@ -102,8 +103,17 @@ export default function OrderHistoryPage() {
                                             <td className='px-5'>
                                                 {order.isDelivered ? (
                                                     <div>
-                                                        <Tag color="green" icon={<CheckCircleOutlined />} className='!inline-flex !items-center !py-1.5 !px-2 !text-[14px] !gap-x-1.5'>Đã giao hàng</Tag>
-                                                        <span className='pl-3 italic text-sm'>, {order.delivered_At.substring(0, 10)}</span>
+                                                        <Tag 
+                                                            color="green" 
+                                                            icon={<CheckCircleOutlined />} 
+                                                            className='!inline-flex !items-center !py-1.5 !px-2 !text-[14px] !gap-x-1.5'>
+                                                                Đã giao hàng
+                                                        </Tag>
+                                                        <span className='px-2'>,</span> 
+                                                        <Tag icon={<ClockCircleOutlined />} color="default"
+                                                            className='!inline-flex !items-center  !gap-x-1.5'>
+                                                            {order.delivered_At.substring(0, 10)}
+                                                        </Tag>
                                                     </div>
                                                 ) : (
                                                     <Tag color="warning" className='!py-1.5 !px-2.5 !text-[14px]'>Đang giao hàng</Tag>

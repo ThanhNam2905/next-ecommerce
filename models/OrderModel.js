@@ -10,8 +10,15 @@ const orderSchema = new mongoose.Schema(
         orderItems: [
             {
                 name: { type: String, require: true },
-                quantity: { type: Number, require: true },
-                images: { type: String, require: true },
+                quantityItem: { type: Number, require: true },
+                selectedColor: { type: String, require: true},
+                selectedSize: { type: String, require: true},
+                imagesProduct: [
+                    {
+                        public_id: { type: String, require: true },
+                        url_img: { type: String, require: true }
+                    }
+                ],
                 price: { type: Number, require: true }
             },
         ],

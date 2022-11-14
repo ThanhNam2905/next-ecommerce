@@ -9,7 +9,7 @@ import NotFoundProduct from './components/not-found-product';
 import { useRouter } from 'next/router';
 
 
-function ProductDetailPage({product}) {
+function ProductDetailPage({product, productsDetail}) {
 
     const router = useRouter();
     const query = router.query;
@@ -32,12 +32,12 @@ function ProductDetailPage({product}) {
             </div>
 
             {/* Product Detail */}
-            <div className='grid grid-cols-2 gap-x-8 my-6'>
+            <div className='grid grid-cols-12 gap-x-14 my-6'>
                 {/* Product Image */}
                 <ProductImage product={product}/>
                 
                 {/* Product Info */}
-                <ProductInfo product={product}/>
+                <ProductInfo product={product} productsDetail={productsDetail}/>
             </div>
         </>    
     );

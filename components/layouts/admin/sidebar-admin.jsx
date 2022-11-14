@@ -48,12 +48,12 @@ export default function SidebarAdmin() {
                                 <p>Quản lý sản phẩm</p>
                             </div>}
                             key="2"
-                            className="panel-item__customize group w-full h-full">
+                            className={`panel-item__customize group w-full h-full ${router.pathname === '/admin/products' ? ' active' : ''}`}>
 
                     <Link href="/admin/products">
                         <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
                             <UnorderedListOutlined className="mt-0.5"/>
-                            <span className="ml-1.5">Danh sách sản phẩm</span>
+                            <span className={`ml-1.5 ${router.pathname === '/admin/products' ? ' font-bold' : ''}`}>Danh sách sản phẩm</span>
                         </a>
                     </Link>
                     <Link href="/admin/products/create-product">
@@ -78,10 +78,30 @@ export default function SidebarAdmin() {
                     </Link>
                 </Panel>
                 <Panel header={<div className="ant-collapse-custom text-[17px] font-semibold flex items-center gap-x-2.5 text-gray-600 hover:text-blue-600">
+                                <FilePptOutlined className="text-[15px]" />
+                                <p>Quản lý danh mục SP</p>
+                            </div>}
+                            key="4"
+                            className={`panel-item__customize group w-full h-full ${router.pathname === '/admin/categories' ? ' active' : ''}`}>
+
+                    <Link href="/admin/categories">
+                        <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
+                            <UnorderedListOutlined className="mt-0.5"/>
+                            <span className={`ml-1.5 ${router.pathname === '/admin/categories' ? ' font-bold' : ''}`}>Danh sách danh mục SP</span>
+                        </a>
+                    </Link>
+                    <Link href="/admin/categories/create-categories">
+                        <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
+                            <FileAddOutlined className="mt-0.5 text-[14px]" />
+                            <span className="ml-1.5">Thêm danh mục SP</span>
+                        </a>
+                    </Link>
+                </Panel>
+                <Panel header={<div className="ant-collapse-custom text-[17px] font-semibold flex items-center gap-x-2.5 text-gray-600 hover:text-blue-600">
                                 <UsergroupAddOutlined className="text-[15px]" />
                                 <p>Quản lý thành viên</p>
                             </div>}
-                            key="4"
+                            key="5"
                             className="panel-item__customize group w-full h-full">
 
                     <Link href="/admin/users">

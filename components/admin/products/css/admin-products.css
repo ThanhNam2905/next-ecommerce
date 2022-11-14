@@ -1,0 +1,14 @@
+/* Customize CSS Antd Component Image */
+.group-avatar .ant-image {
+    @apply !mt-[1.2rem];
+}
+
+.ant-image-preview-img {
+    position: absolute;
+    top: 0;
+    left: 25%;
+    padding: 20px;
+    border-radius: 25px;
+    width: 50%;
+    @apply  !absolute top-0 left-1/4 p-5 rounded-md w-[50%]
+}

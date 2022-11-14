@@ -18,7 +18,7 @@ export default function PlaceOrderPage() {
     const router = useRouter();
 
     const round2 = (number) => Math.round(number * 100 + Number.EPSILON) / 100;
-    const itemPrice = round2(cartItems.reduce((a, c) => a + c.quantity * c.price, 0)); // 123.576 ==> 124
+    const itemPrice = round2(cartItems.reduce((a, c) => a + c.quantityItem * c.price, 0)); // 123.576 ==> 124
     const shippingPrice = infoOrder.shippingMethod === 'Nội thành' ? 25000 : 45000;
     const totalPrice = round2(itemPrice + shippingPrice);
 
@@ -33,7 +33,7 @@ export default function PlaceOrderPage() {
                 shippingMethod: infoOrder.shippingMethod,
                 itemsPrice: itemPrice,
                 shippingPrice: shippingPrice,
-                totalPrice: totalPrice
+                totalPrice: totalPrice,
             });
             setInterval(() => {
                 setLoading(false);
@@ -145,26 +145,30 @@ export default function PlaceOrderPage() {
                                                         <Link href={`/product/${item.slug}`}>
                                                             <a className='flex items-center gap-x-4 my-4'>
                                                                 <Image
-                                                                    src={item.images}
+                                                                    src={item.imagesProduct[0].url_img}
                                                                     alt={item.name}
-                                                                    width={60}
-                                                                    height={60}
-                                                                    className='bg-blue-100'
+                                                                    width={65}
+                                                                    height={65}
+                                                                    className='bg-slate-100 rounded-md'
                                                                 />
-                                                                <span className='text-base italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
+                                                                <div className='flex flex-col'>
+                                                                    <p className='text-[16px] font-semibold line-clamp-1 hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</p>
+                                                                    <p className='text-[11px]'>Color: <span className='font-semibold italic'>{item.selectedColor}</span></p>
+                                                                    <p className='text-[11px]'>Size: <span className='font-semibold italic'>{item.selectedSize}</span></p>
+                                                                </div>
                                                             </a>
                                                         </Link>
                                                     </td>
                                                     <td className='p-5 text-right font-bold'>
-                                                        x{item.quantity}
+                                                        x{item.quantityItem}
                                                     </td>
-                                                    <td className='p-5 text-right text-base font-semibold'>
+                                                    <td className='p-5 text-right text-base font-normal'>
                                                         {new Intl.NumberFormat().format(item.price)}
                                                         <sup className='underline ml-1 mt-1.5'>đ</sup>
                                                     </td>
-                                                    <td className='p-5 text-base font-bold'>
+                                                    <td className='p-5 text-base font-semibold'>
                                                         <p className='flex items-center justify-end'>
-                                                            {new Intl.NumberFormat().format(item.price * item.quantity)}
+                                                            {new Intl.NumberFormat().format(item.price * item.quantityItem)}
                                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
                                                         </p>
                                                     </td>

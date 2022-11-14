@@ -89,16 +89,6 @@ export default function OrderPage() {
         router.push('/place-order');
     }
 
-    // const listPaymentMethod = [
-    //     {
-    //         name: 'Paypal',
-    //         img: 'https://res.cloudinary.com/nam290596/image/upload/v1663868579/blog-website/paypal-logo-C83095A82C-seeklogo.com_fsf6ae.png'
-    //     },
-    //     {
-    //         name: 'Thanh toán khi nhận hàng',
-    //         img: 'https://cdn-icons-png.flaticon.com/512/1554/1554414.png'
-    //     }
-    // ]
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('');
     const handleChangePaymentMethod = (e) => {
         setSelectedPaymentMethod(e.target.value);
@@ -133,26 +123,25 @@ export default function OrderPage() {
             )
         }
         return (
-            <div> --- </div>
+            <span> --- </span>
         )
     }
 
     const renderTotalPrice = () => {
         if (selectedShippingMethod === 'Nội thành') {
             return (
-                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price), +25000))} </span>
+                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantityItem * c.price), +25000))} </span>
             )
         }
         else if (selectedShippingMethod === 'Ngoại thành / tỉnh') {
             return (
-                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantity * c.price), +45000))} </span>
+                <span>{new Intl.NumberFormat().format(cartItems.reduce((a, c) => (a + c.quantityItem * c.price), +45000))} </span>
             )
         }
         return (
-            <div> --- </div>
+            <span> --- </span>
         )
     }
-
 
     return (
         <div className='my-12'>
@@ -432,15 +421,19 @@ export default function OrderPage() {
                                 cartItems.length > 0 &&
                                 cartItems.map((item, index) => (
                                     <div key={index} className='flex items-center gap-x-5 py-4'>
-                                        <Badge count={item.quantity} size='default'>
+                                        <Badge count={item.quantityItem} size='default'>
                                             <Image
-                                                src={item.images}
+                                                src={item.imagesProduct[0].url_img}
                                                 alt={item.name}
                                                 width={80}
                                                 height={80}
                                                 className='!p-1.5 bg-white !border-2 !border-gray-500 rounded-md' />
                                         </Badge>
-                                        <p className='flex-1 text-[16px] font-semibold line-clamp-1'>{item.name}</p>
+                                        <div className='flex-1 flex flex-col'>
+                                            <p className='text-[17px] font-semibold line-clamp-1'>{item.name}</p>
+                                            <p className='text-sm'>Color: <span className='font-semibold italic'>{item.selectedColor}</span></p>
+                                            <p className='text-sm'>Size: <span className='font-semibold italic'>{item.selectedSize}</span></p>
+                                        </div>
                                         <p className='font-medium text-gray-600 text-[14px] italic'>
                                             {new Intl.NumberFormat().format(item.price)}
                                             <sup className='underline ml-1 mt-1.5'>đ</sup>
@@ -454,8 +447,8 @@ export default function OrderPage() {
                                 <p className='text-[16px] font-semibold text-gray-600'>
                                     Tạm tính:
                                 </p>
-                                <p className={`font-semibold text-gray-500 text-[15px]  ${selectedShippingMethod !== ' ' ? ' line-through italic' : ' '}`}>
-                                    {new Intl.NumberFormat().format(cartItems.reduce((a, c) => a + c.quantity * c.price, 0))}
+                                <p className={`font-semibold text-gray-500 text-[15px]  ${selectedShippingMethod !== '' ? ' line-through italic ' : ' '}`}>
+                                    {new Intl.NumberFormat().format(cartItems.reduce((a, c) => a + c.quantityItem * c.price, 0))}
                                     <sup className='underline ml-1 mt-1.5'>đ</sup>
                                 </p>
                             </div>

@@ -107,6 +107,27 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. create deliver api.
     2. add deliver button.
     3. implement click handler.
+27. List Products For Admin.
+    1. create products page.
+    2. create products api.
+    3. use api in page.
+28. List Users For Admin.
+    1. create users page.
+    2. create users api.
+    3. use api in page.
+29. List Categories For Admin.
+    1. create categories page.
+    2. create categories api.
+    3. use api in page.
+30. List Orders For Admin.
+    1. create Orders page.
+    2. create Orders api.
+    3. use api in page.
+30. List ProductTypes For Admin.
+    1. create ProductTypes page.
+    2. create ProductTypes api.
+    3. use api in page.
+
 
 First, run the development server:
 

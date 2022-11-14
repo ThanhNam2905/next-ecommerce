@@ -2,7 +2,7 @@ import { getSession } from 'next-auth/react'
 import Order from '../../../../models/OrderModel';
 import db from '../../../../utils/database';
 
-// /api/order/:id
+// /api/orders/:id
 const handler = async (req, res) => {
     const session = await getSession({ req });
     if(!session) {

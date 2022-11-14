@@ -1,4 +1,4 @@
-import { CheckCircleOutlined, ClockCircleOutlined, DollarCircleFilled, EditOutlined, ExclamationCircleOutlined, LoadingOutlined, ShoppingOutlined } from '@ant-design/icons'
+import { CheckCircleOutlined, ClockCircleOutlined, DollarCircleFilled, EditOutlined, ExclamationCircleOutlined, Loading3QuartersOutlined, LoadingOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { Button, Drawer, message, notification, Table, Tag } from 'antd';
 import axios from 'axios';
 import Image from 'next/image';
@@ -36,7 +36,7 @@ export default function AdminOrdersPage() {
 
     const [{ loading, error, orders, loadingDeliver, successDeliver }, dispatch] = useReducer(reducer, {
         loading: true,
-        orders: {},
+        orders: [],
         error: ''
     });
 
@@ -84,23 +84,14 @@ export default function AdminOrdersPage() {
             dataIndex: 'idOrder',
             key: 'idOrder',
             align: 'center',
-            width: 40,
-            render: (text) => <p className="text-center font-semibold">DH{text.substring(18, 24)}</p>
+            render: (text) => <p className="text-center font-semibold">DH{text.substring(16, 24)}</p>
         },
         {
-            title: 'Tên Khách Hàng',
+            title: 'Tên Tài Khoản',
             dataIndex: 'username',
             key: 'username',
             align: 'center',
-            width: 320,
-            render: (text) => <p className="text-center ">{text}</p>
-        },
-        {
-            title: 'SL Sản phẩm',
-            dataIndex: 'orderItems',
-            key: 'orderItems',
-            align: 'center',
-            render: (array) => <p className='italic'>{array.length > 0 && array.reduce((a, c) => a + c.quantity, 0)} sản phẩm</p>
+            render: (text) => <p className="text-center text-red-500">{text}</p>
         },
         {
             title: 'Ngày đặt hàng',
@@ -165,6 +156,10 @@ export default function AdminOrdersPage() {
                                     <div className='px-5 pt-4 pb-4 rounded-lg shadow-md border text-slate-700'>
                                         <h4 className='font-semibold !mb-2 text-[17px]'>Thông tin giao hàng</h4>
                                         <p className='text-[14px] !mb-2'>
+                                            Email tài khoản:
+                                            <span className='italic inline-block pl-2.5 font-semibold'>{itemOrder.user.email}.</span>
+                                        </p>
+                                        <p className='text-[14px] !mb-2'>
                                             Họ và tên:
                                             <span className='italic inline-block pl-2.5 font-semibold'>{itemOrder.shippingAddress.username}.</span>
                                         </p>
@@ -226,18 +221,22 @@ export default function AdminOrdersPage() {
                                                                 <Link href={`/product/${item.slug}`}>
                                                                     <a className='flex items-center gap-x-4 my-4'>
                                                                         <Image
-                                                                            src={item.images}
+                                                                            src={item.imagesProduct[0].url_img}
                                                                             alt={item.name}
                                                                             width={60}
                                                                             height={60}
                                                                             className='bg-blue-100'
                                                                         />
-                                                                        <span className='text-base italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
+                                                                        <div className='flex flex-col'>
+                                                                            <p className='text-[16px] font-semibold line-clamp-1 hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</p>
+                                                                            <p className='text-[11px]'>Color: <span className='font-semibold italic'>{item.selectedColor}</span></p>
+                                                                            <p className='text-[11px]'>Size: <span className='font-semibold italic'>{item.selectedSize}</span></p>
+                                                                        </div>
                                                                     </a>
                                                                 </Link>
                                                             </td>
                                                             <td className='p-5 text-right font-bold'>
-                                                                x{item.quantity}
+                                                                x{item.quantityItem}
                                                             </td>
                                                             <td className='p-5 text-right text-base font-semibold'>
                                                                 {new Intl.NumberFormat().format(item.price)}
@@ -245,7 +244,7 @@ export default function AdminOrdersPage() {
                                                             </td>
                                                             <td className='p-5 text-base font-bold'>
                                                                 <p className='flex items-center justify-end'>
-                                                                    {new Intl.NumberFormat().format(item.price * item.quantity)}
+                                                                    {new Intl.NumberFormat().format(item.price * item.quantityItem)}
                                                                     <sup className='underline ml-1 mt-1.5'>đ</sup>
                                                                 </p>
                                                             </td>
@@ -324,6 +323,7 @@ export default function AdminOrdersPage() {
             stt: item,
             idOrder: orders[item]._id,
             username: orders[item].user.name,
+            emailUser: orders[item].user.email,
             orderItems: orders[item].orderItems,
             createdAt: orders[item].createdAt,
             totalPrice: orders[item].totalPrice,
@@ -332,6 +332,7 @@ export default function AdminOrdersPage() {
             detailOrder: orders[item],
         })
     }
+    // console.log(orders);
 
     const deliverOrderHandler = async(idOrder) => {
         try {
@@ -361,13 +362,16 @@ export default function AdminOrdersPage() {
                 loading ? (
                     <div className='w-full h-screen flex items-center justify-center bg-gray-50'>
                         <h3 className='text-3xl text-gray-600 font-semibold shadow-lg inline-flex items-center gap-x-2.5'>
-                            <LoadingOutlined /> Loading...
+                            <Loading3QuartersOutlined className='text-[38px] animate-spin' /> Đang tải...
                         </h3>
                     </div>
                 ) : error ? (
                     <div className='alert--error'>{error}</div>
                 ) : (
-                    <Table columns={columns} dataSource={dataList} bordered />
+                    <Table 
+                        columns={columns} 
+                        dataSource={dataList} 
+                        bordered />
                 )
             }
         </>

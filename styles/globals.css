@@ -7,6 +7,8 @@
 
 @import url('../components/layouts/admin/css/dashboard-layout.css');
 @import url('../components/admin/orders/css/admin-orders.css');
+@import url('../components/product-detail/css/product-detail.css');
+@import url('../components/cart/css/cart-page.css');
 
 @layer base {
     * {
@@ -42,10 +44,6 @@
 }
 
 @layer components {
-    .product-item {
-        @apply block rounded-md border border-gray-200 shadow-lg;
-    }
-
     .btn {
         @apply rounded-md px-4 py-2 focus:outline-none cursor-pointer;
     }
@@ -79,11 +77,15 @@
     /* CSS Message Antd */
     .customize__antd--message-success
         .ant-message-custom-content.ant-message-success {
-        @apply !flex !items-center !gap-x-2;
-    }
+            @apply !flex !items-center !gap-x-2;
+    }   
     .customize__antd--message-error
         .ant-message-custom-content.ant-message-error {
-        @apply !flex !items-center !gap-x-2;
+            @apply !flex !items-center !gap-x-2;
+    }
+    .customize__antd--message-loading
+        .ant-message-custom-content.ant-message-loading {
+            @apply !flex !items-center !gap-x-3;
     }
 
     /* CSS style Header Component */
@@ -125,6 +127,8 @@
     .btn--reset-order {
         @apply bg-white !border-orange-400 !text-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md hover:!text-white hover:!bg-orange-500 active:!bg-orange-600;
     }
+
+    
 
     /* Hidden Arrow Input Number */
     /* Chrome, Safari, Edge, Opera */

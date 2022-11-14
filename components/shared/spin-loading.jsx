@@ -6,7 +6,7 @@ export default function SpinLoading() {
 
     const antIcon = (
         <LoadingOutlined
-          className='text-lg text-blue-500'
+          className='text-lg text-blue-600'
           spin
         />
     );

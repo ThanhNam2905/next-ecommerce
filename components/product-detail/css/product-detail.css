@@ -1,0 +1,30 @@
+
+
+.radio__customize--sizes .ant-radio-button-wrapper {
+    @apply w-12 h-12 !px-0 !font-semibold !border-2 !border-gray-400 !rounded !flex !items-center !justify-center before:!bg-transparent;
+}
+
+.radio__customize--sizes .ant-radio-button.ant-radio-button-checked .ant-radio-button-inner::after {
+    clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+    -moz-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+    -webkit-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+}
+
+.radio__customize--sizes .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span {
+    @apply  !font-bold !text-green-600;
+}
+
+
+.radio__customize--sizes .ant-radio-button.ant-radio-button-checked .ant-radio-button-inner {
+    @apply  after:!content-[''] after:!z-20 after:absolute after:bottom-0 after:right-0 after:!w-[85%] after:!h-[85%] after:bg-red-500;
+}
+
+.radio__customize--colors .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span::after {
+    clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+    -moz-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+    -webkit-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+}
+
+.radio__customize--colors .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span {
+    @apply  after:!content-[''] after:absolute after:bottom-[1.5px] after:right-[1.5px] after:!w-[90%] after:!h-[90%] after:bg-red-500;
+}
