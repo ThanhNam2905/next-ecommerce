@@ -11,6 +11,9 @@ export default function ProductPage({ products, productsDetail }) {
                     <ProductItem product={product} key={index} productsDetail={productsDetail}/>
                 ))
             }
+            {
+                products.length === 0 && <div>Không có sản phẩm nào</div> 
+            }
         </div>
     );
 }

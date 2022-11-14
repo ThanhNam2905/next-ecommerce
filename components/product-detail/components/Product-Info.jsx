@@ -121,16 +121,16 @@ export default function ProductInfo({ product }) {
             <div className='col-span-4'>
                 <ul >
                     <li className='mb-3'>
-                        <h2 className='text-[24px] font-semibold font-sans'>{product.name}</h2>
+                        <h2 className='text-[24px] font-semibold font-sans'>{product.nameProduct}</h2>
                     </li>
                     <li className='mb-3'>
                         <p className='text-[14px] uppercase font-semibold'>
-                            Mã sản phẩm: <span className='italic text-gray-500 font-semibold !ml-1.5'></span>
+                            Mã sản phẩm: <span className='italic text-gray-500 font-semibold !ml-1.5'>{product.codeProduct}</span>
                         </p>
                     </li>
                     <li className='mb-3'>
                         <p className='text-[14px] uppercase font-semibold'>
-                            Thương hiệu sản phẩm: <span className='italic text-gray-500 font-semibold !ml-1.5'>{product.brand}</span>
+                            Thương hiệu sản phẩm: <span className='italic text-gray-500 font-semibold !ml-1.5'>{product.brandProduct}</span>
                         </p>
                     </li>
                     <li className='mb-3'>
@@ -140,8 +140,8 @@ export default function ProductInfo({ product }) {
                         </p>
                     </li>
                     <li className='mb-4'>
-                        <p className='text-xl font-bold font-nunito text-red-500'>
-                            {new Intl.NumberFormat('vn-VN').format(product.price)}
+                        <p className='text-[22px] font-bold font-nunito text-red-500'>
+                            {new Intl.NumberFormat('vn-VN').format(product.priceProduct)}
                             <sup className='inline-block ml-1.5 !mt-0'>đ</sup>
                         </p>
                     </li>

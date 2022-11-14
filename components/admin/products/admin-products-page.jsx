@@ -1,6 +1,7 @@
-import { EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
-import { Table, Image, Button } from 'antd';
+import { AppstoreAddOutlined, EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
+import { Table, Image, Button, Tooltip } from 'antd';
 import axios from 'axios';
+import Link from 'next/link';
 // import Image from 'next/image';
 import React, { useEffect, useReducer, useState } from 'react'
 import { getError } from '../../../utils/getError';
@@ -14,6 +15,12 @@ function reducer(state, action) {
             return { ...state, loading: false, products: action.payload, error: '' };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
+        case 'CREATE_REQUEST': 
+            return { ...state, loadingCreate: true };
+        case 'CREATE_SUCCESS': 
+            return { ...state, loadingCreate: false };
+        case 'CREATE_FAIL': 
+            return { ...state, loadingCreate: false };
         default:
             return state;
     }
@@ -25,7 +32,8 @@ export default function AdminProductsPage() {
     const [{ loading, error, products }, dispatch] = useReducer(reducer, {
         loading: true,
         products: [],
-        error: ''
+        error: '',
+        loadingCreate: true
     });
 
     const [visible, setVisible] = useState(null);
@@ -58,30 +66,16 @@ export default function AdminProductsPage() {
             dataIndex: "nameProduct",
             key: 'nameProduct',
             align: 'center',
-            render: (text) => <p className="text-center font-semibold">{text}</p>
+            width: '20',
+            render: (text) => 
+                <div className="text-center font-semibold line-clamp-1">
+                    <Tooltip placement='bottom' title={text}>{text}</Tooltip>
+                </div>
         },
         {
-            title: 'Mã SP',
+            title: 'Code SP',
             dataIndex: "codeProduct",
             key: 'codeProduct',
-            align: 'center',
-            render: (text) => <p className="text-center">{text}</p>
-        },
-        {
-            title: 'Giá tiền',
-            dataIndex: "priceProduct",
-            key: 'priceProduct',
-            align: 'center',
-            render: (text) =>
-                <p className="text-center font-normal text-red-600">
-                    {new Intl.NumberFormat().format(text)}
-                    <sup className='underline ml-1 mt-6'>đ</sup>
-                </p>
-        },
-        {
-            title: 'Danh mục SP',
-            dataIndex: "categoryProduct",
-            key: 'categoryProduct',
             align: 'center',
             render: (text) => <p className="text-center">{text}</p>
         },
@@ -119,6 +113,17 @@ export default function AdminProductsPage() {
             )
         },
         {
+            title: 'Giá tiền',
+            dataIndex: "priceProduct",
+            key: 'priceProduct',
+            align: 'center',
+            render: (text) =>
+                <p className="text-center font-normal text-red-600">
+                    {new Intl.NumberFormat().format(text)}
+                    <sup className='underline ml-1 mt-6'>đ</sup>
+                </p>
+        },
+        {
             title: (
                 <>
                     <p>Hành động</p>
@@ -144,10 +149,9 @@ export default function AdminProductsPage() {
     for (let item = 0; item < products.length; item++) {
         listUsers.push({
             stt: item,
-            nameProduct: products[item].name,
+            nameProduct: products[item].nameProduct,
             codeProduct: products[item].codeProduct,
-            priceProduct: products[item].price,
-            categoryProduct: products[item].category,
+            priceProduct: products[item].priceProduct,
             imagesProducts: products[item].imagesProduct,
         })
     }
@@ -155,6 +159,13 @@ export default function AdminProductsPage() {
     return (
         <>
             <h2 className='text-[19px] text-center !mt-2 !mb-4'>Danh sách Sản phẩm</h2>
+            <div className='mb-5'>
+                <Button type="primary" size='large'>
+                    <Link href={`/admin/products/create-product`}>
+                        <a className='!text-white'>Thêm sản phẩm</a>
+                    </Link>
+                </Button>
+            </div>
 
             {
                 loading ? (

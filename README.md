@@ -1,7 +1,11 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+###### Clone Project NextJS Amazona. ######
+1. git clone https://github.com/ThanhNam2905/next-ecommerce.git
+2. Open Terminal Folder Project.
+3. Run command npm install.
 
+## Getting Started
 1. Introduction.
 2. Install Tools.
 3. Create Next App.
@@ -127,7 +131,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
     1. create ProductTypes page.
     2. create ProductTypes api.
     3. use api in page.
+31. Create Product and Delete Product Admin.
+    1. create form add products.
+    2. build new product api.
+    3. add handler for delete.
+    4. implement delete api.
 
+    
+     
 
 First, run the development server:
 
