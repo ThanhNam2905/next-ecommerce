@@ -1,14 +1,36 @@
 /* Customize CSS Antd Component Image */
-.group-avatar .ant-image {
-    @apply !mt-[1.2rem];
+.ant-image-preview-content .ant-image-preview-body .ant-image-preview-img-wrapper {
+    @apply  !flex !items-center !justify-center !py-6;
 }
 
-.ant-image-preview-img {
-    position: absolute;
-    top: 0;
-    left: 25%;
-    padding: 20px;
-    border-radius: 25px;
-    width: 50%;
-    @apply  !absolute top-0 left-1/4 p-5 rounded-md w-[50%]
+span.ant-upload-list-item-actions {
+    @apply  flex gap-x-1;
+}
+
+span.ant-upload-list-item-actions a {
+    @apply  flex items-center justify-center;
+}
+span.ant-upload-list-item-actions .ant-upload-list-item-card-actions-btn {
+    @apply  flex items-center justify-center;
+}
+
+
+/* Customize CSS Antd Component InputNumber */
+.antd__inputnumber--customize .ant-input-number-input{
+    @apply  focus:!ring-0 focus:!outline-none;
+}
+
+.antd__inputnumber--customize .ant-input-number-suffix {
+    @apply  pr-4;
+}
+
+/* Customize CSS Antd Component InputNumber */
+.ant-popover-buttons .ant-btn.ant-btn-sm {
+    @apply  px-4 h-8;
+}
+.ant-btn.ant-btn-primary.ant-btn-loading {
+    @apply  !inline-flex !items-center;
+}
+.ant-btn.ant-btn-primary.ant-btn-loading > .ant-btn-loading-icon {
+    @apply  !flex;
 }

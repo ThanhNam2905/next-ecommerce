@@ -1,52 +1,34 @@
 import { CameraOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, InputNumber, message, notification, Upload } from 'antd'
 import ImgCrop from 'antd-img-crop';
+import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-import React, { useReducer, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import toSlugNameProduct from '../../../../utils/convertStringToSlugName';
 import { getError } from '../../../../utils/getError';
 import uploadListImageProduct from '../../../../utils/uploadListImagesProduct';
 
+
 function reducer(state, action) {
     switch (action.type) {
-        case 'CREATE_REQUEST':
-            return { ...state, loadingCreate: true };
-        case 'CREATE_SUCCESS':
-            return { ...state, loadingCreate: false };
-        case 'CREATE_FAIL':
-            return { ...state, loadingCreate: false };
+        case 'UPDATE_REQUEST':
+            return { ...state, loadingUpdate: true };
+        case 'UPDATE_SUCCESS':
+            return { ...state, loadingUpdate: false };
+        case 'UPDATE_FAIL':
+            return { ...state, loadingUpdate: false };
         default:
             return state;
     }
 }
 
-export default function CreateProductAdminPage() {
-
+export default function EditProductAdminPage() {
     const router = useRouter();
-    const [{ loadingCreate, }, dispatch] = useReducer(reducer, {
-        loadingCreate: false,
-    });
+    const { id } = router.query;
 
-    const initialState = {
-        nameProduct: '',
-        codeProduct: '',
-        tagProduct: [],
-        priceProduct: 0,
-        brandProduct: '',
-        soldOut: 0,
-        description: '',
-    };
-
-    const [product, setProduct] = useState(initialState);
-    const { priceProduct } = product;
-    const [arrayListImagesProduct, setArrayListImagesProduct] = useState([]);
-
-    // Antd Form.
+    // Antd Form
     const [form] = Form.useForm();
-    form.setFieldValue({
-        priceProduct: priceProduct
-    })
     const layout = {
         labelCol: {
             span: 24,
@@ -55,10 +37,74 @@ export default function CreateProductAdminPage() {
             span: 24,
         },
     };
-    const { TextArea } = Input;
+
+    const [{ loadingUpdate }, dispatch] =
+        useReducer(reducer, {
+            loadingUpdate: false,
+        });
+
+    const [product, setProduct] = useState({
+        nameProduct: '',
+        slugProduct: '',
+        codeProduct: '',
+        tagProduct: [],
+        imagesProduct: [],
+        priceProduct: 0,
+        brandProduct: '',
+        description: '',
+    });
+
+    const [arrayListImagesProduct, setArrayListImagesProduct] = useState([{
+
+    }]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                if (id) {
+                    const { data } = await axios.get(`/api/admin/products/${id}`);
+                    await setProduct({
+                        nameProduct: data.nameProduct,
+                        slugProduct: data.slugProduct,
+                        codeProduct: data.codeProduct,
+                        tagProduct: data.tagProduct,
+                        imagesProduct: data.imagesProduct,
+                        priceProduct: data.priceProduct,
+                        brandProduct: data.brandProduct,
+                        description: data.description,
+                    });
+                }
+            } catch (error) {
+                notification.error({
+                    message: 'Thông báo',
+                    description: getError(error)
+                });
+            }
+        };
+        fetchData();
+    }, [id]);
+
+    useEffect(() => {
+        if (product) {
+            form.setFieldsValue({
+                nameProduct: product.nameProduct,
+                slugProduct: product.slugProduct,
+                codeProduct: product.codeProduct,
+                tagProduct: product.tagProduct,
+                priceProduct: product.priceProduct,
+                brandProduct: product.brandProduct,
+                description: product.description,
+            });
+
+            setArrayListImagesProduct(product.imagesProduct)
+
+        }
+    }, [form, product]);
 
     const handleChangeProductPrice = async (value) => {
-        await setProduct({ ...product, priceProduct: value })
+        await form.setFieldsValue({
+            priceProduct: value
+        })
     }
 
     const onPreviewImgProduct = async (file) => {
@@ -76,97 +122,99 @@ export default function CreateProductAdminPage() {
         imgWindow?.document.write(image.outerHTML);
     };
 
-    const handleChangeUploadImageProduct = async ({ fileList: newFileList }) => {
-        newFileList.forEach(file => {
-            if (file.originFileObj.size > 1024 * 1024) {
-                return message.error({
-                    content: 'Kích thước hình ảnh lớn nhất là 1mb',
-                    className: 'customize__antd--message-error'
-                })
+    const handleChangeUploadImageProduct = async (files) => {
+        const { file, fileList } = files;
+
+        if (file.size > 1024 * 1024) {
+            return message.error({
+                content: 'Kích thước hình ảnh lớn nhất là 1mb',
+                className: 'customize__antd--message-error'
+            })
+        }
+        // if (file.type !== "image/jpeg" && file.type !== "image/png" && file.type !== "image/jpg") {
+        //     return message.error({
+        //         content: 'Định dạng tệp hình ảnh không chính xác.',
+        //         className: 'customize__antd--message-error'
+        //     })
+        // }
+
+        if (id) {
+            // Delete Image Product
+            if (file && fileList.length > 0 && file.status === 'removed') {
+                const newListImageProduct = [...arrayListImagesProduct];
+                const index = newListImageProduct.findIndex(img => img.uid === file.uid);
+                newListImageProduct.splice(index, 1);
+                await setArrayListImagesProduct(newListImageProduct);
             }
-            if (file.originFileObj.type !== "image/jpeg" && file.originFileObj.type !== "image/png" && file.originFileObj.type !== "image/jpg") {
-                return message.error({
-                    content: 'Định dạng tệp hình ảnh không chính xác.',
-                    className: 'customize__antd--message-error'
-                })
-            }
-        })
-        await setArrayListImagesProduct(newFileList)
+            // Add Image Product
+            await setArrayListImagesProduct(fileList);
+        }
     }
 
-    // Feature Create a new Product
-    const onSubmitFormAddProduct = async (values) => {
-        dispatch({ type: 'CREATE_REQUEST' });
+    // Feature Submit Handler Edit Product
+    const onSubmitFormEditProduct = async (values) => {
+        // console.log(values);
+        dispatch({ type: 'UPDATE_REQUEST' });
         const {
             nameProduct,
             codeProduct,
-            brandProduct,
-            description,
             priceProduct,
+            brandProduct,
             tagProduct,
+            description
         } = values;
-
-        const slugProduct = toSlugNameProduct(nameProduct);
+        const slugProduct = toSlugNameProduct(values.nameProduct);
 
         let arrayListImg = [];
-        if (arrayListImagesProduct.length > 0) {
-            arrayListImg = await uploadListImageProduct(arrayListImagesProduct);
+        const imgNewURL = arrayListImagesProduct.filter(img => !img.url);
+        const imgOldURL = arrayListImagesProduct.filter(img => img.url);
+        if (imgNewURL.length > 0) {
+            arrayListImg = await uploadListImageProduct(imgNewURL);
         }
 
         try {
-            await axios.post(`/api/admin/products`, {
+            await axios.put(`/api/admin/products/${id}`, {
                 nameProduct,
-                slugProduct,
                 codeProduct,
-                brandProduct,
-                description,
                 priceProduct,
+                brandProduct,
                 tagProduct,
-                arrayListImg: [ ...arrayListImg],
+                description,
+                slugProduct,
+                arrayListImg: [ ...imgOldURL, ...arrayListImg],
             });
 
             setTimeout(() => {
-                dispatch({ type: 'CREATE_SUCCESS' });
+                dispatch({ type: 'UPDATE_SUCCESS' })
             }, 500);
-            
+
             notification.success({
                 message: 'Thông báo',
-                description: `Bạn vừa thêm sản phẩm thành công`
+                description: `Bạn vừa chỉnh sửa sản phẩm thành công`
             });
-            router.push('/admin/products')
+
+            router.push('/admin/products');
         } catch (error) {
-            dispatch({ type: 'CREATE_FAIL' });
+            dispatch({ type: 'UPDATE_FAIL' });
             notification.error({
                 message: 'Thông báo',
                 description: getError(error)
             });
         }
-
-        // reset input values
-        form.resetFields(['nameProduct']);
-        form.resetFields(['codeProduct']);
-
-        form.resetFields(['brandProduct']);
-        form.resetFields(['tagProduct']);
-        form.resetFields(['description']);
-        await form.setFieldValue({
-            priceProduct: 0
-        })
-        await setArrayListImagesProduct([]);
     }
 
     return (
         <>
-            <h2 className='text-[19px] text-center !mt-2 !mb-4 capitalize'>Thêm mới Sản phẩm</h2>
+            <h2 className='text-[19px] text-center !mt-2 !mb-4 capitalize'>Chỉnh sửa Sản phẩm</h2>
             <Form
-                name="form-create-product"
-                className="form-create-product"
+                name="form-edit-product"
+                className="form-edit-product"
                 form={form}
                 {...layout}
                 initialValues={{
                     remember: true,
                 }}
-                onFinish={onSubmitFormAddProduct}
+                onFinish={onSubmitFormEditProduct}
             >
                 <div className='flex gap-8'>
                     <Form.Item
@@ -178,15 +226,15 @@ export default function CreateProductAdminPage() {
                                 required: true,
                                 message: 'Tên sản phẩm không được để trống!',
                             },
-                            {
-                                unique: true,
-                                message: 'Tên sản phẩm không được trùng nhau!',
-                                warningOnly: true,
-                            }
+                            // {
+                            //     unique: true,
+                            //     message: 'Tên sản phẩm không được trùng nhau!',
+                            //     warningOnly: true,
+                            // }
                         ]}
                         hasFeedback
                     >
-                        <Input type="text" min={0} max={200} placeholder="Name product" className='!py-3 !px-4 !rounded-md' />
+                        <Input type="text" min={0} max={200} className='!py-3 !px-4 !rounded-md' />
                     </Form.Item>
                     <Form.Item
                         style={{ width: "50%" }}
@@ -205,7 +253,7 @@ export default function CreateProductAdminPage() {
                         ]}
                         hasFeedback
                     >
-                        <Input type="text" min={0} max={200} placeholder="Code product" className='!py-3 !px-4 !rounded-md' />
+                        <Input type="text" min={0} max={200} className='!py-3 !px-4 !rounded-md' />
                     </Form.Item>
                 </div>
 
@@ -214,7 +262,7 @@ export default function CreateProductAdminPage() {
                         style={{ width: "50%" }}
                         label="Giá tiền sản phẩm"
                         name="priceProduct"
-                        initialValue={priceProduct}
+
                         rules={[
                             {
                                 required: true,
@@ -248,7 +296,7 @@ export default function CreateProductAdminPage() {
                         ]}
                         hasFeedback
                     >
-                        <Input type="text" min={0} max={200} placeholder="Brand product" className='!py-3 !px-4 !rounded-md' />
+                        <Input type="text" min={0} max={200} className='!py-3 !px-4 !rounded-md' />
                     </Form.Item>
                 </div>
 
@@ -291,6 +339,7 @@ export default function CreateProductAdminPage() {
                                 className='!flex !items-center !justify-center'
                                 onChange={handleChangeUploadImageProduct}
                                 onPreview={onPreviewImgProduct}
+                                fileList={arrayListImagesProduct}
                                 multiple={true}
                             >
                                 <Button
@@ -318,7 +367,7 @@ export default function CreateProductAdminPage() {
                         ]}
                         hasFeedback
                     >
-                        <TextArea showCount rows={5} maxLength={1000000} placeholder='Description product...'/>
+                        <TextArea showCount rows={5} maxLength={1000000} />
                     </Form.Item>
                 </div>
 
@@ -327,23 +376,21 @@ export default function CreateProductAdminPage() {
                         style={{ width: "100%" }}
                     >
                         <Button type="primary" htmlType="submit" className='w-full !py-6 !flex items-center justify-center !text-lg'>
-
                             {
-                                loadingCreate ? (
+                                loadingUpdate ? (
                                     <div className='flex items-center gap-x-2'>
                                         <p>Đang tải...</p>
                                         <Loading3QuartersOutlined className='animate-spin' />
                                     </div>
                                 )
                                     : (
-                                        <p>Thêm sản phẩm</p>
+                                        <p>Chỉnh sửa sản phẩm</p>
                                     )
                             }
                         </Button>
                     </Form.Item>
                 </div>
             </Form>
-
         </>
     )
 }

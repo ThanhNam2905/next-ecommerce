@@ -423,7 +423,7 @@ export default function OrderPage() {
                                     <div key={index} className='flex items-center gap-x-5 py-4'>
                                         <Badge count={item.quantityItem} size='default'>
                                             <Image
-                                                src={item.imagesProduct[0].url_img}
+                                                src={item.imagesProduct[0].url}
                                                 alt={item.name}
                                                 width={80}
                                                 height={80}

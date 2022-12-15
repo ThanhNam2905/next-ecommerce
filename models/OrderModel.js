@@ -16,7 +16,7 @@ const orderSchema = new mongoose.Schema(
                 imagesProduct: [
                     {
                         public_id: { type: String, require: true },
-                        url_img: { type: String, require: true }
+                        url: { type: String, require: true }
                     }
                 ],
                 price: { type: Number, require: true }

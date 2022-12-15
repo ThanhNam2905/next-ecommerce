@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const productSchema = new mongoose.Schema(
     {
         nameProduct: { type: String, require: true, unique: true },
-        slugProduct: { type: String, require: true, unique: true },
+        slugProduct: { type: String, require: true },
         codeProduct: { type: String, require: true, unique: true },
         // categoryId: { 
         //     type: mongoose.Schema.Types.ObjectId,
@@ -18,7 +18,7 @@ const productSchema = new mongoose.Schema(
         imagesProduct: [
             {
                 public_id: { type: String, require: true },
-                url_img: { type: String, require: true }
+                url: { type: String, require: true }
             }
         ],
         tagProduct: { type: Array ,require: true, default: [] },

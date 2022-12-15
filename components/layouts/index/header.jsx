@@ -25,10 +25,10 @@ function Header() {
         getUserData();
     }, [session]);
 
-    // useEffect(() => {
-    //     // setCartItemCount(cart.cartItems.reduce((a, c) => a + c.quantityItem, 0));
-    //     setCartItemCount(cart.cartItems.length);
-    // }, [cart.cartItems]);
+    useEffect(() => {
+        setCartItemCount(cart.cartItems.reduce((a, c) => a + c.quantityItem, 0));
+        // setCartItemCount(cart.cartItems.length);
+    }, [cart.cartItems]);
 
     // Handler Event when User Logout.
     const handleLogout = () => {

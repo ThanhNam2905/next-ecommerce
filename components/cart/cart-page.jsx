@@ -35,17 +35,20 @@ export default function CartPage({productsDetail}) {
     }
 
     let countOfStockProduct = 0;
-    const renderCountOfStockProduct = productsDetail.length > 0 && productsDetail.filter(item => {
-        cartItems.filter((cartItem) => {
-            if(item.productId === cartItem._id 
-                && item.color === cartItem.selectedColor 
-                && item.size === cartItem.selectedSize) {
-                    countOfStockProduct = item.countOfStock;
-                    // return cartItem;
-            } 
-            // return cartItem;
-        })}       
-    );
+    if(productsDetail.length > 0) {
+        countOfStockProduct = productsDetail.filter(item => {
+            cartItems.filter((cartItem) => {
+                if(item.productId === cartItem._id 
+                    && item.color === cartItem.selectedColor 
+                    && item.size === cartItem.selectedSize) {
+                        countOfStockProduct = item.countOfStock;
+                        // return cartItem;
+                } 
+                // return cartItem;
+            })}       
+        );
+    }
+    
     // console.log('renderCountOfStockProduct ====>', renderCountOfStockProduct);
 
     const { Option } = Select;
@@ -123,13 +126,13 @@ export default function CartPage({productsDetail}) {
                                                 <td className='!py-4'>
                                                     <Link href={`/product/${item.slug}`}>
                                                         <a className='flex items-center gap-x-4'>
-                                                            <Image
-                                                                src={item.imagesProduct[0].url_img}
+                                                            {/* <Image
+                                                                src={item.imagesProduct[0].url}
                                                                 alt={item.name}
                                                                 width={70}
                                                                 height={70}
                                                                 className='bg-blue-100 rounded'
-                                                            />
+                                                            /> */}
                                                             <span className='text-base italic font-semibold hover:underline hover:underline-offset-4 transition ease-linear duration-300'>{item.name}</span>
                                                         </a>
                                                     </Link>
