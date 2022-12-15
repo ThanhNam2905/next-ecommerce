@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { MinusOutlined, PlusOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { StoreContext } from '../../../store/Store';
 // import { message, Radio, Tag, Tooltip } from 'antd';
+import { v4 as uuidv4 } from 'uuid';
 import { message } from 'antd';
 
 const key = 'loadingAddProductToCart';
@@ -71,10 +72,9 @@ export default function ProductInfo({ product }) {
 
     // Features add Product to Cart
     const handleAddToCart = async (idProduct) => {
-        // const existItem = cartItems.find((x) => x.idProduct === idProduct);
-        // const quantityItem = existItem ? existItem.quantityItem + quantity : quantity;
-        // console.log(existItem);
-        const idItemCart = Math.floor(Math.random() * 10000)
+        const existItem = cartItems.find((x) => x.idProduct === idProduct);
+        const quantityItem = existItem ? existItem.quantityItem + quantity : quantity;
+        const idItemCart = uuidv4();
 
         //  get Product with id
         // const { data } = await axios.get(`/api/products/${product._id}`);
@@ -90,7 +90,7 @@ export default function ProductInfo({ product }) {
             type: 'ADD_CART_ITEM', 
             payload: { 
                 idProduct, 
-                quantity, 
+                quantityItem, 
                 // selectedSize, 
                 // selectedColor,
                 idItemCart,

@@ -18,10 +18,11 @@ export default function ProductDetailScreen({ product, productsDetail }) {
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
+    console.log('params ==>', params);
 
     //  connect databse mongodb
     await db.connect();
-    const product = await Product.findOne({slug}).lean(); //  use lean() in mongoose convert from JSON to Object JS.
+    const product = await Product.findOne({slugProduct : slug}).lean(); //  use lean() in mongoose convert from JSON to Object JS.
     const productsDetail = await ProductDetail.find().lean();
     await db.disconnect();
     return {

@@ -9,6 +9,7 @@
 @import url('../components/admin/orders/css/admin-orders.css');
 @import url('../components/product-detail/css/product-detail.css');
 @import url('../components/cart/css/cart-page.css');
+@import url('../components/admin/products/css/admin-products.css');
 
 @layer base {
     * {
@@ -128,7 +129,6 @@
         @apply bg-white !border-orange-400 !text-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md hover:!text-white hover:!bg-orange-500 active:!bg-orange-600;
     }
 
-    
 
     /* Hidden Arrow Input Number */
     /* Chrome, Safari, Edge, Opera */
@@ -142,4 +142,6 @@
     input[type='number'] {
         -moz-appearance: textfield;
     }
+
+    
 }

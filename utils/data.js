@@ -4,7 +4,7 @@ const data = {
     users: [
         {
             name: 'Admin',
-            email: 'admin@example.com',
+            email: 'admin@gmail.com',
             password: bcrypt.hashSync('Admin123456'),
             isAdmin: true,
             numberPhone: '0942898298'
@@ -25,31 +25,31 @@ const data = {
             imagesProduct: [
                 {
                     public_id: 'v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg'
                 },
                 {
                     public_id: 'v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg'
                 },
                 {
                     public_id: 'v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg'
                 },
                 {
                     public_id: 'v1666422031/next-store-fashion/vngoods_453658_sub9_lbvc4j.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666422031/next-store-fashion/vngoods_453658_sub9_lbvc4j.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422031/next-store-fashion/vngoods_453658_sub9_lbvc4j.jpg'
                 },
                 {
                     public_id: 'v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg'
                 },
                 {
                     public_id: 'v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg'
                 },
                 {
                     public_id: 'v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg',
-                    url_img: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg'
+                    url: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg'
                 },
             ],
             tagProduct: ['new'],

@@ -145,7 +145,7 @@ export default function PlaceOrderPage() {
                                                         <Link href={`/product/${item.slug}`}>
                                                             <a className='flex items-center gap-x-4 my-4'>
                                                                 <Image
-                                                                    src={item.imagesProduct[0].url_img}
+                                                                    src={item.imagesProduct[0].url}
                                                                     alt={item.name}
                                                                     width={65}
                                                                     height={65}
