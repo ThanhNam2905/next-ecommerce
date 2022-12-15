@@ -9,7 +9,7 @@ const initialState = {
 };
 
 function Reducers(state, action) {
-    switch(action.type) {
+    switch (action.type) {
         case ACTIONS.ADD_CART_ITEM: {
             const newItem = action.payload;
             // TH1: khac id product.
@@ -17,15 +17,18 @@ function Reducers(state, action) {
             // TH3: cung id product, khac color, cung size.
             // TH4: cung id product, khac size, khac color.
             // TH5: cung id product, cung color, cung size.
-            let cartItems = state.cart.cartItems;
-            let fcart = {}
-            console.log(state.cart.cartItems)    
-            cartItems.push(newItem);
-            fcart.cartItems = cartItems
-            // const existItem = state.cart.cartItems.find((item) => item.idProduct === newItem.idProduct);
+
+            // let cartItems = state.cart.cartItems;
+            // let fcart = {}
+            // console.log(state.cart.cartItems)    
+            // cartItems.push(newItem);
+            // fcart.cartItems = cartItems
+
+            // return { ...state, cart : fcart };
+
+            const existItem = state.cart.cartItems.find((item) => item.idProduct === newItem.idProduct);
 
 
-            
             // const cartItems = existItem ? state.cart.cartItems.map((item) => {
             //     if( item.idProduct === newItem.idProduct &&
             //         item.selectedColor === newItem.selectedColor &&
@@ -50,28 +53,38 @@ function Reducers(state, action) {
             //             item.selectedSize === newItem.selectedSize) {
             //             alert('TH5: cung id product, cung color, cung size.');
             //             return {...existItem, quantity: newItem.quantity + existItem.quantity};
-                        
+
             //     }
-               
-                
+
+
             // }) : [...state.cart.cartItems, {...newItem}]; // TH1: khac id product.
-            
+
             // Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
-            return { ...state, cart : fcart };
+
+
             
+
+            const cartItems = existItem
+                ? state.cart.cartItems.map((item) =>
+                    item.name === existItem.name ? newItem : item
+                )
+                : [...state.cart.cartItems, newItem];
+            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+            return { ...state, cart: { ...state.cart, cartItems } };
+
         }
 
         case ACTIONS.REMOVE_CART: {
             const cartItems = state.cart.cartItems.filter((item) => item.slug !== action.payload.slug);
-            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems}));
-            return { ...state, cart: { ...state.cart, cartItems}};
+            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+            return { ...state, cart: { ...state.cart, cartItems } };
         }
 
         case ACTIONS.RESET_CART: {
             return {
                 ...state, cart: {
                     cartItems: [],
-                    shippingAddress: { location: {}},
+                    shippingAddress: { location: {} },
                     paymentMethod: '',
                 }
             };
@@ -79,8 +92,8 @@ function Reducers(state, action) {
 
         case ACTIONS.SAVE_INFO_ORDER: {
             return {
-                ...state, 
-                cart : {
+                ...state,
+                cart: {
                     ...state.cart,
                     infoOrder: {
                         ...state.cart.infoOrder,
@@ -105,7 +118,7 @@ function Reducers(state, action) {
 
 export function StoreProvider({ children }) {
     const [state, dispatch] = useReducer(Reducers, initialState);
-    const value = { state, dispatch};
+    const value = { state, dispatch };
 
     return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
 }

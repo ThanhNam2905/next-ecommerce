@@ -17,7 +17,7 @@ export default function ProductItem({ product }) {
         <div className='block rounded-md border-gray-200 shadow-xl group'>
             <div className='relative !overflow-hidden'>
                 <Image
-                    src={product.imagesProduct[0].url_img} 
+                    src={product.imagesProduct[0].url} 
                     alt={product.nameProduct}
                     width={100}
                     height={100} 

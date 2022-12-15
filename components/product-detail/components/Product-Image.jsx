@@ -12,8 +12,8 @@ export default function ProductImage({ product }) {
                                 return (
                                     <div className='col-span-1 h-[90px]' key={index}>
                                         <Image 
-                                            src={img.url_img} 
-                                            alt={img.url_img}
+                                            src={img.url} 
+                                            alt={img.url}
                                             width={100}
                                             height={100}
                                             layout="responsive"
@@ -25,7 +25,7 @@ export default function ProductImage({ product }) {
                 </div>
                 <div className='col-span-8'>
                     <Image 
-                        src={product.imagesProduct[0].url_img} 
+                        src={product.imagesProduct[0].url} 
                         alt={product.name}
                         width={100}
                         height={100}

@@ -59,7 +59,7 @@ export default function SidebarAdmin() {
                     <Link href="/admin/products/create-product">
                         <a className="text-[15px] text-gray-600 gap-x-2.5 py-1.5 mb-1.5 flex items-center hover:bg-gray-100 px-4 rounded">
                             <FileAddOutlined className="mt-0.5 text-[14px]" />
-                            <span className="ml-1.5">Thêm sản phẩm</span>
+                            <span className={`ml-1.5 ${router.pathname === '/admin/products/create-product' ? ' font-bold' : ''}`}>Thêm sản phẩm</span>
                         </a>
                     </Link>
                 </Panel>
