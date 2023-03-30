@@ -18,7 +18,6 @@ export default function ProductDetailScreen({ product, productsDetail }) {
 export async function getServerSideProps(context) {
     const { params } = context;
     const { slug } = params;
-    console.log('params ==>', params);
 
     //  connect databse mongodb
     await db.connect();

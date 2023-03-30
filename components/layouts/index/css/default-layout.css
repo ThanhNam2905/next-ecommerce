@@ -1,0 +1,11 @@
+    /* Customize CSS Drawer Antd */
+    .antd__drawer-cart .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar {
+        width: 12px;
+        background-color: #c1c0c0;
+        border-radius: 0.3rem;
+    }
+    
+    .antd__drawer-cart .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar-thumb {
+        background-color: rgb(68 64 60);
+        border-radius: 0.3rem;
+    }

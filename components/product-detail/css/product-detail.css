@@ -1,30 +1,43 @@
 
-
 .radio__customize--sizes .ant-radio-button-wrapper {
-    @apply w-12 h-12 !px-0 !font-semibold !border-2 !border-gray-400 !rounded !flex !items-center !justify-center before:!bg-transparent;
+    width: 55px;
+    height: 55px;
+    font-size: 16px;
+    font-weight: 600;
+    border: 1px solid rgb(186, 187, 190) !important;
+    border-left: 1px solid rgb(186, 187, 190) !important;
+    border-radius: 0.125rem/* 2px */ !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-.radio__customize--sizes .ant-radio-button.ant-radio-button-checked .ant-radio-button-inner::after {
-    clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
-    -moz-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
-    -webkit-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
+.radio__customize--sizes .ant-radio-button-wrapper:hover {
+    border: 2px solid rgb(107 114 128) !important;
+    border-left-width: 2px !important;
+    border-left-color: rgb(107 114 128) !important;
+    
 }
+.radio__customize--sizes .ant-radio-button-wrapper .ant-radio-button + span {
+    color: #000000 !important;
+} 
 
 .radio__customize--sizes .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span {
-    @apply  !font-bold !text-green-600;
+    color: #ffffff !important;
 }
 
-
-.radio__customize--sizes .ant-radio-button.ant-radio-button-checked .ant-radio-button-inner {
-    @apply  after:!content-[''] after:!z-20 after:absolute after:bottom-0 after:right-0 after:!w-[85%] after:!h-[85%] after:bg-red-500;
+.radio__customize--sizes .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked {
+    background-color: rgb(17 24 39) !important;
+    width: 100%;
+    height: 100%;
 }
 
-.radio__customize--colors .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span::after {
-    clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
-    -moz-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
-    -webkit-clip-path: polygon(100% 63%, 0% 100%, 100% 100%);
-}
-
-.radio__customize--colors .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked + span {
-    @apply  after:!content-[''] after:absolute after:bottom-[1.5px] after:right-[1.5px] after:!w-[90%] after:!h-[90%] after:bg-red-500;
+.radio__customize--sizes .ant-radio-button-wrapper .ant-radio-button.ant-radio-button-checked::before {
+    width: 100%;
+    height: 100%;
+    content: '\2713' !important;
+    display: inline-flex !important;
+    color: #ffffff !important;
+    align-items: end;
+    justify-content: end;
+    padding-right: 5px;
 }

@@ -13,6 +13,7 @@ const productDetailSchema = new mongoose.Schema(
             ref: 'Product',
             require: true
         },
+        soldOut: { type: Number, require: true, default: 0 },
     }, {
         timestamps: true
     }

@@ -4,7 +4,6 @@ const productSchema = new mongoose.Schema(
     {
         nameProduct: { type: String, require: true, unique: true },
         slugProduct: { type: String, require: true },
-        codeProduct: { type: String, require: true, unique: true },
         // categoryId: { 
         //     type: mongoose.Schema.Types.ObjectId,
         //     ref: 'Category', 
@@ -24,7 +23,6 @@ const productSchema = new mongoose.Schema(
         tagProduct: { type: Array ,require: true, default: [] },
         priceProduct: { type: Number, require: true, default: 0 },
         brandProduct: { type: String, require: true, default: '' },
-        soldOut: { type: Number, require: true, default: 0 },
         description: { type: String, require: true, default: '' },
     }, {
         timestamps: true

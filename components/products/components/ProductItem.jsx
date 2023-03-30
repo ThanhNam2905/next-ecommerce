@@ -1,17 +1,17 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-// import { Tag, Tooltip } from 'antd';
+import { Tag, Tooltip } from 'antd';
 
-export default function ProductItem({ product }) {
+export default function ProductItem({ product, productsDetail }) {
 
-    // let listArrayColor = [];
-    // const renderListColor = productsDetail.filter((item) => {
-    //     if(item.productId === product._id && !listArrayColor.includes(item.color)) {
-    //         listArrayColor.push(item.color);
-    //         return item;
-    //     }
-    // });
+    let listArrayColor = [];
+    const renderListColor = productsDetail.filter((item) => {
+        if(item.productId === product._id && !listArrayColor.includes(item.color)) {
+            listArrayColor.push(item.color);
+            return item;
+        }
+    });
 
     return (
         <div className='block rounded-md border-gray-200 shadow-xl group'>
@@ -42,7 +42,7 @@ export default function ProductItem({ product }) {
                     {new Intl.NumberFormat().format(product.priceProduct)} 
                     <sup className='underline ml-1 !mt-2.5 inline-block'>đ</sup>
                 </p>
-                {/* <div className='flex items-center gap-3 my-2'>
+                <div className='flex items-center gap-3 my-2'>
                     { renderListColor.length > 0 &&
                         renderListColor.map((item) => (
                             <Tooltip 
@@ -57,7 +57,7 @@ export default function ProductItem({ product }) {
                             </Tooltip>
                         ))
                     }
-                </div> */}
+                </div>
             </div>
         </div>
     )

@@ -7,16 +7,19 @@ function DefaultLayout({ title, children }) {
     return (
         <>
             <Head>
-                <title>{title ? title + ' - Amazona' : 'Amazona'}</title>
+                <title>{title ? title + ' - Shop' : 'Amazona'}</title>
                 <meta name="description" content="Ecommerce Website" />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <div className="flex flex-col min-h-screen justify-between">
+            <div className="flex flex-col min-h-screen">
+                <div className='w-full h-screen bg-blue-400 hidden'>
+
+                </div>
                 {/* Header component */}
                 <Header/>
 
-                <main className='container m-auto mt-6 px-36'>
+                <main className='container m-auto mt-6 px-16'>
                     {children}
                 </main>
                 
