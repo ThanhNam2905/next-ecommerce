@@ -1,82 +1,114 @@
-import { createContext, useReducer } from 'react';
+import { createContext, useEffect, useReducer } from 'react';
 import { ACTIONS } from './Actions'
-import Cookies from 'js-cookie'
 
 export const StoreContext = createContext();
 
-const initialState = {
-    cart: Cookies.get('cart') ? JSON.parse(Cookies.get('cart')) : { cartItems: [], infoOrder: {} },
-};
+export function StoreProvider({ children }) {
+    
+    const initialState = {
+        cart: {
+            cartItems: [],
+            infoOrder: {},
+        }
+    };
+   
+    const [state, dispatch] = useReducer(Reducers, initialState);
+    const { cart } = state;
 
+    useEffect(() => {
+        let cartItemList = JSON.parse(localStorage.getItem('cartItems'));
+        if(cartItemList) {
+            return cart.cartItems = cartItemList;
+            
+        }
+    }, []);
+
+    useEffect(() => {
+        localStorage.setItem("cartItems", JSON.stringify(cart.cartItems))
+    }, [cart.cartItems]);
+
+    
 function Reducers(state, action) {
     switch (action.type) {
         case ACTIONS.ADD_CART_ITEM: {
             const newItem = action.payload;
-            // TH1: khac id product.
-            // TH2: cung id product, cung color, khac size.
-            // TH3: cung id product, khac color, cung size.
-            // TH4: cung id product, khac size, khac color.
-            // TH5: cung id product, cung color, cung size.
 
-            // let cartItems = state.cart.cartItems;
-            // let fcart = {}
-            // console.log(state.cart.cartItems)    
-            // cartItems.push(newItem);
-            // fcart.cartItems = cartItems
+            let isNew = true;
+            let cartItems = [];
+            for (let i = 0; i < state.cart.cartItems.length; i++) {
+                let item = state.cart.cartItems[i]
+                if (item.idProduct == newItem.idProduct &&
+                    item.selectedColor == newItem.selectedColor &&
+                    item.selectedSize == newItem.selectedSize) {
+                    item.quantity += newItem.quantity
+                    cartItems = [...state.cart.cartItems];
+                    isNew = false;
+                    break;
+                }
+            }
 
-            // return { ...state, cart : fcart };
-
-            const existItem = state.cart.cartItems.find((item) => item.idProduct === newItem.idProduct);
-
-
-            // const cartItems = existItem ? state.cart.cartItems.map((item) => {
-            //     if( item.idProduct === newItem.idProduct &&
-            //         item.selectedColor === newItem.selectedColor &&
-            //         item.selectedSize !== newItem.selectedSize) {
-            //             alert(`TH2: cung id product, cung color, khac size.`)
-            //             return [ ...state.cart.cartItems, ...newItem];
-            //     }
-            //     else if(item.idProduct === newItem.idProduct &&
-            //             item.selectedColor !== newItem.selectedColor &&
-            //             item.selectedSize === newItem.selectedSize) {
-            //             alert(`TH3: cung id product, khac color, cung size.`)
-            //             return [ ...state.cart.cartItems, ...newItem];
-            //     }
-            //     else if(item.idProduct === newItem.idProduct &&
-            //         item.selectedColor !== newItem.selectedColor &&
-            //         item.selectedSize !== newItem.selectedSize) {
-            //             alert(`TH4: cung id product, khac size, khac color.`)
-            //             return [ ...state.cart.cartItems, ...newItem];
-            //         }
-            //     else if(item.idProduct === newItem.idProduct &&
-            //             item.selectedColor === newItem.selectedColor &&
-            //             item.selectedSize === newItem.selectedSize) {
-            //             alert('TH5: cung id product, cung color, cung size.');
-            //             return {...existItem, quantity: newItem.quantity + existItem.quantity};
-
-            //     }
-
-
-            // }) : [...state.cart.cartItems, {...newItem}]; // TH1: khac id product.
-
-            // Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
-
-
-            
-
-            const cartItems = existItem
-                ? state.cart.cartItems.map((item) =>
-                    item.name === existItem.name ? newItem : item
-                )
-                : [...state.cart.cartItems, newItem];
-            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+            if (isNew) {
+                cartItems = [...state.cart.cartItems, newItem];
+            }
             return { ...state, cart: { ...state.cart, cartItems } };
-
         }
 
-        case ACTIONS.REMOVE_CART: {
-            const cartItems = state.cart.cartItems.filter((item) => item.slug !== action.payload.slug);
-            Cookies.set('cart', JSON.stringify({ ...state.cart, cartItems }));
+        case ACTIONS.REMOVE_ITEM_CART: {
+            const itemId = action.payload;
+            const cartItems = state.cart.cartItems.filter((item) => item.itemId !== itemId);
+            return { ...state, cart: { ...state.cart, cartItems } };
+        }
+
+        case ACTIONS.INCREASE_QTY_ITEM_CART: {
+            const itemId = action.payload;
+            let cartItems = [];
+            for(let i = 0; i < state.cart.cartItems.length; i++) {
+                let item = state.cart.cartItems[i];
+                if(item.itemId === itemId) {
+                    item.quantity--;
+                    cartItems = [...state.cart.cartItems];
+                }
+            }
+            return { ...state, cart: { ...state.cart, cartItems } };
+        }
+
+        case ACTIONS.DECREASE_QTY_ITEM_CART: {
+            const itemId = action.payload;
+            let cartItems = [];
+            for(let i = 0; i < state.cart.cartItems.length; i++) {
+                let item = state.cart.cartItems[i];
+                // if(item.quantity > item.countOfStock) {
+                //     message.warning({
+                //         content: 'Số lượng sản phẩm trong của hàng không đủ cho bạn',
+                //         className: 'customize__antd--message-success'
+                //     })
+                //     cartItems = [...state.cart.cartItems];
+                //     return;
+                // }
+                if(item.itemId === itemId) {
+                    item.quantity++;
+                    cartItems = [...state.cart.cartItems];
+                }
+            }
+            // state.cart.cartItems.forEach(item => {
+            //     if(item.quantity > item.countOfStock) {
+            //         message.warning({
+            //             content: 'Số lượng sản phẩm trong của hàng không đủ cho bạn',
+            //             className: 'customize__antd--message-success'
+            //         })
+            //         cartItems = [...state.cart.cartItems];
+            //         return;
+            //     }
+            //     if(item.itemId === itemId) {
+            //         item.quantity++;
+            //         cartItems = [...state.cart.cartItems];
+            //     }
+            // })
+            return { ...state, cart: { ...state.cart, cartItems } };
+        }
+
+        case ACTIONS.UPDATE_QUANTITY_ITEM_CART: {
+            const { cartItems } = action.payload;
             return { ...state, cart: { ...state.cart, cartItems } };
         }
 
@@ -116,9 +148,9 @@ function Reducers(state, action) {
     }
 }
 
-export function StoreProvider({ children }) {
-    const [state, dispatch] = useReducer(Reducers, initialState);
-    const value = { state, dispatch };
-
-    return <StoreContext.Provider value={value}>{children}</StoreContext.Provider>
+    return (
+        <StoreContext.Provider value={{state, dispatch}}>
+            {children}
+        </StoreContext.Provider>
+    )
 }

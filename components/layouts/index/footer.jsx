@@ -14,7 +14,7 @@ function Footer() {
                     <input type="submit" value="Đăng ký" className='cursor-pointer uppercase font-semibold rounded-tr-full rounded-br-full btn btn--primary transition ease-in-out duration-300' />
                 </form>
             </div>
-            <div className='px-36 grid grid-cols-4 py-8'>
+            <div className='px-20 grid grid-cols-4 py-8'>
                 <div className='grid-cols-1'>
                     <h3 className='text-xl font-semibold capitalize'>Giới thiệu</h3>
                     <ul className='text-[14px] capitalize mt-4 space-y-4'>

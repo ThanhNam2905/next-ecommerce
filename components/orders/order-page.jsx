@@ -7,14 +7,16 @@ import { StoreContext } from '../../store/Store'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie';
 import Image from 'next/image'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 export default function OrderPage() {
 
     const { state, dispatch } = useContext(StoreContext);
+    const { data: session} = useSession();
     const { cart } = state;
     const { cartItems } = cart;
     const router = useRouter();
-
 
     const { Option } = Select;
     const { TextArea } = Input;
@@ -23,6 +25,8 @@ export default function OrderPage() {
             span: 24,
         },
     };
+
+    console.log('session ==>', session.user.email);
 
     const [form] = Form.useForm();
     const handleResetValueField = () => {
@@ -144,10 +148,45 @@ export default function OrderPage() {
     }
 
     return (
-        <div className='my-12'>
-            <CheckoutWizard activeStepOrder={1} />
-            {/* Form Order  */}
+        <div className='mt-6 mb-12'>
+            {/* Breadcrumbs component */}
+            <div className='flex flex-col items-center justify-center mb-6'>
+                <div className="flex items-center justify-center mb-5">
+                    <Link href="/" passHref legacyBehavior>
+                        <a>
+                            <Image
+                                src='https://res.cloudinary.com/nam290596/image/upload/v1679468426/next-store-fashion/logo-shop-10_pqnlwu.png'
+                                alt='logo image'
+                                width={125}
+                                height={50}
+                                className='cursor-pointer'
+                            />
+                        </a>
+                    </Link>
+                </div>
+                <div className='flex items-center gap-x-[5px] text-[15px]'>
+                    <Link href={"/"}>
+                        <h2 title='Trang chủ' className='font-normal cursor-pointer text-gray-500' >
+                            Trang chủ
+                        </h2>
+                    </Link>
+                    <p className='text-lg'>/</p>
+                    <h2 className='text-gray-800'>Đặt hàng</h2>
+                </div>
+            </div>
 
+            {/* CheckoutWizard Component */}
+            <CheckoutWizard activeStepOrder={1} />
+
+            <div className='border-y py-10 border-gray-300'>
+                <div className='flex items-center gap-x-3 text-gray-400'>
+                    <UserOutlined className='text-2xl'/>
+                    <p className='text-2xl font-bold'>Đăng nhập</p>
+                </div>
+                <p className='text-gray-500 text-[14px] font-semibold !ml-9 !mt-2'>{session.user.email}</p>
+            </div>
+
+            {/* Form Order  */}
             <div className='grid grid-cols-12 gap-x-7'>
                 <div className="col-span-7 px-6 py-3 rounded">
                     <h3 className='col-span-12 px-6 text-[18px] !my-4 py-2 bg-blue-100/40 inline-block rounded-md'>Thông tin giao hàng</h3>
@@ -320,21 +359,6 @@ export default function OrderPage() {
                                 }
                             ]}>
                             <Radio.Group onChange={handleChangePaymentMethod}>
-                                {/* {
-                                    listPaymentMethod.map((payment, index) => (
-                                        <div key={index} className='mb-5'>
-                                            <Radio 
-                                                value={payment.name}
-                                                checked={selectedPaymentMethod === payment.name}
-                                                className='!flex !items-center gap-x-3 !space-y-2'>
-                                                    <div className='flex items-center gap-x-4'>
-                                                        <img src={payment.img} alt={payment.name} className='w-9 h-9 mt-2'/>
-                                                        <span className='text-base font-semibold'>{payment.name}</span>
-                                                    </div>
-                                            </Radio>
-                                        </div>
-                                    ))
-                                } */}
                                 <div className='my-3 space-y-3'>
                                     <Radio
                                         value='Paypal'
@@ -423,7 +447,7 @@ export default function OrderPage() {
                                     <div key={index} className='flex items-center gap-x-5 py-4'>
                                         <Badge count={item.quantityItem} size='default'>
                                             <Image
-                                                src={item.imagesProduct[0].url}
+                                                src={item.imagesProduct}
                                                 alt={item.name}
                                                 width={80}
                                                 height={80}

@@ -1,5 +1,5 @@
 import { DeleteOutlined, EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
-import { Table, Image, Button, Tooltip, Popconfirm, notification } from 'antd';
+import { Table, Image, Button, Tooltip, Popconfirm, notification, Pagination } from 'antd';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
@@ -266,11 +266,15 @@ export default function AdminProductsPage() {
                 ) : error ? (
                     <div className='alert--error'>{error}</div>
                 ) : (
+                    <>
                     <Table
                         key={1}
                         columns={columns}
                         dataSource={listUsers}
+                        
                         bordered />
+                        <Pagination defaultCurrent={1}  pageSize={1} />
+                        </>
                 )
             }
         </>

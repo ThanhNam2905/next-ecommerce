@@ -32,7 +32,7 @@ function ProductDetailPage({product, productsDetail}) {
             </div>
 
             {/* Product Detail */}
-            <div className='grid grid-cols-12 gap-x-14 my-6'>
+            <div className='grid grid-cols-12 gap-x-10 my-6'>
                 {/* Product Image */}
                 <ProductImage product={product}/>
                 
