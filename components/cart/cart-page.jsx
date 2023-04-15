@@ -257,7 +257,7 @@ export default function CartPage({ productsDetail }) {
                                         </p>
                                     </li>
                                     <button
-                                        type='button' className='btn btn--primary py-2.5 font-medium text-[14px] w-full uppercase rounded'
+                                        type='button' className='btn btn__primary--index py-2.5 font-medium text-[14px] w-full uppercase rounded'
                                         onClick={() => router.push('login?redirect=/order')}>
                                         Thanh toán
                                         <span className='!ml-1.5'>

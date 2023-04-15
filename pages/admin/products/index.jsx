@@ -4,7 +4,7 @@ import DashboardLayout from '../../../components/layouts/admin/dashboard-layout'
 
 function AdminProductScreen() {
     return (
-        <DashboardLayout title='Admin Products Page'>
+        <DashboardLayout title='Admin Product Page'>
             <AdminProductsPage/>
         </DashboardLayout>
     )

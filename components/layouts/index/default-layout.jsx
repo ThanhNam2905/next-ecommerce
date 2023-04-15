@@ -9,13 +9,10 @@ function DefaultLayout({ title, children }) {
             <Head>
                 <title>{title ? title + ' - Shop' : 'Amazona'}</title>
                 <meta name="description" content="Ecommerce Website" />
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href="https://res.cloudinary.com/nam290596/image/upload/v1680160145/next-store-fashion/favicon-logo_cyk14b.jpg" />
             </Head>
 
             <div className="flex flex-col min-h-screen">
-                <div className='w-full h-screen bg-blue-400 hidden'>
-
-                </div>
                 {/* Header component */}
                 <Header/>
 

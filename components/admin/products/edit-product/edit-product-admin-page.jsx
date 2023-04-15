@@ -5,7 +5,7 @@ import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
 import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useState } from 'react'
-import toSlugNameProduct from '../../../../utils/convertStringToSlugName';
+import toSlugName from '../../../../utils/convertStringToSlugName';
 import { getError } from '../../../../utils/getError';
 import uploadListImageProduct from '../../../../utils/uploadListImagesProduct';
 
@@ -88,7 +88,6 @@ export default function EditProductAdminPage() {
         if (product) {
             form.setFieldsValue({
                 nameProduct: product.nameProduct,
-                slugProduct: product.slugProduct,
                 codeProduct: product.codeProduct,
                 tagProduct: product.tagProduct,
                 priceProduct: product.priceProduct,
@@ -163,7 +162,7 @@ export default function EditProductAdminPage() {
             tagProduct,
             description
         } = values;
-        const slugProduct = toSlugNameProduct(values.nameProduct);
+        const slugProduct = toSlugName(values.nameProduct);
 
         let arrayListImg = [];
         const imgNewURL = arrayListImagesProduct.filter(img => !img.url);
@@ -226,11 +225,6 @@ export default function EditProductAdminPage() {
                                 required: true,
                                 message: 'Tên sản phẩm không được để trống!',
                             },
-                            // {
-                            //     unique: true,
-                            //     message: 'Tên sản phẩm không được trùng nhau!',
-                            //     warningOnly: true,
-                            // }
                         ]}
                         hasFeedback
                     >

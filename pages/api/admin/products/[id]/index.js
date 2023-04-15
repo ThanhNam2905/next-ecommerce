@@ -10,10 +10,6 @@ const handler = async(req, res) => {
         return res.status(401).send('You are not logged into the administator account')
     }
 
-    if(req.method === 'GET') {
-        return getDataHandler(req, res);
-    }
-
     else if(req.method === 'PUT') {
         return putDataHandler(req, res);
     }
@@ -26,15 +22,6 @@ const handler = async(req, res) => {
         return res.status(400).send({ message: 'Method not allowed' });
     }
 };
-
-const getDataHandler = async(req, res) => {
-    await db.connect();
-
-    const { id } = req.query;
-    const product = await Product.findById(id);
-    await db.disconnect();
-    res.send(product);
-}
 
 const putDataHandler = async(req, res) => {
     await db.connect();
@@ -53,13 +40,13 @@ const putDataHandler = async(req, res) => {
 
         await product.save();
         await db.disconnect();
-        res.send({ message: 'Bạn vừa chỉnh sửa sản phẩm thành công'});
+        return res.send({ message: 'Bạn vừa chỉnh sửa sản phẩm thành công'});
     }
     else {
         await db.disconnect();
         return res.status(404).send({ message: 'Không tìm thấy sản phẩm muốn chỉnh sửa'})
     }
-}
+};
 
 const deleteDataHandler = async(req, res) => {
     await db.connect();
@@ -69,13 +56,13 @@ const deleteDataHandler = async(req, res) => {
     if(product) {
         await product.remove();
         await db.disconnect();
-        res.send({ message: `Bạn vừa xoá sản phẩm ${product.name} thành công` });
+        return res.send({ message: `Bạn vừa xoá sản phẩm ${product.name} thành công` });
     }
     else {
         await db.disconnect();
-        res.status(404).send({ message: 'Sản phẩm bạn muốn xoá không tồn tại'});
+        return res.status(404).send({ message: 'Sản phẩm bạn muốn xoá không tồn tại'});
     }
-}
+};
 
 
 export default handler;

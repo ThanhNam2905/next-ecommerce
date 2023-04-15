@@ -206,7 +206,7 @@ export default function ProductInfo({ product, productsDetail }) {
                         </div>
                         <div className='w-[55%]'>
                             <button
-                                className='btn btn--primary w-full h-[52px] uppercase !font-bold flex items-center justify-center gap-x-3'
+                                className='btn btn__primary--index w-full h-[52px] uppercase !font-bold flex items-center justify-center gap-x-3'
                                 type='button'
                                 onClick={() => handleAddToCart(product._id)}>
                                 <ShoppingOutlined className='text-xl' />

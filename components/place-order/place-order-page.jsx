@@ -75,7 +75,7 @@ export default function PlaceOrderPage() {
 
                         <h3 className='text-xl font-semibold text-gray-600 italic !my-5'>Giỏ hàng của bạn đang rỗng. Vui lòng thêm sản phẩm vào giỏ hàng</h3> 
                         <Link href='/'>
-                            <a className='btn btn--primary font-semibold flex items-center gap-x-2 py-3'>
+                            <a className='btn btn__primary--index font-semibold flex items-center gap-x-2 py-3'>
                                 <ArrowLeftOutlined />
                                 Quay lại mua hàng
                             </a>

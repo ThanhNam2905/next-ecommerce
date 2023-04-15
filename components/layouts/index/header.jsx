@@ -164,16 +164,23 @@ function Header() {
     return (
         <>
             <header>
-                <div className='flex items-center justify-between h-20 px-20 shadow-md'>
+                <div className='header__top'>
+                    <div className='header__top-wrapper'>
+                        <p>Freeship cho đơn hàng từ 499k</p>
+                        <p>Mua hàng với hoá đơn trên 899k - Tặng 1 áo thun basic trị giá 219k - Số lượng có hạn</p>
+                        <p>Giao hàng trên toàn quốc. Hotline: 094.2898.298</p>
+                    </div>                   
+                </div>
+                <div className='flex items-center justify-between h-20 px-20 shadow-md -mt-5'>
                     <div className="logo">
                         <Link href="/" passHref legacyBehavior>
                             <a>
                                 <Image
-                                    src='https://res.cloudinary.com/nam290596/image/upload/v1679468426/next-store-fashion/logo-shop-10_pqnlwu.png'
-                                    alt='logo image'
-                                    width={125}
-                                    height={50}
-                                    className='cursor-pointer'
+                                    src='https://res.cloudinary.com/nam290596/image/upload/v1680160027/next-store-fashion/logo-shop-2-removebg_wa0rad.png'
+                                    alt='logo website'
+                                    width={135}
+                                    height={48}
+                                    className='cursor-pointer object-contain'
                                 />
                             </a>
                         </Link>
@@ -256,7 +263,7 @@ function Header() {
                                 className='btn btn--default flex-1 py-3 uppercase text-[16px] rounded-none'
                                 onClick={() => router.push('/cart')}>Xem giỏ hàng
                             </button>
-                            <button className='btn btn--primary flex-1 py-3 uppercase text-[16px] rounded-none'>Thanh toán</button>
+                            <button className='btn btn__primary--index flex-1 py-3 uppercase text-[16px] rounded-none'>Thanh toán</button>
                         </div>
                     </>
                 )}
@@ -321,7 +328,6 @@ function Header() {
                                                             className='text-[18px] font-bold'
                                                             onClick={() => handlerDecreaseQuantity(item.itemId)}>+
                                                         </button>
-
                                                     </div>
                                                     <div className='flex items-center gap-x-4 font-bold tracking-wider'>
                                                         {

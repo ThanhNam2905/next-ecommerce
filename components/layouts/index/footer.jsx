@@ -11,7 +11,7 @@ function Footer() {
                     <input
                         type="email" name="" id="" placeholder='Email của bạn'
                         className='py-2.5 px-5 w-96 placeholder:text-gray-500 focus:outline-none rounded-tl-full rounded-bl-full' />
-                    <input type="submit" value="Đăng ký" className='cursor-pointer uppercase font-semibold rounded-tr-full rounded-br-full btn btn--primary transition ease-in-out duration-300' />
+                    <input type="submit" value="Đăng ký" className='cursor-pointer uppercase font-semibold rounded-tr-full rounded-br-full btn btn__primary--index transition ease-in-out duration-300' />
                 </form>
             </div>
             <div className='px-20 grid grid-cols-4 py-8'>

@@ -109,7 +109,7 @@ export default function LoginPage() {
                             }
                         </div>
                         <div className='mb-7'>
-                            <input type="submit" value="Đăng Nhập" className='btn btn--primary py-2.5 px-6 focus:ring-0 border-0' />
+                            <input type="submit" value="Đăng Nhập" className='btn btn__primary--index py-2.5 px-6 focus:ring-0 border-0' />
                         </div>
                         <div className='mb-7 text-lg space-y-2'>
                             <span>Bạn chưa có tài khoản, Vui lòng đăng ký &nbsp;</span>

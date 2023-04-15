@@ -1,5 +1,5 @@
 
-const toSlugNameProduct = (str) => {
+const toSlugName = (str) => {
     str = str.toLowerCase();
     str = str.normalize("NFD");
     str = str.replace(/[\u0300-\u036f]/g, "");
@@ -17,4 +17,4 @@ const toSlugNameProduct = (str) => {
     return str;
 };
 
-export default toSlugNameProduct;
+export default toSlugName;

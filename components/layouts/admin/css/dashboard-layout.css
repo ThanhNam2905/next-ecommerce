@@ -1,35 +1,98 @@
+/* Customize CSS Collapse Ant Design */
 .ant-collapse-header {
-    @apply  transition-all ease-linear duration-300;
+    transition: all linear 0.3s;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }
 
-.ant-collapse-header .anticon.anticon-caret-down {
-    @apply  group-hover:text-blue-600;
+.ant-collapse .ant-collapse-item .ant-collapse__header--custom {
+    padding: 0 2rem 1rem 2rem;
+    font-size: 15px;
+    text-transform: capitalize;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    column-gap: 0.625rem;
+    color: rgb(107 114 128 / 0.8);
 }
 
-.ant-collapse-item.ant-collapse-item-active .ant-collapse-header {
-    @apply  border-r-4 border-blue-600; 
+.ant-collapse .ant-collapse-item .ant-collapse__header--custom:hover {
+    color: #6259ca;
+}
+.ant-collapse
+    .ant-collapse-item
+    .ant-collapse-content
+    .ant-collapse-content-box {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.ant-collapse-item.ant-collapse-item-active .ant-collapse-header .ant-collapse-custom {
-    @apply  text-blue-600;
+.ant-collapse
+    .ant-collapse-item.panel-item__customize
+    .ant-collapse-header
+    .anticon.anticon-right.ant-collapse-arrow {
+    @apply !text-white !right-[20px] !top-[50%] !text-[13px];
 }
 
-.ant-collapse-item.ant-collapse-item-active .anticon.anticon-caret-down {
-    @apply  !text-blue-600 !text-lg;
+.ant-collapse-item.ant-collapse-item-active.panel-item__customize
+    .ant-collapse-header
+    .ant-collapse__header--custom {
+    @apply !bg-[#6259ca] text-white !px-8 !py-3.5 rounded-tr-full rounded-br-full;
 }
 
-.ant-collapse-item .anticon.anticon-caret-down {
-    @apply   !text-lg !-mt-0.5;
+.panel-item__customize.active
+    .ant-collapse-header
+    .ant-collapse__header--custom {
+    @apply !bg-[#6259ca] !text-white !px-8 !py-3.5 rounded-tr-full rounded-br-full;
 }
 
-.ant-collapse-item.ant-collapse-item-active.panel-item__customize .ant-collapse-header {
-    @apply  !bg-blue-100;
+.panel-item__customize.active
+    .ant-collapse-header
+    .ant-collapse__header--custom
+    svg {
+    @apply !stroke-white;
 }
 
-.ant-collapse-content-box {
-    @apply  !px-0;
+/* Customize CSS Popover Ant Design */
+.ant-popover-placement-bottomRight .ant-popover-content {
+    right: -3% !important;
 }
 
-.panel-item__customize.active .ant-collapse-header {
-    @apply  !bg-blue-100;
+.ant-popover-placement-bottomRight .ant-popover-arrow {
+    right: 2px !important;
+}
+
+/* Custom Style CSS */
+.header__collapse--customize {
+    cursor: pointer;
+    font-size: 14px;
+    width: 100%;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    column-gap: 0.625rem;
+    color: rgb(107 114 128 / 0.8) !important;
+    padding: 0.875rem 2rem !important;
+}
+.header__collapse--customize:hover {
+    background-color: #edf1f5 !important;
+    color: #6259ca !important;
+    border-top-right-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+}
+.header__collapse--customize.active {
+    background-color: #6259ca;
+    color: #ffffff !important;
+    padding: 0.875rem 2rem !important;
+    border-top-right-radius: 6rem;
+    border-bottom-right-radius: 6rem;
+    box-shadow: 0 8px 12px -8px #6259ca;
+}
+.header__collapse--customize.active svg {
+    stroke: #ffffff;
+}
+.header__collapse--customize.active:hover {
+    background-color: #6259ca !important;
+    color: #ffffff !important;
 }

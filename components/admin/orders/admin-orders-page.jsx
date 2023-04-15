@@ -288,7 +288,7 @@ export default function AdminOrdersPage() {
                                                     <li className='!mt-10'>
                                                         
                                                         <button
-                                                            className='btn btn--primary w-full flex items-center justify-center gap-x-1.5'
+                                                            className='btn btn__primary--index w-full flex items-center justify-center gap-x-1.5'
                                                             onClick={() => deliverOrderHandler(itemOrder._id)}>
                                                                 {   loadingDeliver ? (
                                                                         <>
