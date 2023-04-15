@@ -5,9 +5,9 @@ import {
     Form,
     Input,
     InputNumber,
+    Upload,
     message,
-    notification,
-    Upload
+    notification
 } from 'antd';
 import ImgCrop from 'antd-img-crop';
 import axios from 'axios';
@@ -15,16 +15,15 @@ import { useRouter } from 'next/router';
 import React, { useReducer, useState } from 'react';
 import toSlugName from '../../../../utils/convertStringToSlugName';
 import { getError } from '../../../../utils/getError';
-import uploadListImageProduct from '../../../../utils/uploadListImagesProduct';
 
 import dynamic from 'next/dynamic';
 import 'react-quill/dist/quill.snow.css';
+import upLoadImage from '../../../../utils/upLoadImages';
+import EditorToolbar, { formats, modules } from '../../../shared/EditorToolbar';
 const ReactQuill = dynamic(import('react-quill'), {
     ssr: false,
     loading: () => <p>Loading ...</p>
 });
-import EditorToolbar, { modules, formats } from '../../../shared/EditorToolbar';
-import upLoadImage from '../../../../utils/upLoadImages';
 
 function reducer(state, action) {
     switch (action.type) {
@@ -121,7 +120,6 @@ export default function CreateProductAdminPage() {
 
         const slugProduct = toSlugName(nameProduct);
 
-       
         let imageProduct = {};
         if (Object.keys(arrayListImagesProduct).length > 0) {
             imageProduct = await upLoadImage(arrayListImagesProduct);
@@ -140,7 +138,7 @@ export default function CreateProductAdminPage() {
                 priceProduct,
                 tagProduct,
                 imageProduct: [...imageProduct],
-                descriptionProduct,
+                descriptionProduct
             });
 
             setTimeout(() => {
@@ -162,7 +160,6 @@ export default function CreateProductAdminPage() {
             });
             await setArrayListImagesProduct({});
             router.push('/admin/products');
-
         } catch (error) {
             dispatch({ type: 'CREATE_FAIL' });
             notification.error({

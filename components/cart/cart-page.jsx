@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import { ShoppingOutlined, CloseOutlined } from '@ant-design/icons'
-import Link from 'next/link';
-import Image from 'next/image'
-import { StoreContext } from '../../store/Store';
+import { CloseOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { Popconfirm, message } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { StoreContext } from '../../store/Store';
 
 const key = 'loadingRemoveItemCart';
 
-export default function CartPage({ productsDetail }) {
+export default function CartPage() {
 
     const { state, dispatch } = useContext(StoreContext);
     const router = useRouter();
