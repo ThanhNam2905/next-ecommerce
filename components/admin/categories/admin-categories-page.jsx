@@ -1,20 +1,32 @@
-import { ClockCircleOutlined, DeleteFilled, EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
-import { Button, Input, notification, Popconfirm, Table, Tag } from 'antd';
+import {
+    ClockCircleOutlined,
+    Loading3QuartersOutlined
+} from '@ant-design/icons';
+import { Button, notification, Popconfirm, Table, Tag, Tooltip } from 'antd';
 import axios from 'axios';
-import React, { useEffect, useReducer, useRef, useState } from 'react'
+import React, { useEffect, useReducer, useState } from 'react';
 import { getError } from '../../../utils/getError';
-
-
+import EditSVGIcon from '../../../utils/icon-svg/editSVGIcon';
+import RemoveSVGIcon from '../../../utils/icon-svg/removeSVGIcon';
+import { useRouter } from 'next/router';
+// Date-fns
+import { format, formatDistanceToNow, parseISO } from 'date-fns';
+import viLocale from 'date-fns/locale/vi';
 
 function reducer(state, action) {
     switch (action.type) {
         case 'FETCH_REQUEST':
             return { ...state, loading: true, error: '' };
         case 'FETCH_SUCCESS':
-            return { ...state, loading: false, categories: action.payload, error: '' };
+            return {
+                ...state,
+                loading: false,
+                categories: action.payload,
+                error: ''
+            };
         case 'FETCH_FAIL':
             return { ...state, loading: false, error: action.payload };
-        
+
         case 'DELETE_REQUEST':
             return { ...state, loadingDelete: true };
         case 'DELETE_SUCCESS':
@@ -29,12 +41,17 @@ function reducer(state, action) {
 }
 
 export default function AdminCategoriesPage() {
-
-    const [{ loading, error, categories, successDelete, loadingDelete }, dispatch] = useReducer(reducer, {
+    const [
+        { loading, error, categories, successDelete, loadingDelete },
+        dispatch
+    ] = useReducer(reducer, {
         loading: true,
         error: '',
-        categories: []
+        categories: [],
+        loadingDelete: false,
     });
+
+    const router = useRouter();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -46,58 +63,34 @@ export default function AdminCategoriesPage() {
                 dispatch({ type: 'FETCH_FAIL', payload: getError(error) });
             }
         };
-        if(successDelete) {
-            dispatch({ type: 'DELETE_RESET'});
-        }
-        else {
+        if (successDelete) {
+            dispatch({ type: 'DELETE_RESET' });
+        } else {
             fetchData();
         }
-        
     }, [successDelete]);
 
-    // Feature Update Category
-    const [visibleColumnEditItem, setVisibleColumnEditItem] = useState(null);
-    const [disableBtnEdit, setDisableBtnEdit] = useState(true);
-
-    const handleCancelUpdateCategory = () => {
-        setVisibleColumnEditItem(null);
-        setDisableBtnEdit(true);
-    }
-
-    const handleUpdateCategory = async (id) => {
-        console.log(id);
-    }
-
-    const [nameCategory, setNameCategory] = useState('');
-    const inputRef = useRef(null);
-    const handleChangeInputName = async(e) => {
-        const { value } = e.target.value;
-        await setNameCategory(value);
-        await setDisableBtnEdit(false);
-    }
-
     // Antd Component Popconfirm
-    const [visible, setVisible] = useState(false);
+    const [visibleDelete, setVisibleDelete] = useState(false);
     const [indexCategory, setIndexCategory] = useState(null);
     const handleCancelDeleteCategory = () => {
-        setVisible(false);
+        setVisibleDelete(false);
         setIndexCategory(null);
     };
     const showPopconfirm = (key) => {
-        setVisible(true);
+        setVisibleDelete(true);
         setIndexCategory(key);
     };
 
+    // Handler Delete Category
     const handleConfirmDeleteCategory = async (idCategory, name) => {
-
-        // console.log(idCategory);
+        dispatch({ type: 'DELETE_REQUEST' });
         try {
-            dispatch({ type: 'DELETE_REQUEST' });
             await axios.delete(`/api/admin/categories/${idCategory}`);
             dispatch({ type: 'DELETE_SUCCESS' });
             notification.success({
                 message: 'Thông báo',
-                description: `Bạn đã xoá danh mục sản phẩm ${name} thành công`
+                description: `Bạn đã xoá danh mục ${name} thành công`
             });
         } catch (error) {
             dispatch({ type: 'DELETE_FAIL' });
@@ -106,173 +99,201 @@ export default function AdminCategoriesPage() {
                 description: getError(error)
             });
         }
-    }
-
-    
-
+    };
 
     const columns = [
         {
             title: 'STT',
-            dataIndex: "stt",
+            dataIndex: 'stt',
             key: 'stt',
             align: 'center',
             width: 35,
             render: (text) => <p className="text-center">{text + 1}</p>
         },
         {
-            title: 'Tên Danh mục sản phẩm',
-            dataIndex: "itemCategories",
+            title: 'Tên Danh mục',
+            dataIndex: 'nameCategory',
             key: 'nameCategory',
             align: 'center',
             width: 220,
-            render: (itemCategories) => (
-                visibleColumnEditItem === itemCategories._id ? (
-                    <div>
-                        <Input  defaultValue={itemCategories.name}
-                                onChange={handleChangeInputName}
-                                ref={inputRef}/>
-                    </div>
-                ) : (
-                    <p className="text-center">{itemCategories.name}</p>
-                )
+            render: (nameCategory) => (
+                <p className="text-center">{nameCategory}</p>
             )
         },
         {
-            title: 'Slug',
-            dataIndex: "slugCategory",
-            key: 'slugCategory',
+            title: 'Tên tiêu đề',
+            dataIndex: 'title',
+            key: 'title',
+            align: 'center',
+            render: (text) => <p className="text-center">{text}</p>
+        },
+        {
+            title: 'Phân loại',
+            dataIndex: 'typeCategory',
+            key: 'typeCategory',
             align: 'center',
             render: (text) => <p className="text-center">{text}</p>
         },
         {
             title: 'Ngày tạo',
-            dataIndex: "createdAt",
+            dataIndex: 'createdAt',
             key: 'createdAt',
             align: 'center',
-            render: (text) => (
-                <Tag
-                    className='!inline-flex !items-center gap-x-1.5 !py-1 !px-3'
-                    icon={<ClockCircleOutlined />}
-                    color="blue">{text.substring(0, 10)}
-                </Tag>
+            render: (time) => (
+                <Tooltip
+                    placement="bottom"
+                    title={format(parseISO(time), 'PPPP - HH:MM', {
+                        locale: viLocale
+                    })}
+                >
+                    <Tag
+                        className="!inline-flex !items-center gap-x-1.5 !py-1 !px-3"
+                        icon={<ClockCircleOutlined />}
+                        color="blue"
+                    >
+                        {format(parseISO(time), 'dd/MM/yyyy - HH:MM')}
+                    </Tag>
+                </Tooltip>
             )
         },
         {
             title: 'Ngày cập nhật',
-            dataIndex: "updatedAt",
+            dataIndex: 'updatedAt',
             key: 'updatedAt',
             align: 'center',
-            render: (text) => (
-                <Tag
-                    className='!inline-flex !items-center gap-x-1.5 !py-1 !px-3'
-                    icon={<ClockCircleOutlined />}
-                    color="green">{text.substring(0, 10)}
-                </Tag>
+            render: (time, index) => (
+                <Tooltip
+                    placement="bottom"
+                    title={format(parseISO(time), 'PPPP - HH:MM', {
+                        locale: viLocale
+                    })}
+                >
+                    <Tag
+                        className="!inline-flex !items-center gap-x-1.5 !py-1 !px-3"
+                        icon={<ClockCircleOutlined />}
+                        color="green"
+                    >
+                        {formatDistanceToNow(
+                            parseISO(
+                                index.createdAt === index.updatedAt
+                                    ? time
+                                    : index.updatedAt
+                            ),
+                            {
+                                addSuffix: true,
+                                locale: viLocale
+                            }
+                        )}
+                    </Tag>
+                </Tooltip>
             )
         },
         {
             title: (
                 <>
                     <div>Hành động</div>
-                    <div className='flex items-center justify-center divide-x divide-gray-600 !mt-4'>
-                        <p className='pr-4'>Edit</p>
-                        <p className='pl-4 flex items-center gap-x-2'>Delete</p>
+                    <div className="flex items-center justify-center divide-x divide-gray-600 !mt-4">
+                        <p className="pr-4">Edit</p>
+                        <p className="pl-4 flex items-center gap-x-2">Delete</p>
                     </div>
                 </>
             ),
-            dataIndex: "itemCategories",
-            key: 'itemCategories',
+            dataIndex: 'categoriesItem',
+            key: 'action',
             align: 'center',
-            render: (itemCategories) => (
+            render: (categoriesItem) => (
+                <div className="flex items-center justify-center gap-x-4">
+                    <Tooltip title="Chỉnh sửa" color="#1890ff">
+                        <Button
+                            type="primary"
+                            className="!flex !items-center !justify-center !px-3"
+                            onClick={() =>
+                                router.push(
+                                    `/admin/categories/edit-category/${categoriesItem._id}`
+                                )
+                            }
+                        >
+                            <EditSVGIcon styleCustom="w-[21px] h-[21px]" />
+                        </Button>
+                    </Tooltip>
 
-                <div className=' flex items-center justify-around'>
-                    {
-                        visibleColumnEditItem === itemCategories._id ? (
-                            <div className="flex space-x-3">
-                                <Button type='default' onClick={handleCancelUpdateCategory}>Huỷ bỏ</Button>
-                                <Button type="primary"
-                                    disabled={disableBtnEdit}
-                                    onClick={() => handleUpdateCategory(itemCategories._id)}>Cập nhật
-                                </Button>
-                            </div>
-                        ) : (
-                            <div className='flex items-center gap-x-4'>
-                                <Button
-                                    type="primary"
-                                    className='!flex !items-center gap-x-2'
-                                    onClick={() => {
-                                        setVisibleColumnEditItem(itemCategories._id);
-                                        inputRef.current &&
-                                        inputRef.current.focus({
-                                            cursor: 'end'
-                                        })
-                                    }}>
-                                    Edit<EditOutlined />
-                                </Button>
-                                <Popconfirm
-                                    title="Bạn có muốn xoá tài khoản này hay không?"
-                                    placement="topRight"
-                                    open={itemCategories._id === indexCategory ? visible : null}
-                                    cancelText="Cancel"
-                                    okButtonProps={{ loading: loadingDelete }}
-                                    onCancel={handleCancelDeleteCategory}
-                                    okText="Delete"
-                                    onConfirm={() => handleConfirmDeleteCategory(itemCategories._id)}>
-                                    <Button
-                                        danger
-                                        className='!flex !items-center gap-x-2'
-                                        onClick={() => showPopconfirm(itemCategories._id, itemCategories.name)}>
-                                        Delete<DeleteFilled />
-                                    </Button>
-                                </Popconfirm>
-                            </div>
-                        )
-                    }
-
-
-
+                    <Popconfirm
+                        title={() => (
+                            <p>
+                                Bạn có muốn xoá danh mục
+                                <span className="font-bold italic px-1">
+                                    {' '}
+                                    {categoriesItem.nameCategory}{' '}
+                                </span>
+                                hay không?
+                            </p>
+                        )}
+                        placement="topRight"
+                        open={
+                            categoriesItem._id === indexCategory
+                                ? visibleDelete
+                                : null
+                        }
+                        cancelText="Huỷ bỏ"
+                        okButtonProps={{ loading: loadingDelete }}
+                        onCancel={handleCancelDeleteCategory}
+                        okText="Xoá"
+                        onConfirm={() =>
+                            handleConfirmDeleteCategory(categoriesItem._id)
+                        }
+                    >
+                        <Tooltip title="Remove" color="#ff4d4f">
+                            <Button
+                                danger
+                                type="primary"
+                                className="!flex !items-center !px-3"
+                                onClick={() =>
+                                    showPopconfirm(
+                                        categoriesItem._id,
+                                        categoriesItem.name
+                                    )
+                                }
+                            >
+                                <RemoveSVGIcon styleCustom="w-[21px] h-[21px]" />
+                            </Button>
+                        </Tooltip>
+                    </Popconfirm>
                 </div>
-
-
             )
-        },
+        }
     ];
 
     const dataList = [];
     for (let item = 0; item < categories.length; item++) {
         dataList.push({
             stt: item,
-            slugCategory: categories[item].slug,
+            nameCategory: categories[item].nameCategory,
+            title: categories[item].title,
+            typeCategory: categories[item].typeCategory,
             createdAt: categories[item].createdAt,
             updatedAt: categories[item].updatedAt,
-            itemCategories: categories[item],
-        })
+            categoriesItem: categories[item]
+        });
     }
-
 
     return (
         <>
-            <h2 className='text-[19px] flex items-center justify-center gap-x-2 !mt-2 !mb-4'>
-                Danh sách Danh mục sản phẩm
+            <h2 className="text-[18px] capitalize text-gray-700 font-semibold !my-4">
+                Danh sách Danh mục
             </h2>
 
-            {
-                loading ? (
-                    <div className='w-full h-screen flex items-center justify-center bg-gray-50'>
-                        <h3 className='text-3xl text-gray-600 font-semibold shadow-lg inline-flex items-center gap-x-2.5'>
-                            <Loading3QuartersOutlined className='text-[38px] animate-spin' /> Đang tải...
-                        </h3>
-                    </div>
-                ) : error ? (
-                    <div className='alert--error'>{error}</div>
-                ) : (
-                    <Table
-                        columns={columns}
-                        dataSource={dataList}
-                        bordered />
-                )
-            }
+            {loading ? (
+                <div className="w-full h-screen flex items-center justify-center bg-gray-50">
+                    <h3 className="text-3xl text-gray-600 font-semibold shadow-lg inline-flex items-center gap-x-2.5">
+                        <Loading3QuartersOutlined className="text-[38px] animate-spin" />{' '}
+                        Đang tải...
+                    </h3>
+                </div>
+            ) : error ? (
+                <div className="alert--error">{error}</div>
+            ) : (
+                <Table columns={columns} dataSource={dataList} bordered />
+            )}
         </>
-    )
+    );
 }

@@ -1,11 +1,55 @@
-    /* Customize CSS Drawer Antd */
-    .antd__drawer-cart .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar {
-        width: 12px;
-        background-color: #c1c0c0;
-        border-radius: 0.3rem;
+/* Customize CSS Drawer Antd */
+.antd__drawer-cart
+    .ant-drawer-content-wrapper
+    .ant-drawer-body::-webkit-scrollbar {
+    width: 12px;
+    background-color: #c1c0c0;
+    border-radius: 0.3rem;
+}
+
+.antd__drawer-cart
+    .ant-drawer-content-wrapper
+    .ant-drawer-body::-webkit-scrollbar-thumb {
+    background-color: rgb(68 64 60);
+    border-radius: 0.3rem;
+}
+
+/* Custom Style CSS */
+.header__top {
+    margin-top: 18px;
+    background-color: rgba(23, 107, 56, 0.9);
+    font-weight: 500;
+    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    color: #ffffff;
+
+    position: relative;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+
+.header__top .header__top-wrapper {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    column-gap: 6rem;
+    overflow: hidden;
+    min-width: 100%;
+    height: 100%;
+
+    animation: slide_text 16s linear infinite;
+}
+
+@keyframes slide_text {
+    0% {
+        transform: translateX(100%);
     }
-    
-    .antd__drawer-cart .ant-drawer-content-wrapper .ant-drawer-body::-webkit-scrollbar-thumb {
-        background-color: rgb(68 64 60);
-        border-radius: 0.3rem;
+    100% {
+        transform: translateX(-100%);
     }
+}

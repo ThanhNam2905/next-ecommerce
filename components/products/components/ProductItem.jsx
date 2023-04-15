@@ -26,7 +26,7 @@ export default function ProductItem({ product, productsDetail }) {
 
                 <div className='absolute z-20 top-0 left-0 flex items-center justify-center w-full h-full bg-black bg-opacity-20 transform scale-0 invisible group-hover:visible group-hover:scale-100 transition-all ease-linear duration-300'>
                     <Link href={`/product/${product.slugProduct}`}>
-                        <a className='btn btn--primary px-5 py-2'>Xem chi tiết</a>
+                        <a className='btn btn__primary--index px-5 py-2'>Xem chi tiết</a>
                     </Link>
                 </div>
             </div>

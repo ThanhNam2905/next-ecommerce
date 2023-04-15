@@ -4,7 +4,7 @@ import DashboardLayout from '../../../components/layouts/admin/dashboard-layout'
 
 function AdminCategoryScreen() {
     return (
-        <DashboardLayout title='Admin Categories Page'>
+        <DashboardLayout title='Admin Category Page'>
             <AdminCategoriesPage/>
         </DashboardLayout>
     )
