@@ -1,14 +1,14 @@
-import React, { useContext } from 'react'
-import { ShoppingOutlined, CloseOutlined } from '@ant-design/icons'
-import Link from 'next/link';
-import Image from 'next/image'
-import { StoreContext } from '../../store/Store';
+import { CloseOutlined, ShoppingOutlined } from '@ant-design/icons';
 import { Popconfirm, message } from 'antd';
+import Image from 'next/image';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React, { useContext } from 'react';
+import { StoreContext } from '../../store/Store';
 
 const key = 'loadingRemoveItemCart';
 
-export default function CartPage({ productsDetail }) {
+export default function CartPage() {
 
     const { state, dispatch } = useContext(StoreContext);
     const router = useRouter();
@@ -257,7 +257,7 @@ export default function CartPage({ productsDetail }) {
                                         </p>
                                     </li>
                                     <button
-                                        type='button' className='btn btn--primary py-2.5 font-medium text-[14px] w-full uppercase rounded'
+                                        type='button' className='btn btn__primary--index py-2.5 font-medium text-[14px] w-full uppercase rounded'
                                         onClick={() => router.push('login?redirect=/order')}>
                                         Thanh toán
                                         <span className='!ml-1.5'>

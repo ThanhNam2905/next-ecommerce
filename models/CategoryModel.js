@@ -1,13 +1,33 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const categorySchema = new mongoose.Schema(
     {
-        name: { type: String, require: true },
-        slug: { type: String, require: true },
-    }, {
+        nameCategory: {
+            type: String,
+            require: true
+        },
+        title: {
+            type: String,
+            require: true
+        },
+        slugNameCategory: {
+            type: String,
+            require: true
+        },
+        slugTitle: {
+            type: String,
+            require: true
+        },
+        typeCategory: {
+            type: String,
+            require: true
+        }
+    },
+    {
         timestamps: true
     }
 );
 
-const Category = mongoose.models.Category || mongoose.model('Category', categorySchema);
+const Category =
+    mongoose.models.Category || mongoose.model('Category', categorySchema);
 export default Category;

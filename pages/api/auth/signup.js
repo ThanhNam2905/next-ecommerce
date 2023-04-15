@@ -1,19 +1,18 @@
-import bcrypt from "bcryptjs";
-import User from "../../../models/UserModel";
-import db from "../../../utils/database";
-
+import bcrypt from 'bcryptjs';
+import User from '../../../models/UserModel';
+import db from '../../../utils/database';
 
 async function handler(req, res) {
-    if(req.method !== 'POST') {
+    if (req.method !== 'POST') {
         return;
     }
-    
+
     const { name, numberPhone, email, password } = req.body;
 
     await db.connect();
 
     const existingUser = await User.findOne({ email: email });
-    if(existingUser) {
+    if (existingUser) {
         res.status(422).json({
             message: 'Tài khoản email này đã tồn tại'
         });
@@ -26,7 +25,7 @@ async function handler(req, res) {
         numberPhone,
         email,
         password: bcrypt.hashSync(password),
-        isAdmin: false,
+        isAdmin: false
     });
 
     const user = await newUser.save();
@@ -37,8 +36,8 @@ async function handler(req, res) {
         name: user.name,
         numberPhone: user.numberPhone,
         email: user.email,
-        isAdmin: user.isAdmin,
-    })
+        isAdmin: user.isAdmin
+    });
 }
 
 export default handler;

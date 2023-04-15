@@ -11,6 +11,7 @@
 @import url('../components/cart/css/cart-page.css');
 @import url('../components/admin/products/css/admin-products.css');
 @import url('../components/layouts/index/css/default-layout.css');
+@import url('../components/admin/product-categories/css/admin-product-category.css');
 
 @layer base {
     * {
@@ -55,14 +56,18 @@
         @apply text-black bg-white border-2 border-black hover:bg-gray-200/90 active:bg-gray-400;
     }
 
-    .btn--primary {
+    .btn__primary--index {
         @apply !text-white bg-black border-2 border-black hover:bg-black/80 active:bg-gray-700;
     }
+
+    .btn__primary--admin {
+        @apply !text-white bg-green-600 border-2 border-green-600 hover:bg-green-500 active:bg-green-800;
+    }
+
     .btn--close {
         @apply cursor-pointer !text-gray-500/60 transform scale-[0.8] transition-all duration-300 ease-linear 
         hover:scale-100 hover:rotate-180 hover:!text-gray-900;
     }
-
 
     /* Form Component CSS */
     input,
@@ -88,15 +93,15 @@
         .ant-message-custom-content.ant-message-success,
     .customize__antd--message-error
         .ant-message-custom-content.ant-message-error {
-            display: flex;
-            align-items: center;
-            column-gap: 0.5rem !important;
-    }   
+        display: flex;
+        align-items: center;
+        column-gap: 0.5rem !important;
+    }
     .customize__antd--message-loading
         .ant-message-custom-content.ant-message-loading {
-            display: flex;
-            align-items: center;
-            column-gap: 0.75rem/* 12px */ !important;
+        display: flex;
+        align-items: center;
+        column-gap: 0.75rem /* 12px */ !important;
     }
 
     /* CSS style Header Component */
@@ -104,20 +109,33 @@
         width: 100%;
         text-align: left;
         border-top-width: 3px;
-        border-radius: 0.25rem/* 4px */;
-        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        border-radius: 0.25rem /* 4px */;
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1),
+            0 2px 4px -2px rgb(0 0 0 / 0.1);
     }
     .dropdown-profile-user .ant-dropdown-menu-item {
         padding: 0.75rem 2.5rem 0.75rem 1.25rem;
     }
     .dropdown-link {
-        font-size: 1.125rem/* 18px */;
-        line-height: 1.75rem/* 28px */;
+        font-size: 1.125rem /* 18px */;
+        line-height: 1.75rem /* 28px */;
         font-family: Nunito, sans-serif;
         display: flex;
         align-items: center;
         column-gap: 0.5rem;
         padding: 0.25rem 0.75rem;
+    }
+
+    /* Customize CSS Form.Item Antd */
+    .form-create-product .ant-form-item-explain-error,
+    .form-create-category .ant-form-item-explain-error {
+        color: #ff4d4f;
+        padding-top: 8px;
+        font-size: 13px;
+    }
+
+    .form-create-category span.ant-input-suffix span.ant-form-item-feedback-icon.ant-form-item-feedback-icon-success {
+        display: flex !important;
     }
 
     /* Customize CSS Input Antd */
@@ -140,7 +158,7 @@
         border: 2px solid rgb(209 213 219);
         display: flex;
         align-items: center;
-        border-radius: 0.5rem/* 8px */ !important;
+        border-radius: 0.5rem /* 8px */ !important;
     }
     .select-antd__customize .ant-select-selector:hover {
         border-color: rgb(147 197 253) !important;
@@ -148,22 +166,13 @@
     .select-antd__customize .ant-select-arrow {
         top: 50% !important;
         transform: translateY(-50%);
-        border-radius: 0.5rem/* 8px */ !important;
+        border-radius: 0.5rem /* 8px */ !important;
     }
     .textarea-customize__css {
         border: 2px solid rgb(209 213 219);
         resize: none;
-        border-radius: 0.5rem/* 8px */ !important;
+        border-radius: 0.5rem /* 8px */ !important;
     }
-
-    /* CSS Button */
-    .btn--order-now {
-        @apply !bg-orange-400 !text-base hover:!text-white !h-full !py-2.5 !px-6 !capitalize !rounded-md !border-orange-400 hover:!bg-orange-500 active:!bg-orange-600;
-    }
-    .btn--reset-order {
-        @apply bg-white !border-orange-400 !text-orange-400 !text-base !h-full !py-2.5 !px-6 !capitalize !rounded-md hover:!text-white hover:!bg-orange-500 active:!bg-orange-600;
-    }
-
 
     /* Hidden Arrow Input Number */
     /* Chrome, Safari, Edge, Opera */
@@ -177,6 +186,4 @@
     input[type='number'] {
         -moz-appearance: textfield;
     }
-
-    
 }

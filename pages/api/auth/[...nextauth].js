@@ -9,37 +9,42 @@ export default NextAuth({
         strategy: 'jwt'
     },
     callbacks: {
-        async jwt({ token, user}) {
-            if(user?._id) token._id = user._id;
-            if(user?.isAdmin) token.isAdmin = user.isAdmin;
-            return token; 
+        async jwt({ token, user }) {
+            if (user?._id) token._id = user._id;
+            if (user?.isAdmin) token.isAdmin = user.isAdmin;
+            return token;
         },
-        async session({ session, token}) {
-            if(token?._id) session._id = token._id;
-            if(token?.isAdmin) session.isAdmin = token.isAdmin;
+        async session({ session, token }) {
+            if (token?._id) session._id = token._id;
+            if (token?.isAdmin) session.isAdmin = token.isAdmin;
             return session;
         }
     },
     providers: [
         CredentialsProvider({
-          async authorize(credentials) {
-            await db.connect();
-            const user = await User.findOne({
-              email: credentials.email,
-            });
-            await db.disconnect();
-            // Check user fill in email and password match on DB.
-            if (user && bcryptjs.compareSync(credentials.password, user.password)) {
-              return {
-                _id: user._id,
-                name: user.name,
-                email: user.email,
-                numberPhone: user.numberPhone,
-                isAdmin: user.isAdmin,
-              };
+            async authorize(credentials) {
+                await db.connect();
+                const user = await User.findOne({
+                    email: credentials.email
+                });
+                await db.disconnect();
+                // Check user fill in email and password match on DB.
+                if (
+                    user &&
+                    bcryptjs.compareSync(credentials.password, user.password)
+                ) {
+                    return {
+                        _id: user._id,
+                        name: user.name,
+                        email: user.email,
+                        numberPhone: user.numberPhone,
+                        isAdmin: user.isAdmin
+                    };
+                }
+                throw new Error(
+                    'Email và mật khẩu của bạn không trùng khớp!!!'
+                );
             }
-            throw new Error('Email và mật khẩu của bạn không trùng khớp!!!');
-          },
-        }),
-      ],
-})
+        })
+    ]
+});

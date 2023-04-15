@@ -170,7 +170,7 @@ export default function UserProfilePage() {
                                 }
                     </div>
                     <div className='mb-7'>
-                        <button className='btn btn--primary py-2.5 px-6 focus:ring-0 border-0'>Cập nhật</button>
+                        <button className='btn btn__primary--index py-2.5 px-6 focus:ring-0 border-0'>Cập nhật</button>
                     </div>
             </form>
             </div>

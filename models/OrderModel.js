@@ -1,18 +1,18 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const orderSchema = new mongoose.Schema(
     {
-        user: { 
+        user: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User', 
+            ref: 'User',
             require: true
         },
         orderItems: [
             {
                 name: { type: String, require: true },
                 quantityItem: { type: Number, require: true },
-                selectedColor: { type: String, require: true},
-                selectedSize: { type: String, require: true},
+                selectedColor: { type: String, require: true },
+                selectedSize: { type: String, require: true },
                 imagesProduct: [
                     {
                         public_id: { type: String, require: true },
@@ -20,7 +20,7 @@ const orderSchema = new mongoose.Schema(
                     }
                 ],
                 price: { type: Number, require: true }
-            },
+            }
         ],
         shippingAddress: {
             username: { type: String, require: true },
@@ -34,10 +34,11 @@ const orderSchema = new mongoose.Schema(
         shippingPrice: { type: Number, require: true },
         totalPrice: { type: Number, require: true },
         isPaid: { type: Boolean, require: true, default: false },
-        isDelivered:{ type: Boolean, require: true, default: false },
+        isDelivered: { type: Boolean, require: true, default: false },
         paid_At: { type: Date },
-        delivered_At: { type: Date },
-    }, {
+        delivered_At: { type: Date }
+    },
+    {
         timestamps: true
     }
 );

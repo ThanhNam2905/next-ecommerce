@@ -1,10 +1,11 @@
-import { DeleteOutlined, EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
+import { EditOutlined, Loading3QuartersOutlined } from '@ant-design/icons';
 import { Table, Image, Button, Tooltip, Popconfirm, notification, Pagination } from 'antd';
 import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useReducer, useState } from 'react'
 import { getError } from '../../../utils/getError';
+import RemoveSVGIcon from '../../../utils/icon-svg/removeSVGIcon';
 
 
 function reducer(state, action) {
@@ -225,7 +226,7 @@ export default function AdminProductsPage() {
                             type='primary' danger 
                             className='!flex !items-center gap-x-2'
                             onClick={() => showPopconfirmDeleteItem(productItem._id)}>
-                                Delete <DeleteOutlined />
+                                <RemoveSVGIcon styleCustom='w-6 h-6'/>
                         </Button>
                     </Popconfirm>
                 </div >
