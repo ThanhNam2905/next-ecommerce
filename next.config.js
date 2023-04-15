@@ -8,7 +8,7 @@ const nextConfig = {
     swcMinify: true,
     images: {
         disableStaticImages: true,
-        domains: ['res.cloudinary.com']
+        domains: ['res.cloudinary.com','next-ecommerce-fashion.vercel.app']
     }
 };
 
