@@ -1,49 +1,51 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema(
     {
-        nameProduct: { 
-            type: String, 
-            require: true, 
-            unique: true 
+        nameProduct: {
+            type: String,
+            require: true,
+            unique: true
         },
-        slugProduct: { 
-            type: String, 
-            require: true 
+        slugProduct: {
+            type: String,
+            require: true
         },
         imageProduct: {
-            public_id: { 
-                type: String, 
-                require: true 
+            public_id: {
+                type: String,
+                require: true
             },
-            url: { 
-                type: String, 
-                require: true 
+            url: {
+                type: String,
+                require: true
             }
         },
-        tagProduct: { 
-            type: Array ,
-            require: true, 
-            default: [] 
+        tagProduct: {
+            type: Array,
+            require: true,
+            default: []
         },
-        priceProduct: { 
-            type: Number, 
-            require: true, 
-            default: 0 
+        priceProduct: {
+            type: Number,
+            require: true,
+            default: 0
         },
-        brandProduct: { 
-            type: String, 
-            require: true, 
-            default: '' 
+        brandProduct: {
+            type: String,
+            require: true,
+            default: ''
         },
-        descriptionProduct: { 
-            type: String, 
-            require: true 
-        },
-    }, {
+        descriptionProduct: {
+            type: String,
+            require: true
+        }
+    },
+    {
         timestamps: true
     }
 );
 
-const Product = mongoose.models.Product || mongoose.model('Product', productSchema);
+const Product =
+    mongoose.models.Product || mongoose.model('Product', productSchema);
 export default Product;

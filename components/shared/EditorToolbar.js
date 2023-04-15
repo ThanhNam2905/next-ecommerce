@@ -4,7 +4,7 @@ import React from 'react';
 //     // Set this to `false` so it is only loaded on the client.
 //     ssr: false,
 //     // You can also add an indicator while the component is loading.
-//     loading: () => <p>Loading ...</p>, 
+//     loading: () => <p>Loading ...</p>,
 // });
 
 // Custom Undo button icon component for Quill editor. You can import it directly
@@ -118,17 +118,13 @@ export const QuillToolbar = (props) => {
                             <option value="courier-new">Courier New</option>
                             <option value="georgia">Georgia</option>
                             <option value="helvetica">Helvetica</option>
-                            <option value="Inter" >
-                                Inter
-                            </option>
+                            <option value="Inter">Inter</option>
                             <option value="lucida">Lucida</option>
                         </select>
                         <select className="ql-size" defaultValue="medium">
                             <option value="extra-small">Extra Small</option>
                             <option value="small">Small</option>
-                            <option value="medium" >
-                                Medium
-                            </option>
+                            <option value="medium">Medium</option>
                             <option value="large">Large</option>
                         </select>
                         <select className="ql-header" defaultValue="">
@@ -138,9 +134,7 @@ export const QuillToolbar = (props) => {
                             <option value="4">Heading 4</option>
                             <option value="5">Heading 5</option>
                             <option value="6">Heading 6</option>
-                            <option value="">
-                                Normal
-                            </option>
+                            <option value="">Normal</option>
                         </select>
                     </span>
                     <span className="ql-formats">

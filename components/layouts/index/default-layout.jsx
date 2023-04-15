@@ -28,3 +28,6 @@ function DefaultLayout({ title, children }) {
 }
 
 export default DefaultLayout;
+
+//  ở trên rừng hả
+// sao vậy ông, mạng íu , tôi cũng ko biet nua @@, bên tui đo la 33 tới 35mbps, wifi nha toi yeu thi phai, down có 4 package mà nó chạy k xong, binh thuong toi dung npm install cai dat thay cung ko lau toi mua vay ak, ờ do mới dùng yarn

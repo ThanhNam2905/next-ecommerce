@@ -8,14 +8,11 @@ const handler = async (req, res) => {
 
     if (!session || !session.isAdmin) {
         return res.status(401).send('Bắt buộc phải đăng nhập');
-    }
-    else if (req.method === 'GET') {
+    } else if (req.method === 'GET') {
         return getDataHandler(req, res);
-    } 
-    else if (req.method === 'POST') {
+    } else if (req.method === 'POST') {
         return postDataHandler(req, res);
-    } 
-    else {
+    } else {
         return res.status(400).send({ message: 'Method not allowed' });
     }
 };
@@ -30,17 +27,14 @@ const getDataHandler = async (req, res) => {
 const postDataHandler = async (req, res) => {
     await db.connect();
 
-    const { 
-        nameCategory, 
-        title, 
-        typeCategory, 
-        slugNameCategory, 
-        slugTitle 
-    } = req.body;
+    const { nameCategory, title, typeCategory, slugNameCategory, slugTitle } =
+        req.body;
 
     const isCheckCategory = await Category.findOne({ nameCategory });
-    if(isCheckCategory) {
-        return res.status(400).json({ error: 'Danh mục này đã tồn tại trước đó!' });
+    if (isCheckCategory) {
+        return res
+            .status(400)
+            .json({ error: 'Danh mục này đã tồn tại trước đó!' });
     }
 
     const newCategory = await new Category({
@@ -48,7 +42,7 @@ const postDataHandler = async (req, res) => {
         title: toCapitalizeCase(title),
         typeCategory: typeCategory,
         slugNameCategory: slugNameCategory,
-        slugTitle: slugTitle,
+        slugTitle: slugTitle
     });
 
     const category = await newCategory.save();

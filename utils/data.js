@@ -1,4 +1,4 @@
-import bcrypt from "bcryptjs";
+import bcrypt from 'bcryptjs';
 
 const data = {
     users: [
@@ -23,69 +23,83 @@ const data = {
             slugProduct: 'peanuts-snoopy-ao-ni-dai-tay',
             imagesProduct: [
                 {
-                    public_id: 'v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg',
+                    public_id:
+                        'v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422319/next-store-fashion/goods_453658_sub14_rk2z7x.jpg'
                 },
                 {
-                    public_id: 'v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg',
+                    public_id:
+                        'v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422358/next-store-fashion/vngoods_09_453658_oiqdun.jpg'
                 },
                 {
-                    public_id: 'v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg',
+                    public_id:
+                        'v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422272/next-store-fashion/vngoods_453658_sub1_rlv9n8.jpg'
                 },
                 {
-                    public_id: 'v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg',
+                    public_id:
+                        'v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub17_vvnze1.jpg'
                 },
                 {
-                    public_id: 'v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg',
+                    public_id:
+                        'v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666420922/next-store-fashion/goods_453658_sub20_ewebep.jpg'
                 },
                 {
-                    public_id: 'v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg',
+                    public_id:
+                        'v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666422225/next-store-fashion/goods_453658_sub18_nvwsws.jpg'
-                },
+                }
             ],
             tagProduct: ['new'],
             priceProduct: 600000,
             brandProduct: 'PEANUTS',
-            description: 'Bộ sưu tập với những họa tiết miêu tả hình ảnh thư giãn của các thành viên Peanuts trong thiết kế cổ điển.',
+            description:
+                'Bộ sưu tập với những họa tiết miêu tả hình ảnh thư giãn của các thành viên Peanuts trong thiết kế cổ điển.'
         },
         {
             nameProduct: 'Peanuts Snoopy Áo Nỉ Dài Tay 2',
             slugProduct: 'peanuts-snoopy-ao-ni-dai-tay-2',
             imagesProduct: [
                 {
-                    public_id: 'v1666421108/next-store-fashion/goods_453657_sub14_fyxhiv.jpg',
+                    public_id:
+                        'v1666421108/next-store-fashion/goods_453657_sub14_fyxhiv.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421108/next-store-fashion/goods_453657_sub14_fyxhiv.jpg'
                 },
                 {
-                    public_id: 'v1666421107/next-store-fashion/goods_453657_sub15_jxurnc.jpg',
+                    public_id:
+                        'v1666421107/next-store-fashion/goods_453657_sub15_jxurnc.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421107/next-store-fashion/goods_453657_sub15_jxurnc.jpg'
                 },
                 {
-                    public_id: 'v1666421968/next-store-fashion/vngoods_453657_sub7_rx6tem_j7ysvb.jpg',
+                    public_id:
+                        'v1666421968/next-store-fashion/vngoods_453657_sub7_rx6tem_j7ysvb.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421968/next-store-fashion/vngoods_453657_sub7_rx6tem_j7ysvb.jpg'
                 },
                 {
-                    public_id: 'v1666421878/next-store-fashion/vngoods_453657_sub1_swtzrk_a5flln.jpg',
+                    public_id:
+                        'v1666421878/next-store-fashion/vngoods_453657_sub1_swtzrk_a5flln.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421878/next-store-fashion/vngoods_453657_sub1_swtzrk_a5flln.jpg'
                 },
                 {
-                    public_id: 'v1666421836/next-store-fashion/vngoods_59_453657_n9mevc.jpg',
+                    public_id:
+                        'v1666421836/next-store-fashion/vngoods_59_453657_n9mevc.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421836/next-store-fashion/vngoods_59_453657_n9mevc.jpg'
                 },
                 {
-                    public_id: 'v1666421108/next-store-fashion/goods_453657_sub17_c2mbdm.jpg',
+                    public_id:
+                        'v1666421108/next-store-fashion/goods_453657_sub17_c2mbdm.jpg',
                     url: 'https://res.cloudinary.com/nam290596/image/upload/v1666421108/next-store-fashion/goods_453657_sub17_c2mbdm.jpg'
-                },
+                }
             ],
             tagProduct: ['new'],
             priceProduct: 600000,
             brandProduct: 'PEANUTS',
-            description: 'Bộ sưu tập với những họa tiết miêu tả hình ảnh thư giãn của các thành viên Peanuts trong thiết kế cổ điển.',
-        },
+            description:
+                'Bộ sưu tập với những họa tiết miêu tả hình ảnh thư giãn của các thành viên Peanuts trong thiết kế cổ điển.'
+        }
     ],
     productsDetail: [
         {
@@ -96,7 +110,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 0,
             codeProduct: 'ANDT001-001',
-            soldOut: 5,
+            soldOut: 5
         },
         {
             size: 'L',
@@ -106,7 +120,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 10,
             codeProduct: 'ANDT001-002',
-            soldOut: 2,
+            soldOut: 2
         },
         {
             size: 'XL',
@@ -116,7 +130,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 5,
             codeProduct: 'ANDT001-003',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XXL',
@@ -126,7 +140,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 15,
             codeProduct: 'ANDT001-004',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'M',
@@ -136,7 +150,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 0,
             codeProduct: 'ANDT001-005',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'L',
@@ -146,7 +160,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 0,
             codeProduct: 'ANDT001-006',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XL',
@@ -156,7 +170,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 10,
             codeProduct: 'ANDT001-007',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XXL',
@@ -166,7 +180,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 15,
             codeProduct: 'ANDT001-008',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'M',
@@ -176,7 +190,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 0,
             codeProduct: 'ANDT001-009',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'L',
@@ -186,7 +200,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 5,
             codeProduct: 'ANDT001-010',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XL',
@@ -196,7 +210,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 10,
             codeProduct: 'ANDT001-011',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XXL',
@@ -206,7 +220,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b3f',
             discountPrice: 15,
             codeProduct: 'ANDT001-012',
-            soldOut: 0,
+            soldOut: 0
         },
 
         {
@@ -217,7 +231,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 0,
             codeProduct: 'ANDT002-001',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'L',
@@ -227,7 +241,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 5,
             codeProduct: 'ANDT002-002',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XL',
@@ -237,7 +251,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 10,
             codeProduct: 'ANDT002-003',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XXL',
@@ -247,7 +261,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 15,
             codeProduct: 'ANDT002-004',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'M',
@@ -257,7 +271,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 0,
             codeProduct: 'ANDT002-005',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'L',
@@ -267,7 +281,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 5,
             codeProduct: 'ANDT002-006',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XL',
@@ -277,7 +291,7 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 10,
             codeProduct: 'ANDT002-007',
-            soldOut: 0,
+            soldOut: 0
         },
         {
             size: 'XXL',
@@ -287,9 +301,9 @@ const data = {
             productId: '639b3ed6dc184839aa8e7b46',
             discountPrice: 15,
             codeProduct: 'ANDT002-008',
-            soldOut: 0,
-        },
-    ],
+            soldOut: 0
+        }
+    ]
     // category: [
     //     {
     //         name: 'Áo',
@@ -342,7 +356,6 @@ const data = {
     //         slug: 'quan-tay',
     //     },
     // ],
-
-}
+};
 
 export default data;

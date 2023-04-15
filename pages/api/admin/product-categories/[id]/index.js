@@ -7,11 +7,9 @@ const handler = async (req, res) => {
     const session = await getSession({ req });
 
     if (!session || !session.isAdmin) {
-        return res
-            .status(401)
-            .send({
-                message: 'You are not logged into the administator account!'
-            });
+        return res.status(401).send({
+            message: 'You are not logged into the administator account!'
+        });
     } else if (req.method === 'GET') {
         return getItemDataHandler(req, res);
     } else if (req.method === 'PUT') {
@@ -38,17 +36,23 @@ const putItemDataHandler = async (req, res) => {
     const { id } = req.query;
     const productCategory = await ProductCategory.findById(id);
     if (productCategory) {
-        productCategory.nameProductCategory = toCapitalizeCase(req.body.nameProductCategory),
-        productCategory.categoryId = req.body.categoryId,
-        productCategory.slugNameProductCategory = req.body.slugNameProductCategory;
+        (productCategory.nameProductCategory = toCapitalizeCase(
+            req.body.nameProductCategory
+        )),
+            (productCategory.categoryId = req.body.categoryId),
+            (productCategory.slugNameProductCategory =
+                req.body.slugNameProductCategory);
 
         await productCategory.save();
         await db.disconnect();
-        return res.send({message: 'Bạn vừa chỉnh sửa danh mục sản phẩm thành công'});
-    }
-    else {
+        return res.send({
+            message: 'Bạn vừa chỉnh sửa danh mục sản phẩm thành công'
+        });
+    } else {
         await db.disconnect();
-        return res.status(404).send({ message: 'Không tìm thấy danh mục sản phẩm muốn chỉnh sửa' });
+        return res.status(404).send({
+            message: 'Không tìm thấy danh mục sản phẩm muốn chỉnh sửa'
+        });
     }
 };
 

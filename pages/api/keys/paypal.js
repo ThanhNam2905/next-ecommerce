@@ -1,12 +1,12 @@
-import { getSession } from 'next-auth/react'
+import { getSession } from 'next-auth/react';
 
-const handler = async(req, res) => {
+const handler = async (req, res) => {
     const session = await getSession({ req });
-    if(!session) {
+    if (!session) {
         return res.status(401).send('Bắt buộc phải đăng nhập');
     }
 
     res.send(process.env.PAYPAL_CLIENT_ID || 'sb');
-}
+};
 
 export default handler;

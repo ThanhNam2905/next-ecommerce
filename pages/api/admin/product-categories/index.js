@@ -7,16 +7,15 @@ const handler = async (req, res) => {
     const session = await getSession({ req });
 
     if (!session || !session.isAdmin) {
-        return res.status(401).send('You are not logged into the administator account');
-    } 
-    else if (req.method === 'GET') {
+        return res
+            .status(401)
+            .send('You are not logged into the administator account');
+    } else if (req.method === 'GET') {
         return getDataHandler(req, res);
-    } 
-    else if (req.method === 'POST') {
+    } else if (req.method === 'POST') {
         return postDataHandler(req, res);
-    }
-    else {
-        return res.status(400).send({message: 'Method not allowed'});
+    } else {
+        return res.status(400).send({ message: 'Method not allowed' });
     }
 };
 
@@ -31,21 +30,22 @@ const getDataHandler = async (req, res) => {
 const postDataHandler = async (req, res) => {
     await db.connect();
 
-    const {
-        nameProductCategory,
-        categoryId,
-        slugNameProductCategory
-    } = req.body;
+    const { nameProductCategory, categoryId, slugNameProductCategory } =
+        req.body;
 
-    const isCheckProductCategory = await ProductCategory.findOne({ nameProductCategory });
-    if(isCheckProductCategory) {
-        return res.status(400).send({ error: 'Danh mục sản phẩm này đã tồn tại trước đó!'})
+    const isCheckProductCategory = await ProductCategory.findOne({
+        nameProductCategory
+    });
+    if (isCheckProductCategory) {
+        return res
+            .status(400)
+            .send({ error: 'Danh mục sản phẩm này đã tồn tại trước đó!' });
     }
 
     const newProductCategory = await new ProductCategory({
         nameProductCategory: toCapitalizeCase(nameProductCategory),
         categoryId: categoryId,
-        slugNameProductCategory: slugNameProductCategory,
+        slugNameProductCategory: slugNameProductCategory
     });
 
     const productCategory = await newProductCategory.save();

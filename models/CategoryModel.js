@@ -2,21 +2,21 @@ import mongoose from 'mongoose';
 
 const categorySchema = new mongoose.Schema(
     {
-        nameCategory: { 
-            type: String, 
-            require: true 
+        nameCategory: {
+            type: String,
+            require: true
         },
-        title: { 
-            type: String, 
-            require: true 
+        title: {
+            type: String,
+            require: true
         },
-        slugNameCategory: { 
-            type: String, 
-            require: true 
+        slugNameCategory: {
+            type: String,
+            require: true
         },
-        slugTitle: { 
-            type: String, 
-            require: true 
+        slugTitle: {
+            type: String,
+            require: true
         },
         typeCategory: {
             type: String,
