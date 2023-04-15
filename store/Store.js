@@ -154,3 +154,5 @@ function Reducers(state, action) {
         </StoreContext.Provider>
     )
 }
+
+// thánh thần ơi =))
